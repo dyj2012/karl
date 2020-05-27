@@ -1,0 +1,46 @@
+# 基础配置文件
+server:
+  servlet:
+    context-path: /v1     # 应用路径，可以通过设置路径来控制版本
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true     # 接口404时抛出异常
+  resources:
+    add-mappings: false
+  redis:
+    database: 12
+    host: 192.168.2.169
+    password:
+    port: 6379
+    jedis:
+      pool:
+        max-active: 200
+        max-idle: 200
+        min-idle: 100
+        max-wait: 1000
+    timeout: 3000
+  datasource: #Druid 连接池通用配置
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.2.169:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+      username: karl     # 数据库账号
+      password: karl     # 数据库密码
+  devtools:
+    restart:
+      enabled: true     # 开启热更新
+  flyway:
+    enabled: true
+    clean-disabled: true
+    placeholder-replacement: false
+    validate-on-migrate: false
+    baseline-on-migrate: true
+    url: ${spring.datasource.druid.url}
+    user: ${spring.datasource.druid.username}
+    password: ${spring.datasource.druid.password}
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
