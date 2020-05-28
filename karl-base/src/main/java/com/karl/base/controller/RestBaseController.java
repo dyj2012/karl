@@ -37,7 +37,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
      *
      * @return
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public R<Page<Entity>> select(HttpServletRequest request) {
         String query = request.getParameter("query");
         String field = request.getParameter("field");
@@ -145,7 +145,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
      * @param entity
      * @return
      */
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public R<Boolean> add(Entity entity) {
         return R.ok(getService().save(entity));
     }
