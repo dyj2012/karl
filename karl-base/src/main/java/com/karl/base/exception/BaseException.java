@@ -1,5 +1,6 @@
 package com.karl.base.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -10,30 +11,14 @@ import lombok.Getter;
  * @since 2018/12/6 10:00
  */
 @Getter
+@AllArgsConstructor
 public class BaseException extends RuntimeException {
 
     private int code;
     private String message;
     private Object data;
 
-    public BaseException(Object data, String message) {
-        this.code = 400;
-        this.message = message;
-        this.data = data;
-    }
-
-    public BaseException(Object data, String message, int code) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
-    public BaseException(String message) {
-        this.code = 400;
-        this.message = message;
-    }
-
-    public BaseException(String message, int code) {
+    public BaseException(int code, String message) {
         this.code = code;
         this.message = message;
     }

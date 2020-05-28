@@ -10,6 +10,6 @@ import com.karl.base.exception.BaseException;
  */
 public class UnauthorizedException extends BaseException {
     public UnauthorizedException() {
-        super("Unauthorized", 401);
+        super(401, "Unauthorized");
     }
 }

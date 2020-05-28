@@ -1,4 +1,4 @@
-package com.karl.core.demo.api.entity;
+package com.karl.core.org.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -6,14 +6,14 @@ import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
 /**
- * 示例表
+ * <description>
  *
  * @author 杜永军
  * @date 2020/5/25
  */
 @Data
-@TableName("T_DEMO")
-public class DemoEntity extends BaseEntity {
+@TableName("T_SYS_ORG")
+public class OrgEntity extends BaseEntity {
 
     @TableField("NAME")
     private String name;

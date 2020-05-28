@@ -10,6 +10,6 @@ import com.karl.base.exception.BaseException;
  */
 public class AuthException extends BaseException {
     public AuthException() {
-        super("Authentication failed", 403);
+        super(403, "Authentication failed");
     }
 }

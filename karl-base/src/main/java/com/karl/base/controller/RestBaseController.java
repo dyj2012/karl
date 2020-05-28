@@ -1,5 +1,6 @@
 package com.karl.base.controller;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
@@ -12,8 +13,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +73,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
                         w.like(columnName, split[2]);
                         break;
                     default:
-                        throw new BaseException("无效的查询条件参数", ErrorCodeConstants.ORDER_ARG);
+                        throw new BaseException(ErrorCodeConstants.ORDER_ARG, "无效的查询条件参数");
                 }
             }
         }
@@ -95,7 +99,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
                         orders.add(OrderItem.desc(columnName));
                         break;
                     default:
-                        throw new BaseException("无效的排序参数", ErrorCodeConstants.ORDER_ARG);
+                        throw new BaseException(ErrorCodeConstants.ORDER_ARG, "无效的排序参数");
                 }
             }
         }
@@ -121,7 +125,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
                         size = Long.parseLong(split[1]);
                         break;
                     default:
-                        throw new BaseException("无效的分页参数", 1001);
+                        throw new BaseException(1001, "无效的分页参数");
                 }
             }
 
@@ -182,5 +186,25 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
     public R<Boolean> update(Entity entity, @PathVariable("id") String id) {
         entity.setObjectId(id);
         return R.ok(getService().updateById(entity));
+    }
+
+    @RequestMapping(value = "/imports", method = RequestMethod.POST)
+    public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
+        IService<Entity> service = getService();
+        BaseMapper<Entity> baseMapper = service.getBaseMapper();
+        return R.ok(Boolean.TRUE);
+    }
+
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void export(HttpServletRequest request, HttpServletResponse response) {
+        R<Page<Entity>> select = this.select(request);
+        //entity.setObjectId(id);
+//        return R.ok(select);
+    }
+
+    @RequestMapping(value = "/exportTemplate", method = RequestMethod.GET)
+    public void exportTemplate(Entity entity, @PathVariable("id") String id) {
+        entity.setObjectId(id);
+//        return R.ok(getService().updateById(entity));
     }
 }
