@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.karl.base.model.BaseEntity;
-import com.karl.core.user.api.enums.SexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

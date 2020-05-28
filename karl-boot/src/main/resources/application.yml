@@ -40,7 +40,6 @@ spring:
     url: ${spring.datasource.druid.url}
     user: ${spring.datasource.druid.username}
     password: ${spring.datasource.druid.password}
-
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
