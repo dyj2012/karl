@@ -95,6 +95,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
                         if (log.isDebugEnabled()) {
                             log.debug("解析entity的{}", t);
                         }
+                        modifyEntityValue(t);
                         list.add(t);
                     }
                     service.saveBatch(list);
@@ -109,6 +110,10 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
             throw new RuntimeException(e);
         }
         return R.ok(Boolean.TRUE);
+    }
+
+    public void modifyEntityValue(Entity t) {
+
     }
 
     /**

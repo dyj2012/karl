@@ -1,9 +1,6 @@
 package com.karl.base.model;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -22,9 +19,9 @@ public class BaseEntity extends Model {
 
     @TableId(value = "OBJECT_ID", type = ASSIGN_UUID)
     private String objectId;
-    @TableField(value = "CREATE_TIME")
+    @TableField(value = "CREATE_TIME", updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime createTime;
-    @TableField(value = "CREATE_BY", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_BY", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
     private String createBy;
     @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
