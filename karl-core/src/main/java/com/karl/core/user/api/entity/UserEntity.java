@@ -21,7 +21,7 @@ public class UserEntity extends BaseEntity {
     @TableField("NAME")
     private String name;
     @TableField("LOGIN_NAME")
-    private String LoginName;
+    private String loginName;
     @TableField("PASSWORD")
     @JsonIgnore
     private String password;

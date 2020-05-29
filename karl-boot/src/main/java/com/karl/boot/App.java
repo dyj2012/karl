@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author Think
+ */
 @SpringBootApplication(scanBasePackages = {"com.baomidou", "com.karl"})
 @EnableTransactionManagement(proxyTargetClass = true)
 @MapperScan("com.karl.**.mapper")

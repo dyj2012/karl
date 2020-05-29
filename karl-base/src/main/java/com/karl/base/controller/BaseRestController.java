@@ -1,42 +1,24 @@
 package com.karl.base.controller;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.base.annotation.ExcelName;
 import com.karl.base.constants.ErrorCodeConstants;
 import com.karl.base.exception.BaseException;
-import com.karl.base.mapper.MetadataMapper;
-import com.karl.base.mapper.vo.TableColumn;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.util.CamelUtils;
-import com.karl.base.util.MapUtils;
-import com.karl.base.util.excel.ExcelWriteUtils;
-import com.karl.base.util.excel.vo.ExcelKeyTitle;
-import com.karl.base.util.excel.vo.ExcelWriteParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Rest 风格controller基础类
@@ -44,22 +26,11 @@ import java.util.Map;
  * @author 杜永军
  * @date 2020/05/24
  */
-public abstract class RestBaseController<Entity extends BaseEntity> {
-    private final Logger logger = LoggerFactory.getLogger(RestBaseController.class);
+@Slf4j
+public abstract class BaseRestController<Entity extends BaseEntity, Service extends IService<Entity>> {
 
     @Autowired
-    MetadataMapper metadataMapper;
-
-    protected Class<Entity> getEntityClass() {
-        return (Class<Entity>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-
-    /**
-     * 获取 Server
-     *
-     * @return IService<T>
-     */
-    protected abstract IService<Entity> getService();
+    protected Service service;
 
     /**
      * 新增一个对象
@@ -73,7 +44,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
         String pageStr = request.getParameter("page");
         String orderBy = request.getParameter("orderBy");
 
-        QueryChainWrapper<Entity> w = new QueryChainWrapper<Entity>(getService().getBaseMapper());
+        QueryChainWrapper<Entity> w = new QueryChainWrapper<Entity>(service.getBaseMapper());
         dealQuery(query, w);
         dealSelectField(w, field);
         List<OrderItem> orders = dealOrder(orderBy);
@@ -167,7 +138,6 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
         }
     }
 
-
     /**
      * 新增一个对象
      *
@@ -176,7 +146,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
      */
     @RequestMapping(method = RequestMethod.POST)
     public R<Boolean> add(Entity entity) {
-        return R.ok(getService().save(entity));
+        return R.ok(service.save(entity));
     }
 
     /**
@@ -187,7 +157,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public R<Boolean> delete(@PathVariable("id") String id) {
-        return R.ok(getService().removeById(id));
+        return R.ok(service.removeById(id));
     }
 
     /**
@@ -198,7 +168,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public R<Entity> get(@PathVariable("id") String id) {
-        return R.ok(getService().getById(id));
+        return R.ok(service.getById(id));
     }
 
     /**
@@ -210,90 +180,7 @@ public abstract class RestBaseController<Entity extends BaseEntity> {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public R<Boolean> update(Entity entity, @PathVariable("id") String id) {
         entity.setObjectId(id);
-        return R.ok(getService().updateById(entity));
+        return R.ok(service.updateById(entity));
     }
 
-    @RequestMapping(value = "/imports", method = RequestMethod.POST)
-    public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
-        IService<Entity> service = getService();
-        ExcelWriteParam excelWriteParam = buildExcelWriteParam();
-        BaseMapper<Entity> baseMapper = service.getBaseMapper();
-        return R.ok(Boolean.TRUE);
-    }
-
-    @RequestMapping(value = "/export", method = RequestMethod.GET)
-    public void export(HttpServletRequest request, HttpServletResponse response) {
-        R<Page<Entity>> selectR = this.select(request);
-        ExcelWriteParam excelWriteParam = buildExcelWriteParam();
-        try (OutputStream outputStream = response.getOutputStream()) {
-            String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
-            response.setHeader("Content-Disposition",
-                    "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-            response.setContentType("multipart/form-data");
-            ExcelWriteUtils.pageWriteExcel(() -> {
-                Page<Entity> data = selectR.getData();
-                List<Entity> records = data.getRecords();
-                List<Map<String, String>> mapList = new ArrayList<>(records.size());
-                for (Entity record : records) {
-                    Map<String, String> map = new LinkedHashMap<>();
-                    MapUtils.entityToMap(record, map, CamelUtils::toUnderline, (key, value) -> String.valueOf(value));
-                    mapList.add(map);
-                }
-                return mapList;
-            }, (cell, text, rowData, entity) -> {
-            }, excelWriteParam, outputStream);
-            outputStream.flush();
-        } catch (IOException e) {
-            logger.error("导出记录IO错误", e);
-            throw new RuntimeException("导出记录异常");
-        }
-    }
-
-    @RequestMapping(value = "/exportTemplate", method = RequestMethod.GET)
-    public void exportTemplate(HttpServletResponse response) {
-        ExcelWriteParam excelWriteParam = buildExcelWriteParam();
-        try (OutputStream outputStream = response.getOutputStream()) {
-            String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
-            response.setHeader("Content-Disposition",
-                    "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-            response.setContentType("multipart/form-data");
-            ExcelWriteUtils.pageWriteExcel(() -> null, null, excelWriteParam, outputStream);
-            outputStream.flush();
-        } catch (IOException e) {
-            logger.error("导出模板IO错误", e);
-            throw new RuntimeException("导出模板异常");
-        }
-    }
-
-    protected ExcelWriteParam buildExcelWriteParam() {
-        Class<Entity> entityClass = this.getEntityClass();
-        TableName tableName = entityClass.getAnnotation(TableName.class);
-        List<TableColumn> columns = metadataMapper.getColumns(tableName.value());
-        ExcelWriteParam param = new ExcelWriteParam();
-        List<ExcelKeyTitle> keyTitleList = new ArrayList<>(columns.size());
-        for (TableColumn column : columns) {
-            String title = column.getColumnComment();
-            String columnName = column.getColumnName();
-            if (ignoreColumn(columnName)) {
-                continue;
-            }
-            keyTitleList.add(new ExcelKeyTitle(columnName, title));
-        }
-        ExcelName excelName = entityClass.getAnnotation(ExcelName.class);
-        if (excelName != null) {
-            param.setSheetName(excelName.value());
-        } else {
-            param.setSheetName(tableName.value().toLowerCase());
-        }
-        param.setKeyTitleList(keyTitleList);
-        return param;
-    }
-
-    protected String getIgnoreColumn() {
-        return ",CREATE_TIME,CREATE_BY,UPDATE_TIME,DATA_VERSION,";
-    }
-
-    protected boolean ignoreColumn(String columnName) {
-        return getIgnoreColumn().contains(String.format(",%s,", columnName));
-    }
 }

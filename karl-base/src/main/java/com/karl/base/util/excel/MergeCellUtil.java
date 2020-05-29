@@ -1,21 +1,17 @@
 package com.karl.base.util.excel;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * <description>
- *
  * @author 杜永军
  * @date 2019/01/14
  */
+@Slf4j
 public class MergeCellUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MergeCellUtil.class);
-
     private MergeCellUtil() {
     }
 
@@ -42,9 +38,9 @@ public class MergeCellUtil {
         try {
             sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
         } catch (Exception e) {
-            LOGGER.error("发生了一次合并单元格错误,{},{},{},{}", new Integer[]{firstRow, lastRow, firstCol, lastCol});
+            log.error("发生了一次合并单元格错误,{},{},{},{}", new Integer[]{firstRow, lastRow, firstCol, lastCol});
             // 忽略掉合并的错误,不打印异常
-            LOGGER.debug(e.getMessage(), e);
+            log.debug(e.getMessage(), e);
         }
     }
 

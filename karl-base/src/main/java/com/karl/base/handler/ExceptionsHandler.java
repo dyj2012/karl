@@ -3,8 +3,7 @@ package com.karl.base.handler;
 import com.baomidou.mybatisplus.extension.api.IErrorCode;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.karl.base.exception.BaseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -17,24 +16,23 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * 全局异常接管
+ * 注意：
+ * 启用全局异常接管后，没有在此处定义拦截的异常都会默认返回500错误。
+ * 若需要自定义拦截的异常，请在此处定义拦截。
+ * 若需要输出异常的日志日志，请使用 log输出。
+ *
+ * @author Think
  */
 @RestControllerAdvice
+@Slf4j
 public class ExceptionsHandler {
-
-    /**
-     * 注意：
-     * 启用全局异常接管后，没有在此处定义拦截的异常都会默认返回500错误。
-     * 若需要自定义拦截的异常，请在此处定义拦截。
-     * 若需要输出异常的日志日志，请使用logger输出。
-     */
-    private final Logger logger = LoggerFactory.getLogger(ExceptionsHandler.class);
 
     /**
      * 基本异常
      */
     @ExceptionHandler(Exception.class)
     public R<Object> exception(Exception e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return R.failed(new IErrorCode() {
             @Override
             public long getCode() {
@@ -125,7 +123,7 @@ public class ExceptionsHandler {
      */
     @ExceptionHandler(BaseException.class)
     public R<Object> serviceException(BaseException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return R.failed(new IErrorCode() {
             @Override
             public long getCode() {

@@ -2,13 +2,12 @@ package com.karl.base.util.excel;
 
 import com.karl.base.util.DateUtils;
 import com.karl.base.util.excel.vo.CellValueTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.model.StylesTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -22,8 +21,8 @@ import java.util.List;
  *
  * @author 杜永军
  */
+@Slf4j
 public class MySheetHandler extends DefaultHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MySheetHandler.class);
     private SharedStringsTable sst;
     private String lastContents = "";
 
@@ -64,8 +63,8 @@ public class MySheetHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
-        if (LOGGER.isDebugEnabled() && name.equals("c") || name.equals("v")) {
-            LOGGER.debug("startElement name " + name + " t:" + attributes.getValue("t") + " s:" + attributes.getValue("s"));
+        if (log.isDebugEnabled() && name.equals("c") || name.equals("v")) {
+            log.debug("startElement name " + name + " t:" + attributes.getValue("t") + " s:" + attributes.getValue("s"));
         }
 
         // c => 单元格
@@ -87,8 +86,8 @@ public class MySheetHandler extends DefaultHandler {
             } else if (cellStyleStr != null) {
                 XSSFCellStyle style = stylesTable.getStyleAt(Integer.parseInt(cellStyleStr));
                 String formatString = style.getDataFormatString();
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("startElement formatString: " + formatString);
+                if (log.isDebugEnabled()) {
+                    log.debug("startElement formatString: " + formatString);
                 }
                 //                Utility to identify builtin formats.
 //                  Now can handle user defined data formats also.
@@ -155,15 +154,15 @@ public class MySheetHandler extends DefaultHandler {
             rowlist.clear();
             curRow++;
             curCol = 0;
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("endElement row" + curRow + "======================================");
+            if (log.isDebugEnabled()) {
+                log.debug("endElement row" + curRow + "======================================");
             }
             return;
         }
         if ("c".equals(name)) {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("endElement content:" + lastContents.replace("\n", "") + " colIndex:" + curCol);
-                LOGGER.debug("endElement colIndex:" + curCol);
+            if (log.isDebugEnabled()) {
+                log.debug("endElement content:" + lastContents.replace("\n", "") + " colIndex:" + curCol);
+                log.debug("endElement colIndex:" + curCol);
             }
             rowlist.add(curCol, lastContents);
             curCol++;

@@ -4,8 +4,6 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.model.StylesTable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -14,13 +12,10 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import java.io.InputStream;
 
 /**
- * <description>
- *
  * @author 杜永军
  * @date 2019/01/07
  */
 public class MySaxReadExcel {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MySaxReadExcel.class);
 
     public void readExcel(InputStream inputstream, MapSaxRowRead rowRead, PageReadExcel callBack,
                           PageReadExcelHandle pageReadExcelHandle) {
