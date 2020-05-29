@@ -1,7 +1,6 @@
 package com.karl.base.controller;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -10,10 +9,14 @@ import com.karl.base.mapper.MetadataMapper;
 import com.karl.base.mapper.vo.TableColumn;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.util.CamelUtils;
-import com.karl.base.util.MapUtils;
+import com.karl.base.util.ListToMapUtils;
+import com.karl.base.util.MapEntityUtils;
+import com.karl.base.util.excel.ExcelReadUtils;
 import com.karl.base.util.excel.ExcelWriteUtils;
+import com.karl.base.util.excel.PageReadExcel;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
+import com.karl.base.util.excel.vo.ExportParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -32,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Rest 风格excel 导入导出controller基础类
+ * excel 导入导出controller基础类
  *
  * @author 杜永军
  * @date 2020/05/24
@@ -56,7 +60,41 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
     @RequestMapping(value = "/imports", method = RequestMethod.POST)
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
-        BaseMapper<Entity> baseMapper = service.getBaseMapper();
+        try (InputStream inputStream = file.getInputStream()) {
+            ExcelReadUtils.readExcelByMap(inputStream, 200, new PageReadExcel() {
+                @Override
+                public boolean nextSheet(int index, String sheetName) {
+                    return index == 0;
+                }
+
+                @Override
+                public void dealExcelParam(ExportParam exportParam) {
+
+                }
+
+                @Override
+                public List<String> dealHeader(List<String> headerList, List<Integer> requiredList) {
+                    List<String> keyList = new ArrayList<>(headerList.size());
+                    List<ExcelKeyTitle> keyTitleList = excelWriteParam.getKeyTitleList();
+                    Map<String, ExcelKeyTitle> excelKeyTitleMap = ListToMapUtils.toMap(keyTitleList, ExcelKeyTitle::getTitle);
+                    for (String title : headerList) {
+                        ExcelKeyTitle excelKeyTitle = excelKeyTitleMap.get(title);
+                        keyList.add(excelKeyTitle.getKey());
+                    }
+                    return keyList;
+                }
+
+                @Override
+                public void pageCallback(List<Map<String, String>> mapList) {
+                    for (Map<String, String> map : mapList) {
+                        Entity t = MapEntityUtils.convert(map, getEntityClass(), null);
+                        service.save(t);
+                    }
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return R.ok(Boolean.TRUE);
     }
 
@@ -81,7 +119,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
                 List<Map<String, String>> mapList = new ArrayList<>(records.size());
                 for (Entity record : records) {
                     Map<String, String> map = new LinkedHashMap<>();
-                    MapUtils.entityToMap(record, map, CamelUtils::toUnderline, (key, value) -> String.valueOf(value));
+                    MapEntityUtils.entityToMap(record, map, CamelUtils::toUnderline, (key, value) -> String.valueOf(value));
                     mapList.add(map);
                 }
                 return mapList;
