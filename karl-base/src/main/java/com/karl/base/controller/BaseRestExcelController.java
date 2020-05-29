@@ -79,17 +79,30 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
                     Map<String, ExcelKeyTitle> excelKeyTitleMap = ListToMapUtils.toMap(keyTitleList, ExcelKeyTitle::getTitle);
                     for (String title : headerList) {
                         ExcelKeyTitle excelKeyTitle = excelKeyTitleMap.get(title);
-                        keyList.add(excelKeyTitle.getKey());
+                        if (excelKeyTitle == null) {
+                            throw new RuntimeException(String.format("%s,未定义的title", title));
+                        }
+                        keyList.add(CamelUtils.toCamel(excelKeyTitle.getKey()));
                     }
                     return keyList;
                 }
 
                 @Override
                 public void pageCallback(List<Map<String, String>> mapList) {
+                    List<Entity> list = new ArrayList<>(mapList.size());
                     for (Map<String, String> map : mapList) {
                         Entity t = MapEntityUtils.convert(map, getEntityClass(), null);
-                        service.save(t);
+                        if (log.isDebugEnabled()) {
+                            log.debug("解析entity的{}", t);
+                        }
+                        list.add(t);
                     }
+                    service.saveBatch(list);
+                }
+
+                @Override
+                public boolean hasStatement() {
+                    return false;
                 }
             });
         } catch (IOException e) {

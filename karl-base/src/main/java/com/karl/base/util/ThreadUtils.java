@@ -2,6 +2,7 @@ package com.karl.base.util;
 
 
 import com.karl.base.aspect.ThreadLocalCacheAspect;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
@@ -12,6 +13,7 @@ import java.util.function.Consumer;
  * @author 杜永军
  * @date 2019/8/5
  */
+@Slf4j
 public class ThreadUtils {
 
     public static void run(int count, Consumer<Integer> c) {
@@ -27,7 +29,7 @@ public class ThreadUtils {
                     countDownLatch.countDown();
                     ThreadLocalUtils.clear();
                 }
-                System.out.println(String.format("第%sThread: ", index) + (System.currentTimeMillis() - s));
+                log.debug(String.format("第%sThread: ", index) + (System.currentTimeMillis() - s));
             }).start();
         }
         try {

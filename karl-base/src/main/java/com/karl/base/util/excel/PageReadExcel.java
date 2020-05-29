@@ -29,7 +29,7 @@ public interface PageReadExcel {
      * @return
      */
     default boolean hasStatement() {
-        return true;
+        return false;
     }
 
     /**

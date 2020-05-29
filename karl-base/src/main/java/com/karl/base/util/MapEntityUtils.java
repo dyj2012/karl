@@ -154,8 +154,8 @@ public class MapEntityUtils {
     }
 
     static class ConvertEntryItem {
-        private List<String> fieldNameList = new ArrayList<String>();
-        private Map<String, Method> fieldSetMethodMap = new HashMap<String, Method>();
+        private List<String> fieldNameList = new ArrayList<>();
+        private Map<String, Method> fieldSetMethodMap = new HashMap<>();
 
         private ConvertEntryItem() {
         }
@@ -169,8 +169,11 @@ public class MapEntityUtils {
         }
 
         private void parseEntry(Class<?> cls) {
+            if (!cls.getSuperclass().equals(Object.class)) {
+                parseEntry(cls.getSuperclass());
+            }
             Field[] allField = cls.getDeclaredFields();
-            Method m = null;
+            Method m;
             String methodName;
             for (Field f : allField) {
                 methodName = f.getName();
@@ -188,7 +191,6 @@ public class MapEntityUtils {
                     log.info("NoSuchMethod in " + cls.getName() + ": " + methodName);
                 }
             }
-
         }
 
         public static ConvertEntryItem createConvertItem(Class<?> cls) {

@@ -43,7 +43,6 @@ public class CamelUtils {
                 }
             }
         }
-        System.err.println("camelName:" + result.toString());
         return result.toString();
     }
 }
