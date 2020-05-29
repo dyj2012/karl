@@ -1,8 +1,7 @@
 package com.karl.base.util.excel;
 
-import com.karl.base.util.excel.api.CellCallback;
-import com.karl.base.util.excel.api.vo.ExcelCell;
-import com.karl.base.util.excel.api.vo.ExcelKeyTitle;
+import com.karl.base.util.excel.vo.ExcelCell;
+import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;

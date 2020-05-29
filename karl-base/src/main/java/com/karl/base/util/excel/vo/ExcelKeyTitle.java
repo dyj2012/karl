@@ -1,4 +1,4 @@
-package com.karl.base.util.excel.api.vo;
+package com.karl.base.util.excel.vo;
 
 import lombok.Data;
 import org.apache.poi.hssf.util.HSSFColor;

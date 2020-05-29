@@ -1,8 +1,7 @@
-package com.karl.base.util.excel.api;
+package com.karl.base.util.excel;
 
-import com.karl.base.util.excel.ExcelWriteService;
-import com.karl.base.util.excel.api.vo.ExcelKeyTitle;
-import com.karl.base.util.excel.api.vo.ExcelWriteParam;
+import com.karl.base.util.excel.vo.ExcelKeyTitle;
+import com.karl.base.util.excel.vo.ExcelWriteParam;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.util.Assert;

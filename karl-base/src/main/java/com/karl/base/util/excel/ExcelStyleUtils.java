@@ -1,6 +1,6 @@
-package com.karl.base.util.excel.api;
+package com.karl.base.util.excel;
 
-import com.karl.base.util.excel.api.vo.ExcelCell;
+import com.karl.base.util.excel.vo.ExcelCell;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFSheet;

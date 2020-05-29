@@ -1,8 +1,8 @@
-package com.karl.base.util.excel.api;
+package com.karl.base.util.excel;
 
 
-import com.karl.base.util.excel.api.vo.ExcelCell;
-import com.karl.base.util.excel.api.vo.ExcelKeyTitle;
+import com.karl.base.util.excel.vo.ExcelCell;
+import com.karl.base.util.excel.vo.ExcelKeyTitle;
 
 import java.util.Map;
 

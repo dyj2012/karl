@@ -1,8 +1,6 @@
 package com.karl.core.demo.controller;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.base.controller.RestBaseController;
 import com.karl.core.demo.api.entity.DemoEntity;
 

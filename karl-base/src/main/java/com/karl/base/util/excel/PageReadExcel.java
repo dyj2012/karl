@@ -1,7 +1,7 @@
-package com.karl.base.util.excel.api;
+package com.karl.base.util.excel;
 
 
-import com.karl.base.util.excel.api.vo.ExportParam;
+import com.karl.base.util.excel.vo.ExportParam;
 
 import java.util.List;
 import java.util.Map;
