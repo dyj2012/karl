@@ -122,7 +122,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         R<Page<Entity>> selectR = this.select(request);
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
         try (OutputStream outputStream = response.getOutputStream()) {
-            String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
+            String fileName = String.format("导出数据-%s.xlsx", excelWriteParam.getSheetName());
             response.setHeader("Content-Disposition",
                     "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
             response.setContentType("multipart/form-data");
