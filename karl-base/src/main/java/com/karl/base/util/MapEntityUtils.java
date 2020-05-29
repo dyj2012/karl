@@ -24,6 +24,9 @@ public class MapEntityUtils {
         try {
             Method[] methods = entity.getClass().getMethods();
             for (Method method : methods) {
+                if (method.getName().startsWith("getClass")) {
+                    continue;
+                }
                 if (method.getName().startsWith("get")) {
                     String name = method.getName().substring(3);
                     name = name.substring(0, 1).toLowerCase() + name.substring(1);

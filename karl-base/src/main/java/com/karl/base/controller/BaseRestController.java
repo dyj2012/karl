@@ -105,26 +105,30 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     private Page<Entity> dealPage(String pageStr, List<OrderItem> orders) {
         boolean isSearchCount = false;
         long current = 0;
-        long size = 10;
+        long size = 50;
+
         if (!StringUtils.isEmpty(pageStr)) {
-            String[] pageInfo = pageStr.split(",");
-            for (String info : pageInfo) {
-                String[] split = info.split(":");
-                switch (split[0]) {
-                    case "total":
-                        isSearchCount = Boolean.parseBoolean(split[1]);
-                        break;
-                    case "current":
-                        current = Long.parseLong(split[1]);
-                        break;
-                    case "size":
-                        size = Long.parseLong(split[1]);
-                        break;
-                    default:
-                        throw new BaseException(1001, "无效的分页参数");
+            if ("all".equalsIgnoreCase(pageStr)) {
+                size = Long.MAX_VALUE;
+            } else {
+                String[] pageInfo = pageStr.split(",");
+                for (String info : pageInfo) {
+                    String[] split = info.split(":");
+                    switch (split[0]) {
+                        case "total":
+                            isSearchCount = Boolean.parseBoolean(split[1]);
+                            break;
+                        case "current":
+                            current = Long.parseLong(split[1]);
+                            break;
+                        case "size":
+                            size = Long.parseLong(split[1]);
+                            break;
+                        default:
+                            throw new BaseException(1001, "无效的分页参数");
+                    }
                 }
             }
-
         }
         Page<Entity> page = new Page<>(current, size, isSearchCount);
         page.setOrders(orders);

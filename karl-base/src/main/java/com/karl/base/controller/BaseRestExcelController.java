@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -129,20 +130,23 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         try (OutputStream outputStream = response.getOutputStream()) {
             String fileName = String.format("导出数据-%s.xlsx", excelWriteParam.getSheetName());
             response.setHeader("Content-Disposition",
-                    "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
+                    "attachment;filename=" + new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
             response.setContentType("multipart/form-data");
+            Page<Entity> data = selectR.getData();
+            List<Entity> records = data.getRecords();
             ExcelWriteUtils.pageWriteExcel(() -> {
-                Page<Entity> data = selectR.getData();
-                List<Entity> records = data.getRecords();
+                if (records.size() == 0) {
+                    return null;
+                }
                 List<Map<String, String>> mapList = new ArrayList<>(records.size());
                 for (Entity record : records) {
                     Map<String, String> map = new LinkedHashMap<>();
-                    MapEntityUtils.entityToMap(record, map, CamelUtils::toUnderline, (key, value) -> String.valueOf(value));
+                    MapEntityUtils.entityToMap(record, map, key -> CamelUtils.toUnderline(key).toUpperCase(), (key, value) -> String.valueOf(value));
                     mapList.add(map);
                 }
+                records.clear();
                 return mapList;
-            }, (cell, text, rowData, entity) -> {
-            }, excelWriteParam, outputStream);
+            }, null, excelWriteParam, outputStream);
             outputStream.flush();
         } catch (IOException e) {
             log.error("导出记录IO错误", e);
@@ -161,7 +165,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         try (OutputStream outputStream = response.getOutputStream()) {
             String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
             response.setHeader("Content-Disposition",
-                    "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
+                    "attachment;filename=" + new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
             response.setContentType("multipart/form-data");
             ExcelWriteUtils.pageWriteExcel(() -> null, null, excelWriteParam, outputStream);
             outputStream.flush();
