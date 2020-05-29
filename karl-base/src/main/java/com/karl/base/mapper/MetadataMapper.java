@@ -33,7 +33,8 @@ public interface MetadataMapper {
             "ORDINAL_POSITION " +
             "FROM information_schema.`COLUMNS` a " +
             "WHERE a.TABLE_NAME = #{tableName} " +
-            "AND a.TABLE_SCHEMA = SCHEMA ()")
+            "AND a.TABLE_SCHEMA = SCHEMA () " +
+            "ORDER BY ORDINAL_POSITION")
     @Results({
             @Result(column = "CHARACTER_MAXIMUM_LENGTH", property = "length"),
             @Result(column = "NUMERIC_PRECISION", property = "precision"),
