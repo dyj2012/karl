@@ -11,6 +11,6 @@ import com.karl.core.role.api.entity.RoleEntity;
  * @date 2020/5/25
  */
 public class RoleRestController extends BaseRestController<RoleEntity, RoleService> {
-  
+
 
 }
