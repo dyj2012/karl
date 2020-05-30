@@ -19,8 +19,8 @@ import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,7 +58,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      * @param file
      * @return
      */
-    @RequestMapping(value = "/imports", method = RequestMethod.POST)
+    @PostMapping(value = "/imports")
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
         try (InputStream inputStream = file.getInputStream()) {
@@ -96,7 +96,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
                         if (log.isDebugEnabled()) {
                             log.debug("解析entity的{}", t);
                         }
-                        modifyEntityValue(t);
+                        modifyEntity(t);
                         list.add(t);
                     }
                     service.saveBatch(list);
@@ -113,17 +113,13 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         return R.ok(Boolean.TRUE);
     }
 
-    public void modifyEntityValue(Entity t) {
-
-    }
-
     /**
      * 导出excel
      *
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    @GetMapping(value = "/export")
     public void export(HttpServletRequest request, HttpServletResponse response) {
         R<Page<Entity>> selectR = this.select(request);
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
@@ -159,7 +155,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      *
      * @param response
      */
-    @RequestMapping(value = "/exportTemplate", method = RequestMethod.GET)
+    @GetMapping(value = "/exportTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
         try (OutputStream outputStream = response.getOutputStream()) {
@@ -174,6 +170,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
             throw new RuntimeException("导出模板异常");
         }
     }
+
 
     protected ExcelWriteParam buildExcelWriteParam() {
         Class<Entity> entityClass = this.getEntityClass();

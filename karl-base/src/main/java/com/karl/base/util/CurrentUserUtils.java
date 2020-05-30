@@ -16,9 +16,9 @@ import com.alibaba.ttl.TransmittableThreadLocal;
  */
 public class CurrentUserUtils {
 
-    private static ThreadLocal<Object> LOGIN_SESSION_KEY = new TransmittableThreadLocal<>();
+    private static ThreadLocal<CurrentUser> LOGIN_SESSION_KEY = new TransmittableThreadLocal<>();
 
-    public static void putUser(Object user) {
+    public static void putUser(CurrentUser user) {
         LOGIN_SESSION_KEY.set(user);
     }
 
@@ -34,7 +34,7 @@ public class CurrentUserUtils {
      *
      * @return
      */
-    public static Object getUser() {
+    public static CurrentUser getUser() {
         return LOGIN_SESSION_KEY.get();
     }
 

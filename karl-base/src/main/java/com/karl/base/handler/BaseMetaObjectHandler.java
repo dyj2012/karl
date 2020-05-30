@@ -1,6 +1,9 @@
 package com.karl.base.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.karl.base.util.CurrentUser;
+import com.karl.base.util.CurrentUserUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +13,19 @@ import java.time.LocalDateTime;
  * MybatisPlus自动写入参数配置
  */
 @Component
-public class MyMetaObjectHandler implements MetaObjectHandler {
+public class BaseMetaObjectHandler implements MetaObjectHandler {
 
     /**
      * 自动插入创建时间到create_time字段
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("createBy", "System", metaObject);
+        CurrentUser user = CurrentUserUtils.getUser();
+        if (user == null || StringUtils.isEmpty(user.getName())) {
+            this.setFieldValByName("createBy", "System", metaObject);
+        } else {
+            this.setFieldValByName("createBy", user.getName(), metaObject);
+        }
     }
 
     /**

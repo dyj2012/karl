@@ -114,5 +114,12 @@
             <artifactId>xercesImpl</artifactId>
             <version>${xercesImpl.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
     </dependencies>
 </project>

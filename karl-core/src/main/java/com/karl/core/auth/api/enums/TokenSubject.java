@@ -10,19 +10,10 @@ public enum TokenSubject {
     /**
      *
      */
-    ACCESS("access"),
+    ACCESS,
     /**
      *
      */
-    REFRESH("refresh");
+    REFRESH;
 
-    private final String type;
-
-    TokenSubject(String type) {
-        this.type = type;
-    }
-
-    public String type() {
-        return type;
-    }
 }

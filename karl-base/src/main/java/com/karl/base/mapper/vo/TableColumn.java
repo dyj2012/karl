@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * 表列信息
+ * 列信息
  *
  * @author 杜永军
  * @date 2020/5/29

@@ -1,5 +1,6 @@
 package com.karl.core.user.api.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +22,7 @@ public class UserEntity extends BaseEntity {
     @TableField("LOGIN_NAME")
     private String loginName;
 
-    @TableField("PASSWORD")
+    @TableField(value = "PASSWORD", fill = FieldFill.INSERT_UPDATE)
     @JsonIgnore
     private String password;
 

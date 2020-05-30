@@ -12,9 +12,7 @@ import com.karl.base.util.CamelUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public R<Page<Entity>> select(HttpServletRequest request) {
         String query = request.getParameter("query");
         String field = request.getParameter("field");
@@ -50,6 +48,59 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
         List<OrderItem> orders = dealOrder(orderBy);
         Page<Entity> page = dealPage(pageStr, orders);
         return R.ok(w.page(page));
+    }
+
+
+    /**
+     * 新增一个对象
+     *
+     * @param entity
+     * @return
+     */
+    @PostMapping
+    public R<Boolean> add(Entity entity) {
+        this.modifyEntity(entity);
+        return R.ok(service.save(entity));
+    }
+
+
+    /**
+     * 根据ID删除一个对象
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping(value = "/{id}")
+    public R<Boolean> delete(@PathVariable("id") String id) {
+        return R.ok(service.removeById(id));
+    }
+
+    /**
+     * 根据ID获取对象
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/{id}")
+    public R<Entity> get(@PathVariable("id") String id) {
+        return R.ok(service.getById(id));
+    }
+
+    /**
+     * 更新一个对象
+     *
+     * @param entity
+     * @return
+     */
+    @PutMapping(value = "/{id}")
+    public R<Boolean> update(Entity entity, @PathVariable("id") String id) {
+        entity.setObjectId(id);
+        modifyEntity(entity);
+        return R.ok(service.updateById(entity));
+    }
+
+    protected void modifyEntity(Entity entity) {
+
     }
 
     private void dealQuery(String query, QueryChainWrapper<Entity> w) {
@@ -141,50 +192,4 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
             w.select(fields);
         }
     }
-
-    /**
-     * 新增一个对象
-     *
-     * @param entity
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public R<Boolean> add(Entity entity) {
-        return R.ok(service.save(entity));
-    }
-
-    /**
-     * 根据ID删除一个对象
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public R<Boolean> delete(@PathVariable("id") String id) {
-        return R.ok(service.removeById(id));
-    }
-
-    /**
-     * 根据ID获取对象
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public R<Entity> get(@PathVariable("id") String id) {
-        return R.ok(service.getById(id));
-    }
-
-    /**
-     * 更新一个对象
-     *
-     * @param entity
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public R<Boolean> update(Entity entity, @PathVariable("id") String id) {
-        entity.setObjectId(id);
-        return R.ok(service.updateById(entity));
-    }
-
 }

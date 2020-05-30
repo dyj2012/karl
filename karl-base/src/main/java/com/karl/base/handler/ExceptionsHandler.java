@@ -41,14 +41,11 @@ public class ExceptionsHandler {
 
             @Override
             public String getMsg() {
-                return "Error";
+                return "服务器执行失败";
             }
         });
     }
 
-    /**
-     * 请求路径无法找到异常
-     */
     @ExceptionHandler(NoHandlerFoundException.class)
     public R<Object> notFoundException() {
         return R.failed(new IErrorCode() {
@@ -59,7 +56,7 @@ public class ExceptionsHandler {
 
             @Override
             public String getMsg() {
-                return "Not found";
+                return "未定义的请求路径";
             }
         });
     }

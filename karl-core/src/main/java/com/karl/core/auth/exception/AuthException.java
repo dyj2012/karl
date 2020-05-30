@@ -1,15 +1,17 @@
-package com.karl.core.auth.api.exception;
+package com.karl.core.auth.exception;
 
 import com.karl.base.exception.BaseException;
 
 /**
- * 认证异常
+ * token 异常
  *
  * @author 杜永军
- * @since 2018/12/7
+ * @date 2020/05/30
  */
 public class AuthException extends BaseException {
+
     public AuthException() {
-        super(403, "Authentication failed");
+        super(2002, "账号或者密码错误");
     }
+
 }
