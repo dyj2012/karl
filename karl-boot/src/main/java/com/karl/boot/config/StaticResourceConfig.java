@@ -28,9 +28,9 @@ public class StaticResourceConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ThreadLocalCacheInterceptor())
                 .addPathPatterns("/**");
-//        registry.addInterceptor(new AuthInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/auth/login");
+        registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/auth/login");
     }
 
     @Override

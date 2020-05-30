@@ -10,4 +10,5 @@ import com.karl.module.record.api.entity.RecordEntity;
  * @date 2020/5/25
  */
 public interface RecordService extends IService<RecordEntity> {
+
 }

@@ -66,6 +66,11 @@
             <artifactId>karl-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.karl</groupId>
+            <artifactId>karl-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

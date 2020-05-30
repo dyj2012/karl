@@ -14,4 +14,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RecordImpl extends ServiceImpl<RecordMapper, RecordEntity> implements RecordService {
+
 }

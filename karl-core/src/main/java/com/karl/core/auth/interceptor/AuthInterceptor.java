@@ -1,9 +1,11 @@
 package com.karl.core.auth.interceptor;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.karl.base.util.CurrentUser;
 import com.karl.base.util.CurrentUserUtils;
 import com.karl.core.auth.api.constants.AuthConstants;
 import com.karl.core.auth.api.enums.TokenSubject;
+import com.karl.core.util.JsonUtils;
 import com.karl.core.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * auth 验证拦截器
@@ -32,7 +35,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (StringUtils.isBlank(loginToken)) {
             loginToken = request.getParameter(LOGIN_TOKEN);
         }
-        if(StringUtils.isBlank(loginToken)){
+        if (StringUtils.isBlank(loginToken)) {
+            try {
+                response.setHeader(LOGIN_TOKEN, "缺少token");
+                response.setContentType("application/json;charset=utf8");
+                response.getWriter().append(JsonUtils.toJSON(R.failed("请先登录"))).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return false;
         }
         Jws<Claims> parse = JwtUtils.parse(TokenSubject.ACCESS.toString(), loginToken);

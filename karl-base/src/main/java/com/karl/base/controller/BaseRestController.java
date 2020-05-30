@@ -10,6 +10,7 @@ import com.karl.base.exception.BaseException;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.util.CamelUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +59,28 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @PostMapping
-    public R<Boolean> add(Entity entity) {
+    public R<Boolean> add(@RequestBody Entity entity) {
         this.modifyEntity(entity);
         return R.ok(service.save(entity));
+    }
+
+    /**
+     * 新增一个对象
+     *
+     * @param list
+     * @return
+     */
+    @PostMapping("/batch")
+    public R<Boolean> batch(@RequestBody List<Entity> list) {
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (Entity entity : list) {
+                this.modifyEntity(entity);
+            }
+            return R.ok(service.saveBatch(list));
+        } else {
+            return R.failed("传输对象为空");
+        }
+
     }
 
 
@@ -93,7 +113,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @PutMapping(value = "/{id}")
-    public R<Boolean> update(Entity entity, @PathVariable("id") String id) {
+    public R<Boolean> update(@RequestBody Entity entity, @PathVariable("id") String id) {
         entity.setObjectId(id);
         modifyEntity(entity);
         return R.ok(service.updateById(entity));

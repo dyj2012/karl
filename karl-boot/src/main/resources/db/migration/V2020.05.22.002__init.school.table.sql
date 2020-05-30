@@ -73,7 +73,7 @@ create table T_CO_RECORD
 
     WRISTBAND_ID         varchar(64) null COMMENT '手环ID',
     RECORD_TIME        DATETIME null COMMENT '记录时间',
-    TEMPERATURE        DECIMAL(2,2) null COMMENT '体温',
+    TEMPERATURE        DECIMAL(18,2) null COMMENT '体温',
 
     constraint T_CO_RECORD_pk
         primary key (OBJECT_ID)

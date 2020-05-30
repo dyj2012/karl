@@ -16,5 +16,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/records")
 public class RecordRestController extends BaseRestController<RecordEntity, RecordService> {
 
-
 }
