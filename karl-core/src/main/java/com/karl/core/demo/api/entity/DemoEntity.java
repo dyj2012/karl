@@ -6,7 +6,7 @@ import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
 /**
- * 示例表
+ *  demo 表
  *
  * @author 杜永军
  * @date 2020/5/25

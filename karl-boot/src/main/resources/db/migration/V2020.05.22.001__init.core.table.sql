@@ -1,19 +1,19 @@
-create table T_MODEL_DEMO
-(
-    OBJECT_ID    varchar(64)  not null COMMENT '主键',
-    CREATE_BY    varchar(256) null COMMENT '创建者',
-    CREATE_TIME  DATETIME     not null default CURRENT_TIMESTAMP COMMENT '创建时间',
-    UPDATE_TIME  DATETIME     not null default CURRENT_TIMESTAMP COMMENT '修改时间',
-    DATA_VERSION BIGINT       not null default 0 COMMENT '版本号',
+-- create table T_MODEL_DEMO
+-- (
+--     OBJECT_ID    varchar(64)  not null COMMENT '主键',
+--     CREATE_BY    varchar(256) null COMMENT '创建者',
+--     CREATE_TIME  DATETIME     not null default CURRENT_TIMESTAMP COMMENT '创建时间',
+--     UPDATE_TIME  DATETIME     not null default CURRENT_TIMESTAMP COMMENT '修改时间',
+--     DATA_VERSION BIGINT       not null default 0 COMMENT '版本号',
+--
+--     NAME         varchar(256) null COMMENT '名称',
+--     CODE        varchar(256) null COMMENT '编码',
+--
+--     constraint T_MODEL_DEMO_pk
+--         primary key (OBJECT_ID)
+-- );
 
-    NAME         varchar(256) null COMMENT '名称',
-    CODE        varchar(256) null COMMENT '编码',
-
-    constraint T_MODEL_DEMO_pk
-        primary key (OBJECT_ID)
-);
-
-create table T_SYS_USERS
+create table T_SYS_USER
 (
     OBJECT_ID    varchar(64)  not null COMMENT '主键',
     CREATE_BY    varchar(256) null COMMENT '创建者',

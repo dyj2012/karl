@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 认证注解
  *
- * @author Li Jinhui
+ * @author 杜永军
  * @update 2019/1/7 09:49
  * @since 2018/12/7 10:00
  */

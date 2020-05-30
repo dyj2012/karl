@@ -1,10 +1,11 @@
 package com.karl.core.auth.controller;
 
-import com.karl.base.controller.BaseRestExcelController;
-import com.karl.core.user.api.UserService;
-import com.karl.core.user.api.entity.UserEntity;
+import com.baomidou.mybatisplus.extension.api.R;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Think
@@ -12,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/tokens")
 public class TokenRestController {
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public R<String> login(HttpServletRequest request) {
+
+        return R.ok("123");
+    }
 
 
 }

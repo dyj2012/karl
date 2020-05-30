@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@TableName("T_SYS_USERS")
+@TableName("T_SYS_USER")
 public class UserEntity extends BaseEntity {
 
     @TableField("NAME")

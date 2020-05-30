@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.core.demo.api.DemoService;
 import com.karl.core.demo.api.entity.DemoEntity;
 import com.karl.core.demo.mapper.DemoMapper;
+import org.springframework.stereotype.Service;
 
 /**
  * demo 服务实现类
@@ -11,5 +12,6 @@ import com.karl.core.demo.mapper.DemoMapper;
  * @author 杜永军
  * @date 2020/5/25
  */
+@Service
 public class DemoImpl extends ServiceImpl<DemoMapper, DemoEntity> implements DemoService {
 }

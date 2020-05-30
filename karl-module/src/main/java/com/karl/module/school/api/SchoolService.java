@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.karl.module.school.api.entity.SchoolEntity;
 
 /**
- * <description>
+ * 学校服务
  *
  * @author 杜永军
  * @date 2020/5/25

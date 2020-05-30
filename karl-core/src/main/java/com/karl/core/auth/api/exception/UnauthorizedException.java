@@ -5,8 +5,7 @@ import com.karl.base.exception.BaseException;
 /**
  * 未认证异常
  *
- * @author Li Jinhui
- * @since 2018/12/7
+ * @author 杜永军
  */
 public class UnauthorizedException extends BaseException {
     public UnauthorizedException() {
