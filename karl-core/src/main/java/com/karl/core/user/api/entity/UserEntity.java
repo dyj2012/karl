@@ -15,18 +15,19 @@ import lombok.experimental.Accessors;
 @TableName("T_SYS_USERS")
 public class UserEntity extends BaseEntity {
 
-    /**
-     * 名称
-     */
     @TableField("NAME")
     private String name;
+
     @TableField("LOGIN_NAME")
     private String loginName;
+
     @TableField("PASSWORD")
     @JsonIgnore
     private String password;
+
     @TableField("EMAIL")
     private String email;
+
     @TableField("PHONE_NUMBER")
     private String phoneNumber;
 

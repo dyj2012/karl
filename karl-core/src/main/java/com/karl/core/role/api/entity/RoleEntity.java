@@ -17,6 +17,7 @@ public class RoleEntity extends BaseEntity {
 
     @TableField("NAME")
     private String name;
+
     @TableField("CODE")
     private String code;
 }

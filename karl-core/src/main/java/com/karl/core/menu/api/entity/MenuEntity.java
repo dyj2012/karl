@@ -1,4 +1,4 @@
-package com.karl.core.org.api.entity;
+package com.karl.core.menu.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -6,18 +6,21 @@ import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
 /**
- * <description>
+ * 菜单例表
  *
  * @author 杜永军
  * @date 2020/5/25
  */
 @Data
-@TableName("T_SYS_ORG")
-public class OrgEntity extends BaseEntity {
+@TableName("T_SYS_MENU")
+public class MenuEntity extends BaseEntity {
 
     @TableField("NAME")
     private String name;
 
-    @TableField("CODE")
-    private String code;
+    @TableField("URL")
+    private String url;
+
+    @TableField("POSITION")
+    private Long position;
 }

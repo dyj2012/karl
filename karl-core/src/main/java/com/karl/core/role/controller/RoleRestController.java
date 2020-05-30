@@ -3,6 +3,7 @@ package com.karl.core.role.controller;
 import com.karl.base.controller.BaseRestController;
 import com.karl.core.role.api.RoleService;
 import com.karl.core.role.api.entity.RoleEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 角色控制器
@@ -10,6 +11,7 @@ import com.karl.core.role.api.entity.RoleEntity;
  * @author 杜永军
  * @date 2020/5/25
  */
+@RestController("roles")
 public class RoleRestController extends BaseRestController<RoleEntity, RoleService> {
 
 

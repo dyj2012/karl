@@ -12,11 +12,12 @@ import lombok.Data;
  * @date 2020/5/25
  */
 @Data
-@TableName("T_DEMO")
+@TableName("T_MODEL_DEMO")
 public class DemoEntity extends BaseEntity {
 
     @TableField("NAME")
     private String name;
+
     @TableField("CODE")
     private String code;
 }
