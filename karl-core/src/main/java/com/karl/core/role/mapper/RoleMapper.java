@@ -1,7 +1,7 @@
 package com.karl.core.role.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.core.role.api.entity.RoleEntity;
+import com.karl.core.entity.RoleEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

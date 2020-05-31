@@ -1,7 +1,7 @@
 package com.karl.module.route.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.module.route.api.entity.RouteEntity;
+import com.karl.module.entity.RouteEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

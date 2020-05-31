@@ -1,4 +1,4 @@
-package com.karl.core.demo.api.entity;
+package com.karl.module.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -9,15 +9,15 @@ import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
 /**
- * demo 表
+ * 教室例表
  *
  * @author 杜永军
  * @date 2020/5/25
  */
 @Data
-@TableName("T_MODEL_DEMO")
-@Table(name = "T_MODEL_DEMO")
-public class DemoEntity extends BaseEntity {
+@TableName("T_SC_CLASSROOM")
+@Table(name = "T_SC_CLASSROOM")
+public class ClassroomEntity extends BaseEntity {
 
     @TableField("NAME")
     @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)

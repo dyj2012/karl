@@ -1,7 +1,7 @@
 package com.karl.module.wristband.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.module.wristband.api.entity.WristbandEntity;
+import com.karl.module.entity.WristbandEntity;
 
 /**
  * 手环 服务

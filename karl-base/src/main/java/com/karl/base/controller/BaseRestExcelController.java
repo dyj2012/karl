@@ -18,6 +18,7 @@ import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +32,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * excel 导入导出controller基础类
@@ -171,20 +171,38 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         }
     }
 
+    /**
+     * 编译正则表达式
+     */
+    private static final Pattern patten = Pattern.compile("\\{.*\\}");
+
+    /**
+     * @param str
+     * @return
+     */
+    private String getMatchStr(String str) {
+        Matcher matcher = patten.matcher(str);
+        //此处find（）每次被调用后，
+        while (matcher.find()) {
+            return matcher.group().replace("{", "").replace("}", "");
+        }
+        return null;
+    }
 
     protected ExcelWriteParam buildExcelWriteParam() {
         Class<Entity> entityClass = this.getEntityClass();
         TableName tableName = entityClass.getAnnotation(TableName.class);
         List<TableColumn> columns = metadataMapper.getColumns(tableName.value());
+        parsePropertiesByComment(columns);
+        Collections.sort(columns);
         ExcelWriteParam param = new ExcelWriteParam();
         List<ExcelKeyTitle> keyTitleList = new ArrayList<>(columns.size());
         for (TableColumn column : columns) {
-            String title = column.getColumnComment();
             String columnName = column.getColumnName();
             if (ignoreColumn(columnName)) {
                 continue;
             }
-            keyTitleList.add(new ExcelKeyTitle(columnName, title));
+            keyTitleList.add(new ExcelKeyTitle(columnName, column.getTitle()));
         }
         ExcelName excelName = entityClass.getAnnotation(ExcelName.class);
         if (excelName != null) {
@@ -194,6 +212,38 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
         }
         param.setKeyTitleList(keyTitleList);
         return param;
+    }
+
+    private void parsePropertiesByComment(List<TableColumn> columns) {
+        for (TableColumn column : columns) {
+            //{order:0,title:主键ID}
+            String comment = column.getColumnComment();
+            if (StringUtils.isNotBlank(comment)) {
+                if (comment.contains("title") || comment.contains("order")) {
+                    String matchStr = getMatchStr(comment);
+                    String[] properties = matchStr.split(",");
+                    for (String property : properties) {
+                        String[] keyValue = property.split(":");
+                        switch (keyValue[0]) {
+                            case "order":
+                                column.setPosition(Integer.parseInt(keyValue[1]));
+                                break;
+                            case "title":
+                                column.setTitle(keyValue[1]);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (StringUtils.isEmpty(column.getTitle())) {
+                    column.setTitle(comment);
+                }
+            }
+            if (StringUtils.isEmpty(column.getTitle())) {
+                column.setTitle(column.getColumnName());
+            }
+        }
     }
 
     protected String getIgnoreColumn() {

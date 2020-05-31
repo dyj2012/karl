@@ -1,7 +1,7 @@
 package com.karl.module.record.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.module.record.api.entity.RecordEntity;
+import com.karl.module.entity.RecordEntity;
 
 /**
  * 记录服务

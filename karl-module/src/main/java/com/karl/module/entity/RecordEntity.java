@@ -1,7 +1,10 @@
-package com.karl.module.record.api.entity;
+package com.karl.module.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
+import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
+import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -16,23 +19,24 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("T_CO_RECORD")
+@Table(name = "T_CO_RECORD")
 public class RecordEntity extends BaseEntity {
 
-    /**
-     * 手环ID
-     */
     @TableField("WRISTBAND_ID")
+    @Column(name = "WRISTBAND_ID", comment = "手环ID", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String wristbandId;
 
     /**
      * 记录时间
      */
     @TableField("RECORD_TIME")
+    @Column(name = "RECORD_TIME", comment = "记录时间", type = MySqlTypeConstant.DATETIME)
     private LocalDateTime recordTime;
 
     /**
      * 体温
      */
     @TableField("TEMPERATURE")
+    @Column(name = "TEMPERATURE", comment = "体温", type = MySqlTypeConstant.DECIMAL, length = 18, decimalLength = 2)
     private BigDecimal temperature;
 }

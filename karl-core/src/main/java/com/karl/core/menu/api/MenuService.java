@@ -1,7 +1,7 @@
 package com.karl.core.menu.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.core.menu.api.entity.MenuEntity;
+import com.karl.core.entity.MenuEntity;
 
 /**
  * 菜单服务

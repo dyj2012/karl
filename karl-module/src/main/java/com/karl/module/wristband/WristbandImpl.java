@@ -2,7 +2,7 @@ package com.karl.module.wristband;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.module.wristband.api.WristbandService;
-import com.karl.module.wristband.api.entity.WristbandEntity;
+import com.karl.module.entity.WristbandEntity;
 import com.karl.module.wristband.mapper.WristbandMapper;
 import org.springframework.stereotype.Service;
 

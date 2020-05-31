@@ -1,7 +1,7 @@
 package com.karl.module.record.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.module.record.api.entity.RecordEntity;
+import com.karl.module.entity.RecordEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

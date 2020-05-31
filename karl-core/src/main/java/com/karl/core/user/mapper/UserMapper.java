@@ -1,7 +1,7 @@
 package com.karl.core.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.core.user.api.entity.UserEntity;
+import com.karl.core.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

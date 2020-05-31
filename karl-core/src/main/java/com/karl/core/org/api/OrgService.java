@@ -1,7 +1,7 @@
 package com.karl.core.org.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.core.org.api.entity.OrgEntity;
+import com.karl.core.entity.OrgEntity;
 
 /**
  * <description>

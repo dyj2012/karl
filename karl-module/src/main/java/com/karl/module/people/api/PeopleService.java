@@ -1,7 +1,7 @@
 package com.karl.module.people.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.module.people.api.entity.PeopleEntity;
+import com.karl.module.entity.PeopleEntity;
 
 /**
  * demo服务

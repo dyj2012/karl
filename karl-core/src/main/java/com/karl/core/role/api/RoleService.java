@@ -1,7 +1,7 @@
 package com.karl.core.role.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.core.role.api.entity.RoleEntity;
+import com.karl.core.entity.RoleEntity;
 
 /**
  * demo服务

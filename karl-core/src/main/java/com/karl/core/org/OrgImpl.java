@@ -2,7 +2,7 @@ package com.karl.core.org;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.core.org.api.OrgService;
-import com.karl.core.org.api.entity.OrgEntity;
+import com.karl.core.entity.OrgEntity;
 import com.karl.core.org.mapper.OrgMapper;
 import org.springframework.stereotype.Service;
 

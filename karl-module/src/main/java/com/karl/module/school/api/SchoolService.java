@@ -1,7 +1,7 @@
 package com.karl.module.school.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.module.school.api.entity.SchoolEntity;
+import com.karl.module.entity.SchoolEntity;
 
 /**
  * 学校服务

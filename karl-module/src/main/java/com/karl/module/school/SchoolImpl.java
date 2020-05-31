@@ -2,7 +2,7 @@ package com.karl.module.school;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.module.school.api.SchoolService;
-import com.karl.module.school.api.entity.SchoolEntity;
+import com.karl.module.entity.SchoolEntity;
 import com.karl.module.school.mapper.SchoolMapper;
 import org.springframework.stereotype.Service;
 

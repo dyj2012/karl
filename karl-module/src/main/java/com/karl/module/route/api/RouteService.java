@@ -1,7 +1,7 @@
 package com.karl.module.route.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.module.route.api.entity.RouteEntity;
+import com.karl.module.entity.RouteEntity;
 
 /**
  * Route 服务

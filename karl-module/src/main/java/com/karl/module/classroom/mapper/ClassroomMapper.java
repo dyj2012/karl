@@ -1,7 +1,7 @@
 package com.karl.module.classroom.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.module.classroom.api.entity.ClassroomEntity;
+import com.karl.module.entity.ClassroomEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,7 +1,7 @@
 package com.karl.module.wristband.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.module.wristband.api.entity.WristbandEntity;
+import com.karl.module.entity.WristbandEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,7 +1,7 @@
 package com.karl.core.menu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.core.menu.api.entity.MenuEntity;
+import com.karl.core.entity.MenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

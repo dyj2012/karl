@@ -2,7 +2,7 @@ package com.karl.core.role;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.core.role.api.RoleService;
-import com.karl.core.role.api.entity.RoleEntity;
+import com.karl.core.entity.RoleEntity;
 import com.karl.core.role.mapper.RoleMapper;
 import org.springframework.stereotype.Service;
 
