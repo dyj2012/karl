@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 public class AuthInterceptor implements HandlerInterceptor {
 
-    private static final String LOGIN_TOKEN = "LOGIN_TOKEN";
+    private static final String LOGIN_TOKEN = "LoginToken";
 
 
     @Override
