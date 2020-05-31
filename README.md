@@ -25,15 +25,15 @@
 
    | 参数 | 示例 | 说明|
    |  --- | --- | --- |
-   | query  | name:like:2,code:like:2 | 条件参数|
-   | page | total:true,current:2,size:2 | 分页参数|
-   | page | all | 查询全部 |
-   | field | name,email | 查询列|
-   | orderBy | name,code:asc | 排序|
+   | query  | query=name:like:2,code:like:2 | 条件参数|
+   | page | page=total:true,current:2,size:2 | 分页参数|
+   | page | page=all | 查询全部 |
+   | field | field=name,email | 查询列|
+   | orderBy | orderBy=name,code:asc | 排序|
 
 - 统一的excel导入导出 REST API
 
-  | 操作 | 示例 | 说明|
+  | 操作 | URL | 说明|
   |  --- | --- | --- |
   | GET | /demos/exportTemplate  | 下载excle导入模板 |
   | GET | /demos/export  | excel导出数据,可分页导出 |
@@ -51,18 +51,18 @@
 
 - 权限(/auth)
 
-  | 动作 | 操作 | 请求URL     | 返回|
-  | ---- | ---- | ------- | ------ |
+  | 动作 | 操作 | URL     | 返回|
+  | ---- | ---- | ---- | ---- |
   | 登录 | POST| /login | String |
 
   Token验证说明
   
   | Header Key | value   |
-  | ----  | ------ |
+  | ----  | ---- |
   | LoginToken  | String |
 
 ---
-##module工程
+##Module工程
 - 路由收集器(/routes)
 - 手环(/wristbands)
 - 人员(/people)
