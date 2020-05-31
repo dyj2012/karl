@@ -51,7 +51,6 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
         return R.ok(w.page(page));
     }
 
-
     /**
      * 新增一个对象
      *
@@ -83,7 +82,6 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
 
     }
 
-
     /**
      * 根据ID删除一个对象
      *
@@ -112,8 +110,8 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param entity
      * @return
      */
-    @PutMapping(value = "/{id}")
-    public R<Boolean> update(@RequestBody Entity entity, @PathVariable("id") String id) {
+    @PatchMapping(value = "/{id}")
+    public R<Boolean> patch(@RequestBody Entity entity, @PathVariable("id") String id) {
         entity.setObjectId(id);
         modifyEntity(entity);
         return R.ok(service.updateById(entity));

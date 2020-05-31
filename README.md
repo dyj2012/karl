@@ -6,7 +6,7 @@
  GET | 查询/导出
  GET  | 查询/导出
  POST  | 插入/导入
- PUT |  更新
+ PATCH |  更新
  DELTE |  删除
 
 - 统一的增删查改REST API
@@ -16,7 +16,7 @@ GET | /demos | 查询列表数据
 GET |  /demos/{id} | 查询一个数据
 POST |  /demos | 插入一个数据
 POST |  /demos/batch | 插入多个数据
-PUT |  /demos/{id} | 更新一个数据
+PATCH |  /demos/{id} | 更新一个数据
 DELTE |  /demos/{id} | 删除一个数据
 
 - GET操作参数说明
