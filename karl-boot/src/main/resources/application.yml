@@ -25,7 +25,7 @@ spring:
   datasource: #Druid 连接池通用配置
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.2.169:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://127.0.0.1:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
       username: karl     # 数据库账号
       password: karl     # 数据库密码
   devtools:
@@ -43,3 +43,15 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapperLocations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
+mybatis:
+  table:
+    auto: add
+  #   create  时，系统启动后，会将所有的表删除掉，然后根据model中配置的结构重新建表，该操作会破坏原有数据。
+  #   update  时，系统会自动判断哪些表是新建的，哪些字段要修改类型等，哪些字段要删除，哪些字段要新增，该操作不会破坏原有数据。
+  #   none    时，系统不做任何处理。
+  #   add     时，新增表/新增字段/新增索引/新增唯一约束的功能，不做做修改和删除
+  model:
+    pack: com.karl.core.entity,com.karl.module.entity
+  database:
+    type: mysql
