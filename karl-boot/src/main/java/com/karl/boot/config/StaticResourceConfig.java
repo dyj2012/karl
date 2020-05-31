@@ -62,7 +62,7 @@ public class StaticResourceConfig implements WebMvcConfigurer {
         converter.setSupportedMediaTypes(supportedMediaTypes);
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat,
-               // SerializerFeature.WriteNullStringAsEmpty,
+                // SerializerFeature.WriteNullStringAsEmpty,
 //                SerializerFeature.WriteMapNullValue,
                 SerializerFeature.DisableCircularReferenceDetect);
         //日期格式化

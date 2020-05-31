@@ -3,8 +3,10 @@ package com.karl.module.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
+import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.annotation.ExcelName;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ import lombok.Data;
 @Data
 @TableName("T_SC_PEOPLE")
 @Table(name = "T_SC_PEOPLE")
+@ExcelName("人员")
 public class PeopleEntity extends BaseEntity {
 
     @TableField("NAME")
@@ -30,11 +33,13 @@ public class PeopleEntity extends BaseEntity {
     private String roleId;
 
     @TableField("SCHOOL_ID")
-    @Column(name = "SCHOOL_ID", comment = "学习ID", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "SCHOOL_ID", comment = "学校ID", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Index
     private String schoolId;
 
     @TableField("CLASSROOM_ID")
     @Column(name = "CLASSROOM_ID", comment = "教室ID", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Index
     private String classroomId;
 
     @TableField("STATUS")

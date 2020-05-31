@@ -1,8 +1,8 @@
 package com.karl.module.route;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.karl.module.route.api.RouteService;
 import com.karl.module.entity.RouteEntity;
+import com.karl.module.route.api.RouteService;
 import com.karl.module.route.mapper.RouteMapper;
 import org.springframework.stereotype.Service;
 

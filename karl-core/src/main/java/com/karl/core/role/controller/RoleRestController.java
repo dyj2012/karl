@@ -1,8 +1,8 @@
 package com.karl.core.role.controller;
 
 import com.karl.base.controller.BaseRestController;
-import com.karl.core.role.api.RoleService;
 import com.karl.core.entity.RoleEntity;
+import com.karl.core.role.api.RoleService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

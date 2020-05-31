@@ -3,6 +3,7 @@ package com.karl.module.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
+import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import com.karl.base.model.BaseEntity;
@@ -24,6 +25,7 @@ public class RecordEntity extends BaseEntity {
 
     @TableField("WRISTBAND_ID")
     @Column(name = "WRISTBAND_ID", comment = "手环ID", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Index
     private String wristbandId;
 
     /**

@@ -2,8 +2,8 @@ package com.karl.module.classroom;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.module.classroom.api.ClassroomService;
-import com.karl.module.entity.ClassroomEntity;
 import com.karl.module.classroom.mapper.ClassroomMapper;
+import com.karl.module.entity.ClassroomEntity;
 import org.springframework.stereotype.Service;
 
 /**

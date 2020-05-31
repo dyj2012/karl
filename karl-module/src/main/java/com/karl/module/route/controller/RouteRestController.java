@@ -1,8 +1,8 @@
 package com.karl.module.route.controller;
 
-import com.karl.base.controller.BaseRestController;
-import com.karl.module.route.api.RouteService;
+import com.karl.base.controller.BaseRestExcelController;
 import com.karl.module.entity.RouteEntity;
+import com.karl.module.route.api.RouteService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/routes")
-public class RouteRestController extends BaseRestController<RouteEntity, RouteService> {
+public class RouteRestController extends BaseRestExcelController<RouteEntity, RouteService> {
 
 
 }

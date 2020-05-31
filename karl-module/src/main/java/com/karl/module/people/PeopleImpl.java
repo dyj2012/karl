@@ -1,8 +1,8 @@
 package com.karl.module.people;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.karl.module.people.api.PeopleService;
 import com.karl.module.entity.PeopleEntity;
+import com.karl.module.people.api.PeopleService;
 import com.karl.module.people.mapper.PeopleMapper;
 import org.springframework.stereotype.Service;
 

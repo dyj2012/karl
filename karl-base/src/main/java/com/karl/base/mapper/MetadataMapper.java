@@ -29,8 +29,7 @@ public interface MetadataMapper {
             "COLUMN_COMMENT, " +
             "CHARACTER_MAXIMUM_LENGTH, " +
             "NUMERIC_PRECISION, " +
-            "NUMERIC_SCALE, " +
-            "ORDINAL_POSITION " +
+            "NUMERIC_SCALE " +
             "FROM information_schema.`COLUMNS` a " +
             "WHERE a.TABLE_NAME = #{tableName} " +
             "AND a.TABLE_SCHEMA = SCHEMA () " +
@@ -38,8 +37,7 @@ public interface MetadataMapper {
     @Results({
             @Result(column = "CHARACTER_MAXIMUM_LENGTH", property = "length"),
             @Result(column = "NUMERIC_PRECISION", property = "precision"),
-            @Result(column = "NUMERIC_SCALE", property = "scale"),
-            @Result(column = "ORDINAL_POSITION", property = "position")
+            @Result(column = "NUMERIC_SCALE", property = "scale")
     })
     List<TableColumn> getColumns(@Param("tableName") String tableName);
 }

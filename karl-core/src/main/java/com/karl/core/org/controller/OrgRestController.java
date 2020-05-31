@@ -1,8 +1,8 @@
 package com.karl.core.org.controller;
 
 import com.karl.base.controller.BaseRestController;
-import com.karl.core.org.api.OrgService;
 import com.karl.core.entity.OrgEntity;
+import com.karl.core.org.api.OrgService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

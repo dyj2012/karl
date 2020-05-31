@@ -247,7 +247,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
     }
 
     protected String getIgnoreColumn() {
-        return ",CREATE_TIME,CREATE_BY,UPDATE_TIME,DATA_VERSION,";
+        return ",CREATE_TIME,CREATE_BY,UPDATE_TIME,UPDATE_BY,";
     }
 
     protected boolean ignoreColumn(String columnName) {
