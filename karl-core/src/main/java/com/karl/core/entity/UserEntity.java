@@ -29,7 +29,7 @@ public class UserEntity extends BaseEntity {
     private String name;
 
     @TableField("LOGIN_NAME")
-    @Column(name = "LOGIN_NAME", comment = "登录名", type = MySqlTypeConstant.VARCHAR, length = 64 )
+    @Column(name = "LOGIN_NAME", comment = "登录名", type = MySqlTypeConstant.VARCHAR, length = 64)
     @Unique(columns = "LOGIN_NAME")
     @IsNotNull
     private String loginName;
