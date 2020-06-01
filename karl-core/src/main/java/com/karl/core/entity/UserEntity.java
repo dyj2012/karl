@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Unique;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
@@ -24,11 +25,13 @@ public class UserEntity extends BaseEntity {
 
     @TableField("NAME")
     @Column(name = "NAME", comment = "名字", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @IsNotNull
     private String name;
 
     @TableField("LOGIN_NAME")
-    @Column(name = "LOGIN_NAME", comment = "登录名", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "LOGIN_NAME", comment = "登录名", type = MySqlTypeConstant.VARCHAR, length = 64 )
     @Unique(columns = "LOGIN_NAME")
+    @IsNotNull
     private String loginName;
 
     @TableField(value = "PASSWORD")

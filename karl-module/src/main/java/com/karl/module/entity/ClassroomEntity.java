@@ -3,6 +3,7 @@ package com.karl.module.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import com.karl.base.annotation.ExcelName;
@@ -23,6 +24,7 @@ public class ClassroomEntity extends BaseEntity {
 
     @TableField("NAME")
     @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @IsNotNull
     private String name;
 
     @TableField("CODE")

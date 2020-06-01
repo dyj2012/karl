@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import com.karl.base.annotation.ExcelName;
@@ -24,10 +25,14 @@ public class PeopleEntity extends BaseEntity {
 
     @TableField("NAME")
     @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 128)
+    @IsNotNull
     private String name;
 
     @TableField("SEX")
     private String sex;
+
+    @TableField("AGE")
+    private String age;
 
     @TableField("ROLE_ID")
     private String roleId;

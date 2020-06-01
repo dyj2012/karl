@@ -31,7 +31,7 @@ public class BaseEntity extends Model {
     private LocalDateTime createTime;
 
     @TableField(value = "CREATE_BY", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    @Column(name = "CREATE_BY", comment = "{order:2,title:创建者}", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "CREATE_BY", comment = "{order:2,title:创建人}", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String createBy;
 
     @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
@@ -39,7 +39,7 @@ public class BaseEntity extends Model {
     private LocalDateTime updateTime;
 
     @TableField(value = "UPDATE_BY", fill = FieldFill.INSERT_UPDATE)
-    @Column(name = "UPDATE_BY", comment = "{order:4,title:更新者}", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "UPDATE_BY", comment = "{order:4,title:更新人}", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String updateBy;
 
 }
