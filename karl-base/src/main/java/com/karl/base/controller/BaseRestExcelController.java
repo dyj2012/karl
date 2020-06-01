@@ -17,6 +17,8 @@ import com.karl.base.util.excel.PageReadExcel;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -121,7 +123,13 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      * @param request
      * @param response
      */
-    @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "query", value = "查询条件, 如: query=name:like:2,code:like:2", dataType = "String", paramType = "query", example = "name:like:2,code:like:2"),
+            @ApiImplicitParam(name = "field", value = "查询列, 如: field=name,email", dataType = "String", paramType = "query", example = "name,email"),
+            @ApiImplicitParam(name = "page", value = "查询条件, 如: page=total:true,current:2,size:2 或者 page=all", dataType = "String", paramType = "query", example = "all"),
+            @ApiImplicitParam(name = "orderBy", value = "查询列, 如: orderBy=name,code:asc", dataType = "String", paramType = "query", example = "name,code:asc")
+    })
+    @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping(value = "/export")
     public void export(HttpServletRequest request, HttpServletResponse response) {
         R<Page<Entity>> selectR = this.select(request);

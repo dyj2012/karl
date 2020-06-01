@@ -46,13 +46,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ThreadLocalCacheInterceptor())
                 .addPathPatterns("/**");
-        registry.addInterceptor(new AuthInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/")
-                .excludePathPatterns("/auth/login")
-                .excludePathPatterns("/webjars/**")
-                .excludePathPatterns("/swagger-resources/**")
-                .excludePathPatterns("/doc.html");
+//        registry.addInterceptor(new AuthInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/")
+//                .excludePathPatterns("/auth/login")
+//                .excludePathPatterns("/webjars/**")
+//                .excludePathPatterns("/swagger-resources/**")
+//                .excludePathPatterns("/doc.html");
     }
 
 

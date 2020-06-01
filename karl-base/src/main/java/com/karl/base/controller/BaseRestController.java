@@ -40,7 +40,10 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "用户名称", required = true, dataType = "String", paramType = "path", example = "blues")
+            @ApiImplicitParam(name = "query", value = "查询条件, 如: query=name:like:2,code:like:2", dataType = "String", paramType = "query", example = "name:like:2,code:like:2"),
+            @ApiImplicitParam(name = "field", value = "查询列, 如: field=name,email", dataType = "String", paramType = "query", example = "name,email"),
+            @ApiImplicitParam(name = "page", value = "查询条件, 如: page=total:true,current:2,size:2 或者 page=all", dataType = "String", paramType = "query", example = "all"),
+            @ApiImplicitParam(name = "orderBy", value = "查询列, 如: orderBy=name,code:asc", dataType = "String", paramType = "query", example = "name,code:asc")
     })
     @ApiOperation(value = "查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping
@@ -99,7 +102,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "123abc")
     })
     @ApiOperation(value = "删除接口", notes = "根据Id删除一个entity")
     @DeleteMapping(value = "/{id}")
@@ -114,7 +117,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "123abc")
     })
     @ApiOperation(value = "查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
@@ -129,7 +132,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @return
      */
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "123abc")
     })
     @ApiOperation(value = "更新接口", notes = "根据Id更新一个entity")
     @PatchMapping(value = "/{id}")
