@@ -40,6 +40,7 @@ spring:
     url: ${spring.datasource.druid.url}
     user: ${spring.datasource.druid.username}
     password: ${spring.datasource.druid.password}
+    table: T_SCHEMA_VERSION
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

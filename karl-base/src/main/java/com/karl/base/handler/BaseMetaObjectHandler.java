@@ -23,8 +23,10 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
         CurrentUser user = CurrentUserUtils.getUser();
         if (user == null || StringUtils.isEmpty(user.getName())) {
             this.setFieldValByName("createBy", "System", metaObject);
+            this.setFieldValByName("updateBy", "System", metaObject);
         } else {
             this.setFieldValByName("createBy", user.getName(), metaObject);
+            this.setFieldValByName("updateBy", user.getName(), metaObject);
         }
     }
 
@@ -34,6 +36,12 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+        CurrentUser user = CurrentUserUtils.getUser();
+        if (user == null || StringUtils.isEmpty(user.getName())) {
+            this.setFieldValByName("updateBy", "System", metaObject);
+        } else {
+            this.setFieldValByName("updateBy", user.getName(), metaObject);
+        }
     }
 
 }

@@ -28,7 +28,7 @@ public class UserEntity extends BaseEntity {
 
     @TableField("LOGIN_NAME")
     @Column(name = "LOGIN_NAME", comment = "登录名", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @Unique
+    @Unique(columns = "LOGIN_NAME")
     private String loginName;
 
     @TableField(value = "PASSWORD")

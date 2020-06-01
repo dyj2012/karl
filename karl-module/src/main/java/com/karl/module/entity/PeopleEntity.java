@@ -34,12 +34,12 @@ public class PeopleEntity extends BaseEntity {
 
     @TableField("SCHOOL_ID")
     @Column(name = "SCHOOL_ID", comment = "学校ID", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @Index
+    @Index(columns = "SCHOOL_ID")
     private String schoolId;
 
     @TableField("CLASSROOM_ID")
     @Column(name = "CLASSROOM_ID", comment = "教室ID", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @Index
+    @Index(columns = "CLASSROOM_ID")
     private String classroomId;
 
     @TableField("STATUS")

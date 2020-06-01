@@ -22,7 +22,7 @@ public class WristbandEntity extends BaseEntity {
 
     @TableField("PEOPLE_ID")
     @Column(name = "PEOPLE_ID", comment = "人员ID", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @Index
+    @Index(columns = "PEOPLE_ID")
     private String peopleId;
 
     @TableField("ROUTE_ID")

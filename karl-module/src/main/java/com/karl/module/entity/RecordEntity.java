@@ -25,7 +25,7 @@ public class RecordEntity extends BaseEntity {
 
     @TableField("WRISTBAND_ID")
     @Column(name = "WRISTBAND_ID", comment = "手环ID", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @Index
+    @Index(columns = "WRISTBAND_ID")
     private String wristbandId;
 
     /**
