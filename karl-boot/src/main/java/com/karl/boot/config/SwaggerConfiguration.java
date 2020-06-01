@@ -3,9 +3,7 @@ package com.karl.boot.config;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
-import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,24 +19,38 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableKnife4j
-@Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
-    @Bean(value = "karlApi")
+    @Bean(value = "karl-core")
     @Order(value = 1)
-    public Docket karlRestApi() {
-        ApiInfo apiInfo = new ApiInfoBuilder()
-                .title("接口文档")
-                .description("<div style='font-size:14px;color:red;'>接口文档微服务2.0版本</div>")
-                .termsOfServiceUrl("http://www.demo.com/")
-                .contact(new Contact("", "", ""))
-                .version("1.0")
-                .build();
+    public Docket coreRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo)
-                .groupName("karl-doc")
+                .apiInfo(apiInfo())
+                .groupName("karl-core")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.karl.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.karl.core"))
                 .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean(value = "karl-module")
+    @Order(value = 1)
+    public Docket moduleRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .groupName("karl-module")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.karl.module"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("服务接口文档")
+                .description("<div style='font-size:14px;color:red;'>REST API文档1.0版本</div>")
+                .termsOfServiceUrl("http://127.0.0.1:8080/")
+                .contact(new Contact("杜永军", "https://github.com/dyj2012/karl-parent", ""))
+                .version("1.0")
                 .build();
     }
 }

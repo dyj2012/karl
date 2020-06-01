@@ -1,4 +1,20 @@
 # 说明
+## 技术栈
+
+   | 名称 | 版本 | 说明 |
+   |  --- |  --- |--- |
+   | springboot | 2.3.0.RELEASE | web工程 |
+   | lombok | 1.18.12 | 简化代码 |
+   | poi | 3.17 | excel导入导出 |
+   | jwt | 0.10.5 | token验证 |
+   | hibernate | 5.4.1.Final | jsr303验证 |
+   | mybatis-plus | 3.3.1.tmp | 数据访问 |
+   | mybatis-enhance-actable | 1.1.0.RELEASE | 自动建表 |
+   | fastjson | 1.2.47 | json转化 |
+   | druid | 1.1.22 | 数据库连接 |
+   | knife4j | 1.1.22 | swagger在线联调 |
+  
+---    
 ## Base工程
 - 统一 REST API 操作
 

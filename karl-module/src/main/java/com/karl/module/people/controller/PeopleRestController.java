@@ -3,6 +3,7 @@ package com.karl.module.people.controller;
 import com.karl.base.controller.BaseRestExcelController;
 import com.karl.module.entity.PeopleEntity;
 import com.karl.module.people.api.PeopleService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/people")
+@Api(tags = "人员接口")
 public class PeopleRestController extends BaseRestExcelController<PeopleEntity, PeopleService> {
 
 

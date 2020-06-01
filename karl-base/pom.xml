@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>karl-base</name>
+
     <artifactId>karl-base</artifactId>
     <packaging>jar</packaging>
     <dependencies>
@@ -110,13 +111,13 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
             <artifactId>mybatis-enhance-actable</artifactId>
-            <version>1.1.0.RELEASE</version>
+            <version>${mybatis-enhance-actable.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -125,6 +126,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.1</version>
         </dependency>
     </dependencies>
 </project>

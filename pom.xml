@@ -25,7 +25,6 @@
         <knife4j.version>2.0.2</knife4j.version>
         <swagger.version>1.5.22</swagger.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
         <lombok.version>1.18.12</lombok.version>
         <druid-spring-boot-starter.version>1.1.22</druid-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.3.1.tmp</mybatis-plus-boot-starter.version>
@@ -38,6 +37,10 @@
         <commons-fileupload.version>1.2.1</commons-fileupload.version>
         <xercesImpl.version>2.9.1</xercesImpl.version>
         <validator.version>5.4.1.Final</validator.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <jsonwebtoken.version>0.10.5</jsonwebtoken.version>
+        <mysql-connector-java.version>5.1.45</mysql-connector-java.version>
+        <mybatis-enhance-actable.version>1.1.0.RELEASE</mybatis-enhance-actable.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +49,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>2.0.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

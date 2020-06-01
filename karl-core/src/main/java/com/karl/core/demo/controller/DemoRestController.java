@@ -3,6 +3,7 @@ package com.karl.core.demo.controller;
 import com.karl.base.controller.BaseRestController;
 import com.karl.core.demo.api.DemoService;
 import com.karl.core.demo.api.entity.DemoEntity;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/demos")
+@Api(tags = "demo")
 public class DemoRestController extends BaseRestController<DemoEntity, DemoService> {
 
 

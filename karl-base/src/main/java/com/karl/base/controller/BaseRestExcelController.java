@@ -17,6 +17,7 @@ import com.karl.base.util.excel.PageReadExcel;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      * @param file
      * @return
      */
+    @ApiOperation(value = "excel导入接口", notes = "excel导入entity")
     @PostMapping(value = "/imports")
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();
@@ -119,6 +121,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      * @param request
      * @param response
      */
+    @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel")
     @GetMapping(value = "/export")
     public void export(HttpServletRequest request, HttpServletResponse response) {
         R<Page<Entity>> selectR = this.select(request);
@@ -155,6 +158,7 @@ public abstract class BaseRestExcelController<Entity extends BaseEntity, Service
      *
      * @param response
      */
+    @ApiOperation(value = "excel模板接口", notes = "导出entity导入模板")
     @GetMapping(value = "/exportTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelWriteParam excelWriteParam = buildExcelWriteParam();

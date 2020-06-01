@@ -9,6 +9,9 @@ import com.karl.base.constants.ErrorCodeConstants;
 import com.karl.base.exception.BaseException;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.util.CamelUtils;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,10 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      *
      * @return
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "用户名称", required = true, dataType = "String", paramType = "path", example = "blues")
+    })
+    @ApiOperation(value = "查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping
     public R<Page<Entity>> select(HttpServletRequest request) {
         String query = request.getParameter("query");
@@ -57,6 +64,7 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param entity
      * @return
      */
+    @ApiOperation(value = "新增接口", notes = "新增一个entity")
     @PostMapping
     public R<Boolean> add(@RequestBody Entity entity) {
         this.modifyEntity(entity);
@@ -69,6 +77,8 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param list
      * @return
      */
+
+    @ApiOperation(value = "批量新增接口", notes = "以数组的形式增加多个entity,[entity,entity,entity]")
     @PostMapping("/batch")
     public R<Boolean> batch(@RequestBody List<Entity> list) {
         if (CollectionUtils.isNotEmpty(list)) {
@@ -88,6 +98,10 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param id
      * @return
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+    })
+    @ApiOperation(value = "删除接口", notes = "根据Id删除一个entity")
     @DeleteMapping(value = "/{id}")
     public R<Boolean> delete(@PathVariable("id") String id) {
         return R.ok(service.removeById(id));
@@ -99,6 +113,10 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param id
      * @return
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+    })
+    @ApiOperation(value = "查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
     public R<Entity> get(@PathVariable("id") String id) {
         return R.ok(service.getById(id));
@@ -110,6 +128,10 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
      * @param entity
      * @return
      */
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "blues")
+    })
+    @ApiOperation(value = "更新接口", notes = "根据Id更新一个entity")
     @PatchMapping(value = "/{id}")
     public R<Boolean> patch(@RequestBody Entity entity, @PathVariable("id") String id) {
         entity.setObjectId(id);
