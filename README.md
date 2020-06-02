@@ -15,7 +15,16 @@
    | swagger | 2.9.2 | swagger文档 |
    | knife4j | 1.1.22 | swagger在线联调 |
    | hasor | 1.1.22 | 动态编写 REST API |
-  
+   | flyway | 6.4.1 | 内置数据脚本管理 |
+
+## 服务地址 
+
+   |  地址 | 说明 |
+   |  ------ |--- |
+   | http://localhost:8080/v1  | 服务地址 |
+   | http://localhost:8080/v1/doc.html  | swagger地址 |
+   | http://localhost:8080/v1/interface-ui/  | dataway地址 |
+ 
 ---    
 ## Base工程
 - 统一 REST API 操作
