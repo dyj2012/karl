@@ -28,6 +28,8 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
             this.setFieldValByName("createBy", user.getName(), metaObject);
             this.setFieldValByName("updateBy", user.getName(), metaObject);
         }
+        this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
+        this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
     }
 
     /**
@@ -42,6 +44,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
         } else {
             this.setFieldValByName("updateBy", user.getName(), metaObject);
         }
+        this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
     }
 
 }

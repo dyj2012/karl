@@ -12,7 +12,9 @@
    | mybatis-enhance-actable | 1.1.0.RELEASE | 自动建表 |
    | fastjson | 1.2.47 | json转化 |
    | druid | 1.1.22 | 数据库连接 |
+   | swagger | 2.9.2 | swagger文档 |
    | knife4j | 1.1.22 | swagger在线联调 |
+   | hasor | 1.1.22 | 动态编写 REST API |
   
 ---    
 ## Base工程

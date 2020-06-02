@@ -1,1 +1,0 @@
-# INSERT INTO T_SYS_USER VALUES ('11', '11', '11', '11', '11', '11', NULL, NULL, NULL, 0);

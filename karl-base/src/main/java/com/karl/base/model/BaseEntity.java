@@ -26,7 +26,7 @@ public class BaseEntity extends Model {
     @Column(name = "OBJECT_ID", comment = "{order:0,title:主键ID}", type = MySqlTypeConstant.VARCHAR, isKey = true, length = 64)
     private String objectId;
 
-    @TableField(value = "CREATE_TIME", updateStrategy = FieldStrategy.NEVER)
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
     @Column(name = "CREATE_TIME", comment = "{order:1,title:创建日期}", type = MySqlTypeConstant.DATETIME)
     private LocalDateTime createTime;
 

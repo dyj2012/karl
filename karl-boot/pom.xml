@@ -80,6 +80,17 @@
             <artifactId>karl-module</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.hasor</groupId>
+            <artifactId>hasor-spring</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.hasor</groupId>
+            <artifactId>hasor-dataway</artifactId>
+            <version>4.1.4</version><!-- 4.1.4 包存在UI资源缺失问题 -->
+        </dependency>
     </dependencies>
 
     <build>
