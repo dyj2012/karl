@@ -57,6 +57,24 @@
    | page | page=all | 查询全部 |
    | field | field=name,email | 查询列|
    | orderBy | orderBy=name,code:asc | 排序|
+   
+   | 条件 | 说明 | 示例 | sql |
+   |  --- | --- | --- | --- | 
+   | ge |  大于等于| age:ge:5 | age >= 5 |
+   | gt |  大于| age:gt:5 | age > 5 |
+   | le |  小于等于| age:le:5 | age <= 5 |
+   | lt |  小于| age:lt:5 | age < 5 |
+   | eq |  等于| age:eq:5 | age = 5 |
+   | ne |  不等于| age:ne:5 | age <> 5 |
+   | isNotNull | 不为空  | code:isNotNull | code is not null |
+   | isNull | 为空 | code:isNull | code is null |
+   | like | 模糊 | name:like:王 | name like '%王%' |
+   | likeLeft | 左模糊 | name:likeLeft:王 | name like '%王' |
+   | likeRight | 右模糊 | name:likeRight:王 | name like '王%' |
+   | between | 区间 | age:between:3:5 | age between 3 and 5 |
+   | notBetween | 不在区间 | age:notBetween:3:5 | age not between 3 and 5 |
+   | in | 包含 | age:in:1:2:3:4 | age in (1, 2, 3, 4) |
+   | notIn | 不包含 | age:notIn:1:2:3:4 | age not in (1, 2, 3, 4) |
 
 - 统一的excel导入导出 REST API
 

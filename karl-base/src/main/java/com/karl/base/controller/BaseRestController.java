@@ -1,25 +1,21 @@
 package com.karl.base.controller;
 
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.karl.base.constants.ErrorCodeConstants;
-import com.karl.base.exception.BaseException;
 import com.karl.base.model.BaseEntity;
-import com.karl.base.util.CamelUtils;
+import com.karl.base.service.BaseService;
+import com.karl.base.util.L;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +29,9 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
 
     @Autowired
     protected Service service;
+
+    @Autowired
+    protected BaseService baseService;
 
     /**
      * 新增一个对象
@@ -48,17 +47,18 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping
     public R<Page<Entity>> select(HttpServletRequest request) {
-        String query = request.getParameter("query");
-        String field = request.getParameter("field");
-        String pageStr = request.getParameter("page");
-        String orderBy = request.getParameter("orderBy");
+        return L.l(log, "select", () -> {
+            String query = request.getParameter("query");
+            String field = request.getParameter("field");
+            String pageStr = request.getParameter("page");
+            String orderBy = request.getParameter("orderBy");
 
-        QueryChainWrapper<Entity> w = new QueryChainWrapper<Entity>(service.getBaseMapper());
-        dealQuery(query, w);
-        dealSelectField(w, field);
-        List<OrderItem> orders = dealOrder(orderBy);
-        Page<Entity> page = dealPage(pageStr, orders);
-        return R.ok(w.page(page));
+            QueryWrapper<Entity> w = new QueryWrapper<>();
+            Page<Entity> page = new Page<>();
+            baseService.dealQueryWrapper(w, query, field);
+            baseService.dealPageAndOrder(page, pageStr, orderBy);
+            return R.ok(service.page(page, w));
+        });
     }
 
     /**
@@ -70,8 +70,11 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "新增接口", notes = "新增一个entity")
     @PostMapping
     public R<Boolean> add(@RequestBody Entity entity) {
-        this.modifyEntity(entity);
-        return R.ok(service.save(entity));
+        return L.l(log, "add", () -> {
+            this.modifyEntity(entity);
+            return R.ok(service.save(entity));
+        });
+
     }
 
     /**
@@ -84,14 +87,16 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "批量新增接口", notes = "以数组的形式增加多个entity,[entity,entity,entity]")
     @PostMapping("/batch")
     public R<Boolean> batch(@RequestBody List<Entity> list) {
-        if (CollectionUtils.isNotEmpty(list)) {
-            for (Entity entity : list) {
-                this.modifyEntity(entity);
+        return L.l(log, "batch", () -> {
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (Entity entity : list) {
+                    this.modifyEntity(entity);
+                }
+                return R.ok(service.saveBatch(list));
+            } else {
+                return R.failed("传输对象为空");
             }
-            return R.ok(service.saveBatch(list));
-        } else {
-            return R.failed("传输对象为空");
-        }
+        });
 
     }
 
@@ -107,7 +112,8 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "删除接口", notes = "根据Id删除一个entity")
     @DeleteMapping(value = "/{id}")
     public R<Boolean> delete(@PathVariable("id") String id) {
-        return R.ok(service.removeById(id));
+        return L.l(log, "delete", () -> R.ok(service.removeById(id)));
+
     }
 
     /**
@@ -122,7 +128,8 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
     public R<Entity> get(@PathVariable("id") String id) {
-        return R.ok(service.getById(id));
+        return L.l(log, "get", () -> R.ok(service.getById(id)));
+
     }
 
     /**
@@ -137,102 +144,15 @@ public abstract class BaseRestController<Entity extends BaseEntity, Service exte
     @ApiOperation(value = "更新接口", notes = "根据Id更新一个entity")
     @PatchMapping(value = "/{id}")
     public R<Boolean> patch(@RequestBody Entity entity, @PathVariable("id") String id) {
-        entity.setObjectId(id);
-        modifyEntity(entity);
-        return R.ok(service.updateById(entity));
+        return L.l(log, "patch", () -> {
+            entity.setObjectId(id);
+            modifyEntity(entity);
+            return R.ok(service.updateById(entity));
+        });
+
     }
 
     protected void modifyEntity(Entity entity) {
 
-    }
-
-    private void dealQuery(String query, QueryChainWrapper<Entity> w) {
-        if (!StringUtils.isEmpty(query)) {
-            String[] condition = query.split(",");
-            for (String conditionColumn : condition) {
-                String[] split = conditionColumn.split(":");
-                String columnName = CamelUtils.toUnderline(split[0]).toUpperCase();
-                switch (split[1]) {
-                    case ">":
-                        w.ge(columnName, split[2]);
-                        break;
-                    case "=":
-                        w.eq(columnName, split[2]);
-                        break;
-                    case "like":
-                        w.like(columnName, split[2]);
-                        break;
-                    default:
-                        throw new BaseException(ErrorCodeConstants.ORDER_ARG, "无效的查询条件参数");
-                }
-            }
-        }
-    }
-
-    private List<OrderItem> dealOrder(String orderBy) {
-        List<OrderItem> orders = null;
-        if (!StringUtils.isEmpty(orderBy)) {
-            String[] orderColumns = orderBy.split(",");
-            orders = new ArrayList<>(orderColumns.length);
-            for (String orderColumn : orderColumns) {
-                String[] split = orderColumn.split(":");
-                String columnName = CamelUtils.toUnderline(split[0]).toUpperCase();
-                if (split.length == 1) {
-                    orders.add(OrderItem.desc(columnName));
-                    continue;
-                }
-                switch (split[1]) {
-                    case "asc":
-                        orders.add(OrderItem.asc(columnName));
-                        break;
-                    case "desc":
-                        orders.add(OrderItem.desc(columnName));
-                        break;
-                    default:
-                        throw new BaseException(ErrorCodeConstants.ORDER_ARG, "无效的排序参数");
-                }
-            }
-        }
-        return orders;
-    }
-
-    private Page<Entity> dealPage(String pageStr, List<OrderItem> orders) {
-        boolean isSearchCount = false;
-        long current = 0;
-        long size = 50;
-
-        if (!StringUtils.isEmpty(pageStr)) {
-            if ("all".equalsIgnoreCase(pageStr)) {
-                size = Long.MAX_VALUE;
-            } else {
-                String[] pageInfo = pageStr.split(",");
-                for (String info : pageInfo) {
-                    String[] split = info.split(":");
-                    switch (split[0]) {
-                        case "total":
-                            isSearchCount = Boolean.parseBoolean(split[1]);
-                            break;
-                        case "current":
-                            current = Long.parseLong(split[1]);
-                            break;
-                        case "size":
-                            size = Long.parseLong(split[1]);
-                            break;
-                        default:
-                            throw new BaseException(1001, "无效的分页参数");
-                    }
-                }
-            }
-        }
-        Page<Entity> page = new Page<>(current, size, isSearchCount);
-        page.setOrders(orders);
-        return page;
-    }
-
-    private void dealSelectField(QueryChainWrapper<Entity> w, String field) {
-        if (!StringUtils.isEmpty(field)) {
-            String[] fields = CamelUtils.toUnderline(field).toUpperCase().split(",");
-            w.select(fields);
-        }
     }
 }
