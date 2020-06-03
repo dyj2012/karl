@@ -29,12 +29,15 @@ public class PeopleEntity extends BaseEntity {
     private String name;
 
     @TableField("SEX")
+    @Column(name = "SEX", comment = "性别", type = MySqlTypeConstant.VARCHAR, length = 10)
     private String sex;
 
     @TableField("AGE")
-    private String age;
+    @Column(name = "AGE", comment = "年龄", type = MySqlTypeConstant.INT)
+    private Integer age;
 
     @TableField("ROLE_ID")
+    @Column(name = "ROLE_ID", comment = "角色ID", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String roleId;
 
     @TableField("SCHOOL_ID")

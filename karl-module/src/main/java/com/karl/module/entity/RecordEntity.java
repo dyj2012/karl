@@ -39,6 +39,6 @@ public class RecordEntity extends BaseEntity {
      * 体温
      */
     @TableField("TEMPERATURE")
-    @Column(name = "TEMPERATURE", comment = "体温", type = MySqlTypeConstant.DECIMAL, length = 18, decimalLength = 2)
+    @Column(name = "TEMPERATURE", comment = "体温", type = MySqlTypeConstant.DECIMAL, length = 10)
     private BigDecimal temperature;
 }
