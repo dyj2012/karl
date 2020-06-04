@@ -1,4 +1,4 @@
-package com.karl.base.handler;
+package com.karl.base.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.karl.base.util.CurrentUser;
@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 
 /**
  * MybatisPlus自动写入参数配置
+ * @author Think
  */
 @Component
-public class BaseMetaObjectHandler implements MetaObjectHandler {
+public class KarlBaseEntityHandler implements MetaObjectHandler {
 
     /**
      * 自动插入创建时间到create_time字段

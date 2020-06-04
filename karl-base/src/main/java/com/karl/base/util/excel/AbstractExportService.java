@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,12 @@ public abstract class AbstractExportService {
         Cell cell;
         if (value != null) {
             cell = row.createCell(index);
-            cell.setCellValue(value);
+            try {
+                cell.setCellValue(value);
+            } catch (IllegalArgumentException e) {
+                forceSetStringValue(cell, value);
+            }
+
         } else {
             cell = row.createCell(index);
         }
@@ -49,6 +55,25 @@ public abstract class AbstractExportService {
             cell.setCellStyle(style);
         }
         return cell;
+    }
+
+    /**
+     * 强制设置字符串值
+     *
+     * @param cell
+     * @param str
+     */
+    public static void forceSetStringValue(Cell cell, String str) {
+        try {
+            Field valueField = cell.getClass().getDeclaredField("_value");
+            valueField.setAccessible(true);
+            Object value = valueField.get(cell);
+            Field valueValueField = value.getClass().getDeclaredField("_value");
+            valueValueField.setAccessible(true);
+            valueValueField.set(value, str);
+        } catch (Exception e) {
+            throw new RuntimeException("字段超长,强制设置字符串值失败!", e);
+        }
     }
 
     public static void setCellWith(List<ExcelKeyTitle> excelParams, Sheet sheet) {
