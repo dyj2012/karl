@@ -7,17 +7,16 @@ import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.karl.base.annotation.ExcelCol;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.constants.ErrorCodeConstants;
 import com.karl.base.exception.BaseException;
-import com.karl.base.mapper.MetadataMapper;
-import com.karl.base.mapper.vo.TableColumn;
+import com.karl.base.service.vo.ExcelTitleVo;
 import com.karl.base.util.L;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,8 +24,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 基础服务
@@ -38,16 +35,6 @@ import java.util.regex.Pattern;
 @Slf4j
 public class BaseService {
 
-    @Autowired
-    MetadataMapper metadataMapper;
-
-    /**
-     * 编译正则表达式
-     */
-    private static final Pattern PATTEN = Pattern.compile("\\{.*}");
-    private static final String LEFT_BRACE = "{";
-    private static final String RIGHT_BRACE = "}";
-    private static final String NONE_STR = "";
     /**
      * column属性分隔符
      */
@@ -56,14 +43,6 @@ public class BaseService {
      * key value 分隔符
      */
     private static final String KEY_VALUE_SPLIT = ":";
-    /**
-     * 排序属性
-     */
-    private static final String ORDER_PROPERTY = "order";
-    /**
-     * 排序属性
-     */
-    private static final String TITLE_PROPERTY = "title";
     /**
      * 默认忽略的导入模板的列
      */
@@ -78,19 +57,35 @@ public class BaseService {
      */
     public ExcelWriteParam buildExcelWriteParam(Class<?> entityClass, Function<String, Boolean> ignoreColumn) {
         return L.l(log, "buildExcelWriteParam", () -> {
-            TableName tableName = entityClass.getAnnotation(TableName.class);
-            List<TableColumn> columns = metadataMapper.getColumns(tableName.value());
-            parsePropertiesByComment(columns);
-            Collections.sort(columns);
+            TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
+            List<TableFieldInfo> fieldList = tableInfo.getFieldList();
+            List<ExcelTitleVo> titleList = new ArrayList<>(fieldList.size());
+            ExcelTitleVo primaryKeyTitle = new ExcelTitleVo();
+            primaryKeyTitle.setKey("objectId");
+            primaryKeyTitle.setTitle("主键");
+            primaryKeyTitle.setOrder(0);
+            titleList.add(primaryKeyTitle);
+            for (TableFieldInfo tableFieldInfo : fieldList) {
+                ExcelCol excelCol = tableFieldInfo.getField().getAnnotation(ExcelCol.class);
+                if (excelCol != null) {
+                    ExcelTitleVo excelTitleVo = new ExcelTitleVo();
+                    excelTitleVo.setKey(tableFieldInfo.getProperty());
+                    excelTitleVo.setTitle(excelCol.value());
+                    excelTitleVo.setOrder(excelCol.order());
+                    titleList.add(excelTitleVo);
+                }
+            }
+            Collections.sort(titleList);
             ExcelWriteParam param = new ExcelWriteParam();
-            List<ExcelKeyTitle> keyTitleList = new ArrayList<>(columns.size());
-            for (TableColumn column : columns) {
-                String columnName = column.getColumnName();
-                if (Boolean.TRUE.equals(ignoreColumn.apply(columnName))) {
+            List<ExcelKeyTitle> keyTitleList = new ArrayList<>(titleList.size());
+            for (ExcelTitleVo excelTitleVo : titleList) {
+                String key = excelTitleVo.getKey();
+                if (Boolean.TRUE.equals(ignoreColumn.apply(key))) {
                     continue;
                 }
-                keyTitleList.add(new ExcelKeyTitle(columnName, column.getTitle()));
+                keyTitleList.add(new ExcelKeyTitle(key, excelTitleVo.getTitle()));
             }
+            TableName tableName = entityClass.getAnnotation(TableName.class);
             ExcelSheet excelSheet = entityClass.getAnnotation(ExcelSheet.class);
             if (excelSheet != null) {
                 param.setSheetName(excelSheet.value());
@@ -100,63 +95,6 @@ public class BaseService {
             param.setKeyTitleList(keyTitleList);
             log.debug("return buildExcelWriteParam");
             return param;
-        });
-
-    }
-
-    /**
-     * 通过注释解析属性
-     *
-     * @param columns
-     */
-    private void parsePropertiesByComment(List<TableColumn> columns) {
-        L.l(log, "parsePropertiesByComment", () -> {
-            for (TableColumn column : columns) {
-                //注释如:{order:0,title:主键ID}
-                String comment = column.getColumnComment();
-                if (StringUtils.isNotBlank(comment)) {
-                    if (comment.contains(LEFT_BRACE) && comment.contains(RIGHT_BRACE)) {
-                        String matchStr = getMatchStr(comment);
-                        if (matchStr != null) {
-                            String[] properties = matchStr.split(COLUMN_SPLIT);
-                            for (String property : properties) {
-                                String[] keyValue = property.split(KEY_VALUE_SPLIT);
-                                switch (keyValue[0]) {
-                                    case ORDER_PROPERTY:
-                                        column.setPosition(Integer.parseInt(keyValue[1]));
-                                        break;
-                                    case TITLE_PROPERTY:
-                                        column.setTitle(keyValue[1]);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                    if (StringUtils.isEmpty(column.getTitle())) {
-                        column.setTitle(comment);
-                    }
-                }
-                if (StringUtils.isEmpty(column.getTitle())) {
-                    column.setTitle(column.getColumnName());
-                }
-            }
-        });
-    }
-
-    /**
-     * @param str
-     * @return
-     */
-    private String getMatchStr(String str) {
-        return L.l(log, "getMatchStr", () -> {
-            Matcher matcher = PATTEN.matcher(str);
-            //此处find（）每次被调用后，
-            while (matcher.find()) {
-                return matcher.group().replace(LEFT_BRACE, NONE_STR).replace(RIGHT_BRACE, NONE_STR);
-            }
-            return null;
         });
 
     }

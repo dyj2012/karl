@@ -29,19 +29,23 @@ public class BaseEntity extends Model<BaseEntity> {
     private String objectId;
 
     @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    @Column(name = "CREATE_TIME", comment = "{order:1,title:创建日期}", type = MySqlTypeConstant.DATETIME)
+    @Column(name = "CREATE_TIME", comment = "创建时间", type = MySqlTypeConstant.DATETIME)
+    @ExcelCol(value = "创建时间", order = Integer.MAX_VALUE - 3)
     private LocalDateTime createTime;
 
     @TableField(value = "CREATE_BY", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    @Column(name = "CREATE_BY", comment = "{order:2,title:创建人}", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "CREATE_BY", comment = "创建人", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @ExcelCol(value = "创建人", order = Integer.MAX_VALUE - 2)
     private String createBy;
 
     @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
-    @Column(name = "UPDATE_TIME", comment = "{order:3,title:更新日期}", type = MySqlTypeConstant.DATETIME)
+    @Column(name = "UPDATE_TIME", comment = "更新日期", type = MySqlTypeConstant.DATETIME)
+    @ExcelCol(value = "更新日期", order = Integer.MAX_VALUE - 1)
     private LocalDateTime updateTime;
 
     @TableField(value = "UPDATE_BY", fill = FieldFill.INSERT_UPDATE)
-    @Column(name = "UPDATE_BY", comment = "{order:4,title:更新人}", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(name = "UPDATE_BY", comment = "更新人", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @ExcelCol(value = "更新人", order = Integer.MAX_VALUE)
     private String updateBy;
 
 }

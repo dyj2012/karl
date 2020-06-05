@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.karl.base.annotation.SelectSwagger;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.service.BaseService;
-import com.karl.base.util.CamelUtils;
 import com.karl.base.util.L;
 import com.karl.base.util.ListToMapUtils;
 import com.karl.base.util.MapEntityUtils;
@@ -16,8 +15,6 @@ import com.karl.base.util.excel.PageReadExcel;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,7 +76,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
                             if (excelKeyTitle == null) {
                                 throw new RuntimeException(String.format("%s,未定义的title", title));
                             }
-                            keyList.add(CamelUtils.toCamel(excelKeyTitle.getKey()));
+                            keyList.add(excelKeyTitle.getKey());
                         }
                         return keyList;
                     }
@@ -137,7 +134,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
                     List<Map<String, String>> mapList = new ArrayList<>(records.size());
                     for (Entity record : records) {
                         Map<String, String> map = new LinkedHashMap<>();
-                        MapEntityUtils.entityToMap(record, map, key -> CamelUtils.toUnderline(key).toUpperCase(), (key, value) -> String.valueOf(value));
+                        MapEntityUtils.entityToMap(record, map, key -> key, (key, value) -> String.valueOf(value));
                         mapList.add(map);
                     }
                     records.clear();

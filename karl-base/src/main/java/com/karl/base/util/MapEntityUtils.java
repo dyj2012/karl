@@ -152,10 +152,6 @@ public class MapEntityUtils {
         throw new RuntimeException(String.format("%s未定义的转化异常,value:%s", parameterType, fieldValue));
     }
 
-    public static void main(String[] args) {
-
-    }
-
     static class ConvertEntryItem {
         private List<String> fieldNameList = new ArrayList<>();
         private Map<String, Method> fieldSetMethodMap = new HashMap<>();
