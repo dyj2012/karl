@@ -75,6 +75,7 @@
    | notBetween | 不在区间 | age:notBetween:3:5 | age not between 3 and 5 |
    | in | 包含 | age:in:1:2:3:4 | age in (1, 2, 3, 4) |
    | notIn | 不包含 | age:notIn:1:2:3:4 | age not in (1, 2, 3, 4) |
+   | or | 或 | name:like:王,or,code:isNull | name like '%王%' or code is not null |
 
 - 统一的excel导入导出 REST API
 

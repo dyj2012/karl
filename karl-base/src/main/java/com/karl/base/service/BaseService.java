@@ -285,6 +285,13 @@ public class BaseService {
                 try {
                     for (String conditionColumn : condition) {
                         String[] split = conditionColumn.split(KEY_VALUE_SPLIT);
+                        if (split.length == 1) {
+                            if ("or".equalsIgnoreCase(split[0])) {
+                                w.or();
+                                continue;
+                            }
+                            throw new BaseException(1004, "未定义的单值查询条件!");
+                        }
                         String columnName = this.findColumnName(cls, split[0]);
                         switch (split[1].toLowerCase()) {
                             //>=
