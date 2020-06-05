@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
-import com.karl.base.annotation.ExcelName;
+import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @TableName("T_CO_ROUTE")
 @Table(name = "T_CO_ROUTE")
-@ExcelName("路由")
+@ExcelSheet("路由")
 public class RouteEntity extends BaseEntity {
 
     @TableField("NAME")

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.annotation.ExcelCol;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -20,10 +21,11 @@ import static com.baomidou.mybatisplus.annotation.IdType.ASSIGN_UUID;
  * @date 2020/5/25
  */
 @Data
-public class BaseEntity extends Model {
+public class BaseEntity extends Model<BaseEntity> {
 
     @TableId(value = "OBJECT_ID", type = ASSIGN_UUID)
-    @Column(name = "OBJECT_ID", comment = "{order:0,title:主键ID}", type = MySqlTypeConstant.VARCHAR, isKey = true, length = 64)
+    @Column(name = "OBJECT_ID", comment = "主键ID", type = MySqlTypeConstant.VARCHAR, isKey = true, length = 64)
+    @ExcelCol("主键")
     private String objectId;
 
     @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)

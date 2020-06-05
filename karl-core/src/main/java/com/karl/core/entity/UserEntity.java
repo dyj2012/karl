@@ -8,7 +8,7 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Unique;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
-import com.karl.base.annotation.ExcelName;
+import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("T_SYS_USER")
 @Table(name = "T_SYS_USER")
-@ExcelName("系统用户")
+@ExcelSheet("系统用户")
 public class UserEntity extends BaseEntity {
 
     @TableField("NAME")

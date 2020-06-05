@@ -6,8 +6,6 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
-import com.karl.base.annotation.ForeignKey;
-import com.karl.base.annotation.RelationField;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -25,12 +23,7 @@ public class WristbandEntity extends BaseEntity {
     @TableField("PEOPLE_ID")
     @Column(name = "PEOPLE_ID", comment = "人员ID", type = MySqlTypeConstant.VARCHAR, length = 64)
     @Index(columns = "PEOPLE_ID")
-    @ForeignKey(PeopleEntity.class)
     private String peopleId;
-
-    @RelationField(foreignField = "PEOPLE_ID", refField = "NAME")
-    @TableField(exist = false)
-    private String peopleName;
 
     @TableField("ROUTE_ID")
     @Column(name = "ROUTE_ID", comment = "路由ID", type = MySqlTypeConstant.VARCHAR, length = 64)

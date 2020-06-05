@@ -7,7 +7,7 @@ import com.karl.core.auth.api.enums.TokenSubject;
 import com.karl.core.auth.api.vo.SignInData;
 import com.karl.core.auth.exception.AuthException;
 import com.karl.core.entity.UserEntity;
-import com.karl.core.user.api.UserService;
+import com.karl.core.user.controller.UserController;
 import com.karl.core.util.JwtUtils;
 import com.karl.core.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    UserService userService;
+    UserController userService;
 
     @Override
     public String login(SignInData sign) {

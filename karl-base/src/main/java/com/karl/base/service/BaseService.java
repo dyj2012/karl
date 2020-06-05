@@ -3,13 +3,15 @@ package com.karl.base.service;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.karl.base.annotation.ExcelName;
+import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.constants.ErrorCodeConstants;
 import com.karl.base.exception.BaseException;
 import com.karl.base.mapper.MetadataMapper;
 import com.karl.base.mapper.vo.TableColumn;
-import com.karl.base.util.CamelUtils;
 import com.karl.base.util.L;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
@@ -89,9 +91,9 @@ public class BaseService {
                 }
                 keyTitleList.add(new ExcelKeyTitle(columnName, column.getTitle()));
             }
-            ExcelName excelName = entityClass.getAnnotation(ExcelName.class);
-            if (excelName != null) {
-                param.setSheetName(excelName.value());
+            ExcelSheet excelSheet = entityClass.getAnnotation(ExcelSheet.class);
+            if (excelSheet != null) {
+                param.setSheetName(excelSheet.value());
             } else {
                 param.setSheetName(tableName.value().toLowerCase());
             }
@@ -101,7 +103,6 @@ public class BaseService {
         });
 
     }
-
 
     /**
      * 通过注释解析属性
@@ -160,26 +161,37 @@ public class BaseService {
 
     }
 
-
-    public void dealPageAndOrder(Page<?> page, String pageStr, String orderBy) {
+    public void dealPageAndOrder(Class<?> cls, Page<?> page, String pageStr, String orderBy) {
         L.l(log, "dealPageAndOrder", () -> {
-            this.dealOrder(page, orderBy);
+            this.dealOrder(cls, page, orderBy);
             this.dealPage(page, pageStr);
         });
     }
 
-    public void dealQueryWrapper(QueryWrapper<?> w, String query, String field) {
+    public void dealQueryWrapper(Class<?> cls, QueryWrapper<?> w, String query, String field) {
         L.l(log, "dealPageAndOrder", () -> {
-            this.dealQuery(w, query);
-            this.dealSelectField(w, field);
+            this.dealQuery(cls, w, query);
+            this.dealSelectField(cls, w, field);
         });
     }
 
     private static final String ORDER_ASC = "asc";
     private static final String ORDER_DESC = "desc";
 
+    private String findColumnName(Class<?> cls, String fieldName) {
+        TableInfo tableInfo = TableInfoHelper.getTableInfo(cls);
+        List<TableFieldInfo> fieldList = tableInfo.getFieldList();
+        for (TableFieldInfo tableFieldInfo : fieldList) {
+            if (tableFieldInfo.getProperty().equalsIgnoreCase(fieldName)) {
+                return tableFieldInfo.getColumn();
+            }
 
-    private void dealOrder(Page<?> page, String orderBy) {
+        }
+        throw new BaseException(1000, "未定义的列");
+    }
+
+
+    private void dealOrder(Class<?> cls, Page<?> page, String orderBy) {
         L.l(log, "dealOrder", () -> {
             List<OrderItem> orders = null;
             if (!org.springframework.util.StringUtils.isEmpty(orderBy)) {
@@ -187,7 +199,7 @@ public class BaseService {
                 orders = new ArrayList<>(orderColumns.length);
                 for (String orderColumn : orderColumns) {
                     String[] split = orderColumn.split(KEY_VALUE_SPLIT);
-                    String columnName = CamelUtils.toUnderline(split[0]).toUpperCase();
+                    String columnName = this.findColumnName(cls, split[0]);
                     if (split.length == 1) {
                         orders.add(OrderItem.desc(columnName));
                         continue;
@@ -248,23 +260,32 @@ public class BaseService {
         });
     }
 
-    private void dealSelectField(QueryWrapper<?> w, String field) {
+    private void dealSelectField(Class<?> cls, QueryWrapper<?> w, String fieldStr) {
         L.l(log, "dealSelectField", () -> {
-            if (!StringUtils.isEmpty(field)) {
-                String[] fields = CamelUtils.toUnderline(field).toUpperCase().split(COLUMN_SPLIT);
-                w.select(fields);
+            if (!StringUtils.isEmpty(fieldStr)) {
+                String[] fields = fieldStr.split(COLUMN_SPLIT);
+                StringBuilder sb = null;
+                for (String field : fields) {
+                    String columnName = this.findColumnName(cls, field);
+                    if (sb == null) {
+                        sb = new StringBuilder(columnName);
+                    } else {
+                        sb.append(String.format(",%s", columnName));
+                    }
+                }
+                w.select(sb.toString());
             }
         });
     }
 
-    private void dealQuery(QueryWrapper<?> w, String query) {
+    private void dealQuery(Class<?> cls, QueryWrapper<?> w, String query) {
         L.l(log, "dealQuery", () -> {
             if (!StringUtils.isEmpty(query)) {
                 String[] condition = query.split(COLUMN_SPLIT);
                 try {
                     for (String conditionColumn : condition) {
                         String[] split = conditionColumn.split(KEY_VALUE_SPLIT);
-                        String columnName = CamelUtils.toUnderline(split[0]).toUpperCase();
+                        String columnName = this.findColumnName(cls, split[0]);
                         switch (split[1].toLowerCase()) {
                             //>=
                             case "ge":

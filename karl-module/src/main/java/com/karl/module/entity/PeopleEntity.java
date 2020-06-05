@@ -7,7 +7,7 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
-import com.karl.base.annotation.ExcelName;
+import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ import lombok.Data;
 @Data
 @TableName("T_SC_PEOPLE")
 @Table(name = "T_SC_PEOPLE")
-@ExcelName("人员")
+@ExcelSheet("人员")
 public class PeopleEntity extends BaseEntity {
 
     @TableField("NAME")
