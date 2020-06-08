@@ -1,4 +1,4 @@
-package com.karl.core.demo.api.entity;
+package com.karl.core.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

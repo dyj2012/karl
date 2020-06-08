@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableKnife4j
 public class SwaggerConfiguration {
     @Bean(value = "karl-core")
-    @Order(value = 1)
+    @Order(1)
     public Docket coreRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
@@ -33,7 +33,7 @@ public class SwaggerConfiguration {
     }
 
     @Bean(value = "karl-module")
-    @Order(value = 1)
+    @Order(2)
     public Docket moduleRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -86,16 +86,15 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
      */
     @SelectSwagger
     @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
-    @GetMapping(value = "/export")
+    @GetMapping(value = "/export", produces = "application/octet-stream")
     public void export(HttpServletRequest request, HttpServletResponse response) {
         Log.p(log, "export", () -> {
             R<Page<Entity>> selectR = this.select(request);
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportIgnoreColumn);
             try (OutputStream outputStream = response.getOutputStream()) {
                 String fileName = String.format("导出数据-%s.xlsx", excelWriteParam.getSheetName());
-                response.setHeader("Content-Disposition",
-                        "attachment;filename=" + new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
-                response.setContentType("multipart/form-data");
+                response.setContentType("application/vnd.ms-excel;charset=UTF-8;");
+                response.addHeader("Content-Disposition", "attachment;FileName=" + URLEncoder.encode(fileName, "utf-8"));
                 Page<Entity> data = selectR.getData();
                 List<Entity> records = data.getRecords();
                 ExcelWriteUtils.pageWriteExcel(() -> {

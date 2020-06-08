@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -185,15 +186,14 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
      * @param response
      */
     @ApiOperation(value = "excel模板接口", notes = "导出entity导入模板")
-    @GetMapping(value = "/exportTemplate")
+    @GetMapping(value = "/exportTemplate", produces = "application/octet-stream")
     public void exportTemplate(HttpServletResponse response) {
         Log.p(log, "exportTemplate", () -> {
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportTemplateIgnoreColumn);
             try (OutputStream outputStream = response.getOutputStream()) {
                 String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
-                response.setHeader("Content-Disposition",
-                        "attachment;filename=" + new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
-                response.setContentType("multipart/form-data");
+                response.setContentType("application/vnd.ms-excel;charset=UTF-8;");
+                response.addHeader("Content-Disposition", "attachment;FileName=" + URLEncoder.encode(fileName, "utf-8"));
                 ExcelWriteUtils.pageWriteExcel(() -> null, null, excelWriteParam, outputStream);
                 outputStream.flush();
             } catch (IOException e) {
