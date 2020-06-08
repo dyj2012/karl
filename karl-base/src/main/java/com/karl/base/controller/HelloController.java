@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author Think
  */
-@Api(tags = "HELLO CONTROLLER")
+@Api(tags = "欢迎首页")
 @RestController
 public class HelloController {
 

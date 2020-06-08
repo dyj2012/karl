@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.base.annotation.SelectSwagger;
 import com.karl.base.service.spi.BaseService;
 import com.karl.base.util.Log;
+import com.karl.base.util.MapEntityUtils;
+import com.karl.base.util.excel.ExcelWriteUtils;
+import com.karl.base.util.excel.vo.ExcelWriteParam;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +20,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Rest 风格controller基础类
@@ -35,7 +46,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
      *
      * @return
      */
-    @ApiOperation(value = "查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
+    @ApiOperation(value = "列表查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
     @SelectSwagger
     @GetMapping
     public R<Page<Entity>> select(HttpServletRequest request) {
@@ -61,10 +72,55 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "123abc")
     })
-    @ApiOperation(value = "查询接口", notes = "根据Id查询一个entity")
+    @ApiOperation(value = "对象查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
     public R<Entity> get(@PathVariable("id") String id) {
         return Log.p(log, "get", () -> R.ok(super.getById(id)));
     }
 
+    /**
+     * 导出excel
+     *
+     * @param request
+     * @param response
+     */
+    @SelectSwagger
+    @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
+    @GetMapping(value = "/export")
+    public void export(HttpServletRequest request, HttpServletResponse response) {
+        Log.p(log, "export", () -> {
+            R<Page<Entity>> selectR = this.select(request);
+            ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportIgnoreColumn);
+            try (OutputStream outputStream = response.getOutputStream()) {
+                String fileName = String.format("导出数据-%s.xlsx", excelWriteParam.getSheetName());
+                response.setHeader("Content-Disposition",
+                        "attachment;filename=" + new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
+                response.setContentType("multipart/form-data");
+                Page<Entity> data = selectR.getData();
+                List<Entity> records = data.getRecords();
+                ExcelWriteUtils.pageWriteExcel(() -> {
+                    if (records.size() == 0) {
+                        return null;
+                    }
+                    List<Map<String, String>> mapList = new ArrayList<>(records.size());
+                    for (Entity record : records) {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        MapEntityUtils.entityToMap(record, map, key -> key, (key, value) -> String.valueOf(value));
+                        mapList.add(map);
+                    }
+                    records.clear();
+                    return mapList;
+                }, null, excelWriteParam, outputStream);
+                outputStream.flush();
+            } catch (IOException e) {
+                log.error("导出记录IO错误", e);
+                throw new RuntimeException("导出记录异常");
+            }
+        });
+    }
+
+
+    protected boolean exportIgnoreColumn(String columnName) {
+        return false;
+    }
 }

@@ -1,6 +1,6 @@
 package com.karl.module.wristband.controller;
 
-import com.karl.base.controller.BaseExcelController;
+import com.karl.base.controller.BaseEntityController;
 import com.karl.module.entity.WristbandEntity;
 import com.karl.module.wristband.mapper.WristbandMapper;
 import io.swagger.annotations.Api;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/wristbands")
 @Api(tags = "手环接口")
-public class WristbandController extends BaseExcelController<WristbandMapper, WristbandEntity> {
+public class WristbandController extends BaseEntityController<WristbandMapper, WristbandEntity> {
 
 
 }

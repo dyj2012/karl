@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/view/wristbands")
-@Api(tags = "手环接口view")
+@Api(tags = "手环视图接口")
 public class WristbandViewController extends BaseViewController<WristbandViewMapper, WristbandView> {
 
 

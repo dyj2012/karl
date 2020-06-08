@@ -1,6 +1,6 @@
 package com.karl.module.people.controller;
 
-import com.karl.base.controller.BaseExcelController;
+import com.karl.base.controller.BaseEntityController;
 import com.karl.module.entity.PeopleEntity;
 import com.karl.module.people.mapper.PeopleMapper;
 import io.swagger.annotations.Api;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/people")
 @Api(tags = "人员接口")
-public class PeopleController extends BaseExcelController<PeopleMapper, PeopleEntity> {
+public class PeopleController extends BaseEntityController<PeopleMapper, PeopleEntity> {
 
 
 }

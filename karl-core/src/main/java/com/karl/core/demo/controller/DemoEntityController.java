@@ -1,6 +1,6 @@
 package com.karl.core.demo.controller;
 
-import com.karl.base.controller.BaseExcelController;
+import com.karl.base.controller.BaseEntityController;
 import com.karl.core.demo.api.entity.DemoEntity;
 import com.karl.core.demo.mapper.DemoMapper;
 import io.swagger.annotations.Api;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/demos")
 @Api(tags = "demo")
-public class DemoEntityController extends BaseExcelController<DemoMapper, DemoEntity> {
+public class DemoEntityController extends BaseEntityController<DemoMapper, DemoEntity> {
 
 
 }

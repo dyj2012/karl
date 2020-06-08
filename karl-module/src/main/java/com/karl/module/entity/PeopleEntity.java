@@ -32,7 +32,7 @@ public class PeopleEntity extends BaseEntity {
 
     @TableField("SEX")
     @Column(name = "SEX", comment = "性别", type = MySqlTypeConstant.VARCHAR, length = 10)
-    @ExcelCol("性别")
+    @ExcelCol(value = "性别", comment = "男/女")
     private String sex;
 
     @TableField("AGE")
@@ -59,6 +59,6 @@ public class PeopleEntity extends BaseEntity {
 
     @TableField("STATUS")
     @Column(name = "STATUS", comment = "状态", type = MySqlTypeConstant.VARCHAR, length = 32)
-    @ExcelCol("状态")
+    @ExcelCol(value = "状态", comment = "正常/失效")
     private String status;
 }

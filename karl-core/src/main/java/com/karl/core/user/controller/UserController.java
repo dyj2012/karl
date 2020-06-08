@@ -1,6 +1,6 @@
 package com.karl.core.user.controller;
 
-import com.karl.base.controller.BaseExcelController;
+import com.karl.base.controller.BaseEntityController;
 import com.karl.core.entity.UserEntity;
 import com.karl.core.user.mapper.UserMapper;
 import com.karl.core.util.PasswordUtils;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 @Api(tags = "用户接口")
-public class UserController extends BaseExcelController<UserMapper, UserEntity> {
+public class UserController extends BaseEntityController<UserMapper, UserEntity> {
 
 
     @Override

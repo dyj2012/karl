@@ -12,8 +12,8 @@ import lombok.Data;
  * @author 杜永军
  * @date 2020/6/5
  */
-@TableName(value = "T_CO_WRISTBAND A LEFT JOIN T_SC_PEOPLE B ON A.PEOPLE_ID = B.OBJECT_ID")
 @Data
+@TableName(value = "T_CO_WRISTBAND A LEFT JOIN T_SC_PEOPLE B ON A.PEOPLE_ID = B.OBJECT_ID")
 public class WristbandView extends BaseView {
 
     @TableField("A.PEOPLE_ID")
