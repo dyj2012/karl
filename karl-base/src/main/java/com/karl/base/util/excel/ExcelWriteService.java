@@ -1,5 +1,6 @@
 package com.karl.base.util.excel;
 
+import com.karl.base.util.excel.vo.ExcelCell;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
@@ -23,12 +24,14 @@ import java.util.Map;
  */
 public class ExcelWriteService extends AbstractExportService {
 
-    private static void createHeaderAndStatement(ExportParam param, Sheet sheet, List<ExcelKeyTitle> excelParams) {
+    private static void createHeaderAndStatement(ExcelWriteParam param, Sheet sheet) {
+        ExportParam exportParam = param.getExportParam();
+        List<ExcelKeyTitle> excelParams = param.getKeyTitleList();
         int rowIndex = 0, fieldLength = getFieldLength(excelParams);
-        if (param != null) {
-            rowIndex += createStatementRow(param, sheet, fieldLength);
+        if (exportParam != null) {
+            rowIndex += createStatementRow(exportParam, sheet, fieldLength);
         }
-        createHeaderRow(sheet, rowIndex, excelParams);
+        createHeaderRow(sheet, rowIndex, param);
         setCellWith(excelParams, sheet);
         setRegionBorder(sheet);
     }
@@ -36,13 +39,14 @@ public class ExcelWriteService extends AbstractExportService {
     /**
      * 创建表头
      */
-    private static void createHeaderRow(Sheet sheet, int index, List<ExcelKeyTitle> excelParams) {
+    private static void createHeaderRow(Sheet sheet, int index, ExcelWriteParam param) {
+        List<ExcelKeyTitle> excelParams = param.getKeyTitleList();
         int fieldDeep = getFieldDeep(excelParams);
         Row[] rows = new Row[fieldDeep];
         for (int i = 0; i < fieldDeep; i++) {
             rows[i] = createRow(sheet, index + i);
         }
-        createHeaderCell(0, 0, rows, excelParams, index);
+        createHeaderCell(0, 0, rows, excelParams, index, param);
     }
 
     public static void setRegionBorder(Sheet sheet) {
@@ -60,34 +64,39 @@ public class ExcelWriteService extends AbstractExportService {
     }
 
     private static void createHeaderCell(int colIndex, int level, Row[] rows, List<ExcelKeyTitle> excelParams,
-                                         int rowIndex) {
+                                         int rowIndex, ExcelWriteParam param) {
         Row curRow = rows[level];
         for (ExcelKeyTitle excelParam : excelParams) {
             CellStyle headerStyle = getHeaderStyle(curRow, excelParam.isRequired(), excelParam.getColor());
             if (CollectionUtils.isEmpty(excelParam.getSubTitleList())) {
-                createHeaderStringCell(curRow, colIndex, excelParam.getTitle(), excelParam.isRequired(), headerStyle);
+                createHeaderStringCell(curRow, colIndex, headerStyle, excelParam, param);
                 if (level < rows.length - 1) {
                     MergeCellUtil.addMergedRegion(curRow.getSheet(), rowIndex + level, rowIndex + rows.length - 1,
                             colIndex, colIndex);
                 }
                 colIndex++;
             } else {
-                createHeaderStringCell(curRow, colIndex, excelParam.getTitle(), excelParam.isRequired(), headerStyle);
+                createHeaderStringCell(curRow, colIndex, headerStyle, excelParam, param);
                 int fieldLength = getFieldLength(excelParam.getSubTitleList());
                 MergeCellUtil.addMergedRegion(curRow.getSheet(), rowIndex + level, rowIndex + level, colIndex,
                         colIndex + fieldLength - 1);
-                createHeaderCell(colIndex, level + 1, rows, excelParam.getSubTitleList(), rowIndex);
+                createHeaderCell(colIndex, level + 1, rows, excelParam.getSubTitleList(), rowIndex, param);
                 colIndex += fieldLength;
             }
         }
     }
 
-    private static void createHeaderStringCell(Row curRow, int colIndex, String value, boolean required,
-                                               CellStyle headerStyle) {
-        if (required) {
-            createStringCell(curRow, colIndex, "*" + value, headerStyle);
+    private static void createHeaderStringCell(Row curRow, int colIndex,
+                                               CellStyle headerStyle, ExcelKeyTitle excelParam, ExcelWriteParam param) {
+        Cell cell = null;
+        if (excelParam.isRequired()) {
+            cell = createStringCell(curRow, colIndex, "*" + excelParam.getTitle(), headerStyle);
         } else {
-            createStringCell(curRow, colIndex, value, headerStyle);
+            cell = createStringCell(curRow, colIndex, excelParam.getTitle(), headerStyle);
+        }
+
+        if (cell != null && StringUtils.isNotBlank(excelParam.getComment())) {
+            ExcelStyleUtils.setCellComment(new ExcelCell(cell, param.getCommonMap()), excelParam.getComment());
         }
     }
 
@@ -164,7 +173,7 @@ public class ExcelWriteService extends AbstractExportService {
         boolean newSheet = workbook.getSheet(param.getSheetName()) == null;
         Sheet sheet = getSheetByName(param.getSheetName(), workbook);
         if (newSheet) {
-            createHeaderAndStatement(param.getExportParam(), sheet, param.getKeyTitleList());
+            createHeaderAndStatement(param, sheet);
             String sheetName = sheet.getSheetName();
             param.setSheetName(sheetName);
         }
@@ -181,14 +190,13 @@ public class ExcelWriteService extends AbstractExportService {
         }
     }
 
-    public static void appendData(Workbook workbook, String sheetName, List<ExcelKeyTitle> entityList,
-                                  Collection<Map<String, String>> dataSet, Map<String, Object> commonMap, CellCallback cellCallback) {
-        Sheet sheet = getSheetByName(sheetName, workbook);
+    public static void appendData(Workbook workbook, Collection<Map<String, String>> dataSet,
+                                  CellCallback cellCallback, ExcelWriteParam param) {
+        Sheet sheet = getSheetByName(param.getSheetName(), workbook);
         int lastRowNum = sheet.getLastRowNum() + 1;
         for (Map<String, String> map : dataSet) {
-            createCells(lastRowNum++, map, entityList, sheet, 0, commonMap, cellCallback);
+            createCells(lastRowNum++, map, param.getWriteKeyList(), sheet, 0, param.getCommonMap(), cellCallback);
         }
-
     }
 
     private static Sheet getSheetByName(String sheetName, Workbook workbook) {

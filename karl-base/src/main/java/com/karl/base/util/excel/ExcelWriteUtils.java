@@ -58,18 +58,17 @@ public class ExcelWriteUtils {
         Assert.notNull(page, "分页回调不可为空");
         Assert.notNull(param, "param不可为空");
         Assert.notEmpty(param.getKeyTitleList(), "标题和key不可为空");
-        Workbook workbook = ExcelWriteService.init(param);
         if (param.getCommonMap() == null) {
             param.setCommonMap(new HashMap<>(10));
         }
+        Workbook workbook = ExcelWriteService.init(param);
         if (param.getWriteKeyList() == null) {
             List<ExcelKeyTitle> keyTitleList = param.getKeyTitleList();
             param.setWriteKeyList(buildWriteKeyList(new ArrayList<>(keyTitleList.size()), keyTitleList));
         }
         List<Map<String, String>> nextPage = page.nextPage();
         while (CollectionUtils.isNotEmpty(nextPage)) {
-            ExcelWriteService.appendData(workbook, param.getSheetName(), param.getWriteKeyList(), nextPage,
-                    param.getCommonMap(), cellCallback);
+            ExcelWriteService.appendData(workbook, nextPage, cellCallback, param);
             nextPage = page.nextPage();
         }
         return workbook;

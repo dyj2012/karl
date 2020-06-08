@@ -27,6 +27,10 @@ public class ExcelKeyTitle {
      */
     private boolean required;
     /**
+     * 表头注释
+     */
+    private String comment;
+    /**
      * 水平位置,默认居左
      */
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;

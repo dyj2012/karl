@@ -3,7 +3,7 @@ package com.karl.base.controller;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.karl.base.model.BaseEntity;
-import com.karl.base.util.L;
+import com.karl.base.util.Log;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     @ApiOperation(value = "新增接口", notes = "新增一个entity")
     @PostMapping
     public R<Boolean> add(@RequestBody Entity entity) {
-        return L.l(log, "add", () -> {
+        return Log.p(log, "add", () -> {
             this.modifyEntity(entity);
             return R.ok(super.save(entity));
         });
@@ -48,7 +48,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     @ApiOperation(value = "批量新增接口", notes = "以数组的形式增加多个entity,[entity,entity,entity]")
     @PostMapping("/batch")
     public R<Boolean> batch(@RequestBody List<Entity> list) {
-        return L.l(log, "batch", () -> {
+        return Log.p(log, "batch", () -> {
             if (CollectionUtils.isNotEmpty(list)) {
                 for (Entity entity : list) {
                     this.modifyEntity(entity);
@@ -73,7 +73,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     @ApiOperation(value = "删除接口", notes = "根据Id删除一个entity")
     @DeleteMapping(value = "/{id}")
     public R<Boolean> delete(@PathVariable("id") String id) {
-        return L.l(log, "delete", () -> R.ok(super.removeById(id)));
+        return Log.p(log, "delete", () -> R.ok(super.removeById(id)));
 
     }
 
@@ -90,7 +90,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     @ApiOperation(value = "更新接口", notes = "根据Id更新一个entity")
     @PatchMapping(value = "/{id}")
     public R<Boolean> patch(@RequestBody Entity entity, @PathVariable("id") String id) {
-        return L.l(log, "patch", () -> {
+        return Log.p(log, "patch", () -> {
             ((BaseEntity) entity).setObjectId(id);
             modifyEntity(entity);
             return R.ok(super.updateById(entity));

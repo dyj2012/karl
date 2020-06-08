@@ -1,7 +1,7 @@
 /**
  * 元年软件
  *
- * @author xiaohuzi
+ * @author
  * @date 2018年4月17日 下午3:02:44
  * @version V1.0
  */
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * @author 杜永军
  * @date 2020年5月8日 下午2:04:33
  */
-public final class L {
+public final class Log {
 
     /**
      * 进入某个方法
@@ -29,26 +29,26 @@ public final class L {
      */
     public static final String LOG_LEAVE_METHOD = "LEAVE [{}] METHOD";
 
-    public static <T> T l(Logger l, String m, Supplier<T> c) {
-        l.debug(LOG_ENTER_METHOD, m);
+    public static <T> T p(Logger logger, String m, Supplier<T> c) {
+        logger.debug(LOG_ENTER_METHOD, m);
         try {
             return c.get();
         } finally {
-            l.debug(LOG_LEAVE_METHOD, m);
+            logger.debug(LOG_LEAVE_METHOD, m);
         }
     }
 
-    public static void l(Logger l, String m, Runnable c) {
-        l.debug(LOG_ENTER_METHOD, m);
+    public static void p(Logger logger, String m, Runnable c) {
+        logger.debug(LOG_ENTER_METHOD, m);
         try {
             c.run();
         } finally {
-            l.debug(LOG_LEAVE_METHOD, m);
+            logger.debug(LOG_LEAVE_METHOD, m);
         }
     }
 
     public void test() {
-//        return L.l(log,"method",()->{
+//        return L.p(log,"method",()->{
 //
 //        });
     }

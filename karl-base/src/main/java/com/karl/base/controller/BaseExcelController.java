@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.karl.base.annotation.SelectSwagger;
 import com.karl.base.model.BaseEntity;
-import com.karl.base.service.BaseService;
-import com.karl.base.util.L;
+import com.karl.base.service.BaseServiceImpl;
+import com.karl.base.util.Log;
 import com.karl.base.util.ListToMapUtils;
 import com.karl.base.util.MapEntityUtils;
 import com.karl.base.util.excel.ExcelReadUtils;
@@ -52,7 +52,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
     @ApiOperation(value = "excel导入接口", notes = "excel导入entity")
     @PostMapping(value = "/imports")
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
-        return L.l(log, "imports", () -> {
+        return Log.p(log, "imports", () -> {
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportTemplateIgnoreColumn);
             try (InputStream inputStream = file.getInputStream()) {
                 ExcelReadUtils.readExcelByMap(inputStream, 200, new PageReadExcel() {
@@ -117,7 +117,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
     @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping(value = "/export")
     public void export(HttpServletRequest request, HttpServletResponse response) {
-        L.l(log, "export", () -> {
+        Log.p(log, "export", () -> {
             R<Page<Entity>> selectR = this.select(request);
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportIgnoreColumn);
             try (OutputStream outputStream = response.getOutputStream()) {
@@ -156,7 +156,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
     @ApiOperation(value = "excel模板接口", notes = "导出entity导入模板")
     @GetMapping(value = "/exportTemplate")
     public void exportTemplate(HttpServletResponse response) {
-        L.l(log, "exportTemplate", () -> {
+        Log.p(log, "exportTemplate", () -> {
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportTemplateIgnoreColumn);
             try (OutputStream outputStream = response.getOutputStream()) {
                 String fileName = String.format("导入模板-%s.xlsx", excelWriteParam.getSheetName());
@@ -173,7 +173,7 @@ public abstract class BaseExcelController<Mapper extends BaseMapper<Entity>, Ent
     }
 
     protected boolean exportTemplateIgnoreColumn(String columnName) {
-        return BaseService.TEMPLATE_IGNORE_COLUMN.contains(String.format(",%s,", columnName));
+        return BaseServiceImpl.TEMPLATE_IGNORE_COLUMN.contains(String.format(",%s,", columnName));
     }
 
     protected boolean exportIgnoreColumn(String columnName) {

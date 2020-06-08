@@ -85,8 +85,6 @@ public class ExcelStyleUtils {
     }
 
     /**
-     * @Author: yangyun
-     * @Date: 2019/10/8
      * @Description: 设置导出格式为text
      * @Param:
      * @return:
@@ -200,11 +198,7 @@ public class ExcelStyleUtils {
      * 添加约束
      *
      * @param excelCell
-     * @param datas
-     * @return void
-     * @author 唐超
      * @date： 2019/3/12 18:31
-     * @history: 2019/3/12 tangch Created.
      **/
     public static void addDataValidation(ExcelCell excelCell, List<String> datas) {
         DataValidation dataValidation = null;

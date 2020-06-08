@@ -12,5 +12,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExcelSheet {
+    /**
+     * excel sheet名称,文件名
+     *
+     * @return
+     */
     String value();
 }

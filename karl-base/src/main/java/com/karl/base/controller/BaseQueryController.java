@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karl.base.annotation.SelectSwagger;
-import com.karl.base.service.BaseService;
-import com.karl.base.util.L;
+import com.karl.base.service.spi.BaseService;
+import com.karl.base.util.Log;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -39,15 +39,15 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     @SelectSwagger
     @GetMapping
     public R<Page<Entity>> select(HttpServletRequest request) {
-        return L.l(log, "select", () -> {
+        return Log.p(log, "select", () -> {
             String query = request.getParameter("query");
             String field = request.getParameter("field");
             String pageStr = request.getParameter("page");
             String orderBy = request.getParameter("orderBy");
             QueryWrapper<Entity> w = new QueryWrapper<>();
             Page<Entity> page = new Page<>();
-            baseService.dealQueryWrapper(entityClass, w, query, field);
-            baseService.dealPageAndOrder(entityClass, page, pageStr, orderBy);
+            baseService.parseQueryWrapper(entityClass, w, query, field);
+            baseService.parsePageAndOrder(entityClass, page, pageStr, orderBy);
             return R.ok(super.page(page, w));
         });
     }
@@ -64,7 +64,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     @ApiOperation(value = "查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
     public R<Entity> get(@PathVariable("id") String id) {
-        return L.l(log, "get", () -> R.ok(super.getById(id)));
+        return Log.p(log, "get", () -> R.ok(super.getById(id)));
     }
 
 }

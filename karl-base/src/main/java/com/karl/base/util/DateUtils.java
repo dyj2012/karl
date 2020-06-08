@@ -1,7 +1,7 @@
 /**
  * 元年软件
  *
- * @author xiaohuzi
+ * @author
  * @date 2018年4月17日 下午3:02:44
  * @version V1.0
  */
@@ -399,7 +399,7 @@ public final class DateUtils {
      * 获取本周第一天，星期一为第一天
      *
      * @return
-     * @author huqiwei
+     * @author
      */
     public static Date getWeekFirstDaySunday() {
         Calendar calendar = getCalendar();
@@ -411,7 +411,7 @@ public final class DateUtils {
      * 获取本周最后一天，星期日为最后一天
      *
      * @return
-     * @author huqiwei
+     * @author
      */
     public static Date getWeekLastDaySunday() {
         Calendar calendar = getCalendar();
@@ -493,10 +493,7 @@ public final class DateUtils {
     /**
      * 方法说明：获取当前月
      * <p>
-     * Author：        Lenovo
      * Create Date：   2019年9月2日 上午9:43:16
-     * History:  2019年9月2日 上午9:43:16   Lenovo   Created.
-     *
      * @param date
      * @return
      */

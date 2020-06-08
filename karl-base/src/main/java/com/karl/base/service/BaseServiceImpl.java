@@ -11,8 +11,9 @@ import com.karl.base.annotation.ExcelCol;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.constants.ErrorCodeConstants;
 import com.karl.base.exception.BaseException;
+import com.karl.base.service.spi.BaseService;
 import com.karl.base.service.vo.ExcelTitleVo;
-import com.karl.base.util.L;
+import com.karl.base.util.Log;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ import java.util.function.Function;
  */
 @Component
 @Slf4j
-public class BaseService {
+public class BaseServiceImpl implements BaseService {
 
     /**
      * column属性分隔符
@@ -55,16 +56,13 @@ public class BaseService {
      * @param ignoreColumn
      * @return
      */
+    @Override
     public ExcelWriteParam buildExcelWriteParam(Class<?> entityClass, Function<String, Boolean> ignoreColumn) {
-        return L.l(log, "buildExcelWriteParam", () -> {
+        return Log.p(log, "buildExcelWriteParam", () -> {
             TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
             List<TableFieldInfo> fieldList = tableInfo.getFieldList();
             List<ExcelTitleVo> titleList = new ArrayList<>(fieldList.size());
-            ExcelTitleVo primaryKeyTitle = new ExcelTitleVo();
-            primaryKeyTitle.setKey("objectId");
-            primaryKeyTitle.setTitle("主键");
-            primaryKeyTitle.setOrder(0);
-            titleList.add(primaryKeyTitle);
+            titleList.add(getPrimaryExcelTitleVo());
             for (TableFieldInfo tableFieldInfo : fieldList) {
                 ExcelCol excelCol = tableFieldInfo.getField().getAnnotation(ExcelCol.class);
                 if (excelCol != null) {
@@ -72,18 +70,24 @@ public class BaseService {
                     excelTitleVo.setKey(tableFieldInfo.getProperty());
                     excelTitleVo.setTitle(excelCol.value());
                     excelTitleVo.setOrder(excelCol.order());
+                    excelTitleVo.setExcelCol(excelCol);
                     titleList.add(excelTitleVo);
                 }
             }
             Collections.sort(titleList);
             ExcelWriteParam param = new ExcelWriteParam();
             List<ExcelKeyTitle> keyTitleList = new ArrayList<>(titleList.size());
-            for (ExcelTitleVo excelTitleVo : titleList) {
-                String key = excelTitleVo.getKey();
+            for (ExcelTitleVo vo : titleList) {
+                String key = vo.getKey();
                 if (Boolean.TRUE.equals(ignoreColumn.apply(key))) {
                     continue;
                 }
-                keyTitleList.add(new ExcelKeyTitle(key, excelTitleVo.getTitle()));
+                ExcelKeyTitle excelKeyTitle = new ExcelKeyTitle(key, vo.getTitle());
+                if (vo.getExcelCol() != null) {
+                    excelKeyTitle.setRequired(vo.getExcelCol().required());
+                    excelKeyTitle.setComment(vo.getExcelCol().comment());
+                }
+                keyTitleList.add(excelKeyTitle);
             }
             TableName tableName = entityClass.getAnnotation(TableName.class);
             ExcelSheet excelSheet = entityClass.getAnnotation(ExcelSheet.class);
@@ -99,15 +103,25 @@ public class BaseService {
 
     }
 
-    public void dealPageAndOrder(Class<?> cls, Page<?> page, String pageStr, String orderBy) {
-        L.l(log, "dealPageAndOrder", () -> {
+    private ExcelTitleVo getPrimaryExcelTitleVo() {
+        ExcelTitleVo primaryKeyTitle = new ExcelTitleVo();
+        primaryKeyTitle.setKey("objectId");
+        primaryKeyTitle.setTitle("主键");
+        primaryKeyTitle.setOrder(0);
+        return primaryKeyTitle;
+    }
+
+    @Override
+    public void parsePageAndOrder(Class<?> cls, Page<?> page, String pageStr, String orderBy) {
+        Log.p(log, "dealPageAndOrder", () -> {
             this.dealOrder(cls, page, orderBy);
             this.dealPage(page, pageStr);
         });
     }
 
-    public void dealQueryWrapper(Class<?> cls, QueryWrapper<?> w, String query, String field) {
-        L.l(log, "dealPageAndOrder", () -> {
+    @Override
+    public void parseQueryWrapper(Class<?> cls, QueryWrapper<?> w, String query, String field) {
+        Log.p(log, "dealPageAndOrder", () -> {
             this.dealQuery(cls, w, query);
             this.dealSelectField(cls, w, field);
         });
@@ -130,7 +144,7 @@ public class BaseService {
 
 
     private void dealOrder(Class<?> cls, Page<?> page, String orderBy) {
-        L.l(log, "dealOrder", () -> {
+        Log.p(log, "dealOrder", () -> {
             List<OrderItem> orders = null;
             if (!org.springframework.util.StringUtils.isEmpty(orderBy)) {
                 String[] orderColumns = orderBy.split(COLUMN_SPLIT);
@@ -164,7 +178,7 @@ public class BaseService {
     private static final String PAGE_SIZE = "size";
 
     private void dealPage(Page<?> page, String pageStr) {
-        L.l(log, "dealPage", () -> {
+        Log.p(log, "dealPage", () -> {
             boolean isSearchCount = false;
             long current = 0;
             long size = 50;
@@ -199,7 +213,7 @@ public class BaseService {
     }
 
     private void dealSelectField(Class<?> cls, QueryWrapper<?> w, String fieldStr) {
-        L.l(log, "dealSelectField", () -> {
+        Log.p(log, "dealSelectField", () -> {
             if (!StringUtils.isEmpty(fieldStr)) {
                 String[] fields = fieldStr.split(COLUMN_SPLIT);
                 StringBuilder sb = null;
@@ -217,7 +231,7 @@ public class BaseService {
     }
 
     private void dealQuery(Class<?> cls, QueryWrapper<?> w, String query) {
-        L.l(log, "dealQuery", () -> {
+        Log.p(log, "dealQuery", () -> {
             if (!StringUtils.isEmpty(query)) {
                 String[] condition = query.split(COLUMN_SPLIT);
                 try {

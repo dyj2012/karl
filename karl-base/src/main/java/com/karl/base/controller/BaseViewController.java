@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.karl.base.annotation.SelectSwagger;
 import com.karl.base.model.BaseView;
 import com.karl.base.util.CamelUtils;
-import com.karl.base.util.L;
+import com.karl.base.util.Log;
 import com.karl.base.util.MapEntityUtils;
 import com.karl.base.util.excel.ExcelWriteUtils;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
@@ -43,7 +43,7 @@ public abstract class BaseViewController<Mapper extends BaseMapper<Entity>, Enti
     @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping(value = "/export")
     public void export(HttpServletRequest request, HttpServletResponse response) {
-        L.l(log, "export", () -> {
+        Log.p(log, "export", () -> {
             R<Page<Entity>> selectR = this.select(request);
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportIgnoreColumn);
             try (OutputStream outputStream = response.getOutputStream()) {

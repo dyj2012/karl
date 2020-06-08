@@ -7,6 +7,7 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Index;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.annotation.ExcelCol;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
@@ -26,31 +27,38 @@ public class PeopleEntity extends BaseEntity {
     @TableField("NAME")
     @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 128)
     @IsNotNull
+    @ExcelCol("名称")
     private String name;
 
     @TableField("SEX")
     @Column(name = "SEX", comment = "性别", type = MySqlTypeConstant.VARCHAR, length = 10)
+    @ExcelCol("性别")
     private String sex;
 
     @TableField("AGE")
     @Column(name = "AGE", comment = "年龄", type = MySqlTypeConstant.INT)
+    @ExcelCol("年龄")
     private Integer age;
 
     @TableField("ROLE_ID")
     @Column(name = "ROLE_ID", comment = "角色ID", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @ExcelCol("角色ID")
     private String roleId;
 
     @TableField("SCHOOL_ID")
     @Column(name = "SCHOOL_ID", comment = "学校ID", type = MySqlTypeConstant.VARCHAR, length = 64)
     @Index(columns = "SCHOOL_ID")
+    @ExcelCol("学校ID")
     private String schoolId;
 
     @TableField("CLASSROOM_ID")
     @Column(name = "CLASSROOM_ID", comment = "教室ID", type = MySqlTypeConstant.VARCHAR, length = 64)
     @Index(columns = "CLASSROOM_ID")
+    @ExcelCol("教室ID")
     private String classroomId;
 
     @TableField("STATUS")
     @Column(name = "STATUS", comment = "状态", type = MySqlTypeConstant.VARCHAR, length = 32)
+    @ExcelCol("状态")
     private String status;
 }
