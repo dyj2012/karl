@@ -86,27 +86,25 @@ public class OperationLogAspect {
         } else {
             log.warn("class:{},未增加LogModule注解,日志记录时无法记录操作模块!", className);
         }
-        //请求的参数
-        Object[] args = joinPoint.getArgs();
-        try {
-            if (args.length > 0) {
-                List<Object> argList = Arrays.asList(args);
-                for (int i = argList.size() - 1; i > 0; i--) {
-                    Object arg = argList.get(i);
-                    if (arg instanceof ServletResponse
-                            || arg instanceof ServletRequest
-                            || arg instanceof InputStreamSource) {
-                        argList.remove(arg);
-                    }
-                }
-                if (argList.size() > 0) {
-                    String params = new Gson().toJson(argList);
-                    logEntity.setParams(params);
-                }
-            }
-        } catch (Exception ignored) {
-
-        }
+//        //请求的参数
+//        Object[] args = joinPoint.getArgs();
+//        try {
+//            if (args.length > 0) {
+//                List<Object> argList = Arrays.asList(args);
+//                for (int i = argList.size() - 1; i > 0; i--) {
+//                    Object arg = argList.get(i);
+//                    if (!(arg instanceof String)) {
+//                        argList.remove(arg);
+//                    }
+//                }
+//                if (argList.size() > 0) {
+//                    String params = new Gson().toJson(argList);
+//                    logEntity.setParams(params);
+//                }
+//            }
+//        } catch (Exception ignored) {
+//
+//        }
 
         //获取request
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();

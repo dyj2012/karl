@@ -11,6 +11,7 @@ import com.karl.base.validator.group.AddGroup;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 菜单例表
@@ -43,7 +44,7 @@ public class MenuEntity extends BaseEntity {
 
     @TableField("TYPE")
     @Column(name = "TYPE", comment = "类型{0：目录   1：菜单   2：按钮}", type = MySqlTypeConstant.INT)
-    @NotBlank(message = "类型不能为空", groups = AddGroup.class)
+    @NotNull(message = "类型不能为空", groups = AddGroup.class)
     private Integer type;
 
     @TableField("PARENT_ID")
