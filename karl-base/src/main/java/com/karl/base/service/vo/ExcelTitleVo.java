@@ -10,15 +10,11 @@ import lombok.Data;
  * @date 2020/6/5
  */
 @Data
-public class ExcelTitleVo implements Comparable<ExcelTitleVo> {
+public class ExcelTitleVo {
 
     private String key;
     private String title;
     private int order;
     ExcelCol excelCol;
 
-    @Override
-    public int compareTo(ExcelTitleVo o) {
-        return Integer.compare(order, o.order);
-    }
 }

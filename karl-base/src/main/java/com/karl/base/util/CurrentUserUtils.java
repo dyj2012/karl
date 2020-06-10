@@ -1,10 +1,3 @@
-/**
- * 元年软件
- *
- * @author 王亚平
- * @date 2019年2月25日 下午3:33:10
- * @version V1.0
- */
 package com.karl.base.util;
 
 import com.alibaba.ttl.TransmittableThreadLocal;

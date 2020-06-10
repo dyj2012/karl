@@ -1,5 +1,6 @@
 package com.karl.core.menu.controller;
 
+import com.karl.base.annotation.LogModule;
 import com.karl.base.controller.BaseEntityController;
 import com.karl.core.entity.MenuEntity;
 import com.karl.core.menu.mapper.MenuMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/menus")
 @Api(tags = "菜单接口")
+@LogModule("菜单")
 public class MenuEntityController extends BaseEntityController<MenuMapper, MenuEntity> {
 
 

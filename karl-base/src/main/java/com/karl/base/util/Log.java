@@ -1,10 +1,3 @@
-/**
- * 元年软件
- *
- * @author
- * @date 2018年4月17日 下午3:02:44
- * @version V1.0
- */
 package com.karl.base.util;
 
 import org.slf4j.Logger;
@@ -27,23 +20,27 @@ public final class Log {
     /**
      * 离开某个方法
      */
-    public static final String LOG_LEAVE_METHOD = "LEAVE [{}] METHOD";
+    public static final String LOG_LEAVE_METHOD = "LEAVE [{}] METHOD, EXECUTE [{}] MILLISECONDS";
 
     public static <T> T p(Logger logger, String m, Supplier<T> c) {
         logger.debug(LOG_ENTER_METHOD, m);
+        long s = System.currentTimeMillis();
         try {
             return c.get();
         } finally {
-            logger.debug(LOG_LEAVE_METHOD, m);
+            long e = System.currentTimeMillis() - s;
+            logger.debug(LOG_LEAVE_METHOD, m, e);
         }
     }
 
     public static void p(Logger logger, String m, Runnable c) {
         logger.debug(LOG_ENTER_METHOD, m);
+        long s = System.currentTimeMillis();
         try {
             c.run();
         } finally {
-            logger.debug(LOG_LEAVE_METHOD, m);
+            long e = System.currentTimeMillis() - s;
+            logger.debug(LOG_LEAVE_METHOD, m, e);
         }
     }
 

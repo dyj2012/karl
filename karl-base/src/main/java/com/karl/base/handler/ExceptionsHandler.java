@@ -2,17 +2,23 @@ package com.karl.base.handler;
 
 import com.baomidou.mybatisplus.extension.api.IErrorCode;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.google.common.collect.Lists;
 import com.karl.base.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * 全局异常接管
@@ -42,6 +48,35 @@ public class ExceptionsHandler {
             @Override
             public String getMsg() {
                 return "服务器执行失败";
+            }
+        });
+    }
+
+    /**
+     * 基本异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public R<Object> exception(MethodArgumentNotValidException e) {
+        log.error(e.getMessage(), e);
+        StringBuilder strBuilder = new StringBuilder();
+        if (e.getBindingResult().hasErrors()) {
+            List<FieldError> fieldErrors = Lists.newArrayList(e.getBindingResult().getFieldErrors());
+            if (fieldErrors.size() > 1) {
+                fieldErrors.sort(Comparator.comparing(FieldError::getField));
+            }
+            for (FieldError fieldError : fieldErrors) {
+                strBuilder.append(fieldError.getDefaultMessage());
+            }
+        }
+        return R.failed(new IErrorCode() {
+            @Override
+            public long getCode() {
+                return 1002;
+            }
+
+            @Override
+            public String getMsg() {
+                return strBuilder.toString();
             }
         });
     }

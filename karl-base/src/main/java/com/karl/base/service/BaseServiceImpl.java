@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
@@ -74,7 +74,8 @@ public class BaseServiceImpl implements BaseService {
                     titleList.add(excelTitleVo);
                 }
             }
-            Collections.sort(titleList);
+
+            titleList.sort(Comparator.comparing(ExcelTitleVo::getOrder));
             ExcelWriteParam param = new ExcelWriteParam();
             List<ExcelKeyTitle> keyTitleList = new ArrayList<>(titleList.size());
             for (ExcelTitleVo vo : titleList) {
@@ -139,7 +140,7 @@ public class BaseServiceImpl implements BaseService {
             }
 
         }
-        throw new BaseException(1000, "未定义的列");
+        throw new BaseException(1000, String.format("[%s]未定义的列", fieldName));
     }
 
 
@@ -301,6 +302,8 @@ public class BaseServiceImpl implements BaseService {
                                 throw new BaseException(ErrorCodeConstants.ORDER_ARG, "无效的查询条件参数");
                         }
                     }
+                } catch (BaseException e) {
+                    throw e;
                 } catch (Exception e) {
                     log.error("解析查询条件参数异常", e);
                     throw new BaseException(1002, "解析查询条件参数异常");

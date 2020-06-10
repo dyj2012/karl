@@ -1,5 +1,6 @@
 package com.karl.core.user.controller;
 
+import com.karl.base.annotation.LogModule;
 import com.karl.base.controller.BaseEntityController;
 import com.karl.core.entity.UserEntity;
 import com.karl.core.user.mapper.UserMapper;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 @Api(tags = "用户接口")
+@LogModule("用户")
 public class UserController extends BaseEntityController<UserMapper, UserEntity> {
 
 

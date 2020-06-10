@@ -42,4 +42,6 @@ public class AuthServiceImpl implements AuthService {
         return JwtUtils.generate(TokenSubject.ACCESS.toString(), payload, 24);
     }
 
+
+
 }

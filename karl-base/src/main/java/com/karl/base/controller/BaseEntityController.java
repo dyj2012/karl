@@ -2,6 +2,7 @@ package com.karl.base.controller;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.karl.base.annotation.OperationLog;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.service.BaseServiceImpl;
 import com.karl.base.util.ListToMapUtils;
@@ -13,11 +14,13 @@ import com.karl.base.util.excel.PageReadExcel;
 import com.karl.base.util.excel.vo.ExcelKeyTitle;
 import com.karl.base.util.excel.vo.ExcelWriteParam;
 import com.karl.base.util.excel.vo.ExportParam;
+import com.karl.base.validator.group.AddGroup;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +50,8 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
      */
     @ApiOperation(value = "对象新增接口", notes = "新增一个entity")
     @PostMapping
-    public R<Boolean> add(@RequestBody Entity entity) {
+    @OperationLog("对象新增")
+    public R<Boolean> add(@RequestBody @Validated(AddGroup.class) Entity entity) {
         return Log.p(log, "add", () -> {
             this.modifyEntity(entity);
             return R.ok(super.save(entity));
@@ -64,7 +68,8 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
 
     @ApiOperation(value = "批量新增接口", notes = "以数组的形式增加多个entity,[entity,entity,entity]")
     @PostMapping("/batch")
-    public R<Boolean> batch(@RequestBody List<Entity> list) {
+    @OperationLog("批量新增")
+    public R<Boolean> batch(@RequestBody @Validated(AddGroup.class) List<Entity> list) {
         return Log.p(log, "batch", () -> {
             if (CollectionUtils.isNotEmpty(list)) {
                 for (Entity entity : list) {
@@ -89,9 +94,9 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     })
     @ApiOperation(value = "对象删除接口", notes = "根据Id删除一个entity")
     @DeleteMapping(value = "/{id}")
+    @OperationLog("对象删除")
     public R<Boolean> delete(@PathVariable("id") String id) {
         return Log.p(log, "delete", () -> R.ok(super.removeById(id)));
-
     }
 
 
@@ -106,13 +111,13 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
     })
     @ApiOperation(value = "对象更新接口", notes = "根据Id更新一个entity")
     @PatchMapping(value = "/{id}")
+    @OperationLog("对象更新")
     public R<Boolean> patch(@RequestBody Entity entity, @PathVariable("id") String id) {
         return Log.p(log, "patch", () -> {
-            ((BaseEntity) entity).setObjectId(id);
+            entity.setObjectId(id);
             modifyEntity(entity);
             return R.ok(super.updateById(entity));
         });
-
     }
 
     /**
@@ -123,6 +128,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
      */
     @ApiOperation(value = "excel导入接口", notes = "excel导入entity")
     @PostMapping(value = "/imports")
+    @OperationLog("excel导入")
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
         return Log.p(log, "imports", () -> {
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportTemplateIgnoreColumn);
@@ -186,6 +192,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
      */
     @ApiOperation(value = "excel模板接口", notes = "导出entity导入模板")
     @GetMapping(value = "/exportTemplate", produces = "application/octet-stream")
+    @OperationLog("excel模板")
     public void exportTemplate(HttpServletResponse response) {
         Log.p(log, "exportTemplate", () -> {
             ExcelWriteParam excelWriteParam = baseService.buildExcelWriteParam(entityClass, this::exportTemplateIgnoreColumn);

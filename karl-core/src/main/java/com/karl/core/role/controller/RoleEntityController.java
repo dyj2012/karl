@@ -1,5 +1,6 @@
 package com.karl.core.role.controller;
 
+import com.karl.base.annotation.LogModule;
 import com.karl.base.controller.BaseEntityController;
 import com.karl.core.entity.RoleEntity;
 import com.karl.core.role.mapper.RoleMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/roles")
 @Api(tags = "角色接口")
+@LogModule("角色")
 public class RoleEntityController extends BaseEntityController<RoleMapper, RoleEntity> {
 
 

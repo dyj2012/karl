@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.karl.base.annotation.OperationLog;
 import com.karl.base.annotation.SelectSwagger;
 import com.karl.base.service.spi.BaseService;
 import com.karl.base.util.Log;
@@ -24,10 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Rest 风格controller基础类
@@ -49,6 +47,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     @ApiOperation(value = "列表查询接口", notes = "可以通过参数{query,field,page,orderBy}进行条件查询")
     @SelectSwagger
     @GetMapping
+    @OperationLog("列表查询")
     public R<Page<Entity>> select(HttpServletRequest request) {
         return Log.p(log, "select", () -> {
             String query = request.getParameter("query");
@@ -74,6 +73,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     })
     @ApiOperation(value = "对象查询接口", notes = "根据Id查询一个entity")
     @GetMapping(value = "/{id}")
+    @OperationLog("对象查询")
     public R<Entity> get(@PathVariable("id") String id) {
         return Log.p(log, "get", () -> R.ok(super.getById(id)));
     }
@@ -87,6 +87,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
     @SelectSwagger
     @ApiOperation(value = "excel导出接口", notes = "将entity导出到excel,可以通过参数{query,field,page,orderBy}进行条件查询")
     @GetMapping(value = "/export", produces = "application/octet-stream")
+    @OperationLog("excel导出")
     public void export(HttpServletRequest request, HttpServletResponse response) {
         Log.p(log, "export", () -> {
             R<Page<Entity>> selectR = this.select(request);

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(scanBasePackages = {"com.baomidou", "com.karl", "com.gitee.sunchenbin.mybatis.actable.manager.*"})
 @EnableTransactionManagement(proxyTargetClass = true)
 @MapperScan({"com.karl.**.mapper", "com.gitee.sunchenbin.mybatis.actable.dao.*"})
-@EnableCaching
+
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

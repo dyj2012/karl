@@ -27,11 +27,16 @@ public class TokenRestController {
      * @return
      */
     @ApiOperation(value = "登录接口", notes = "系统登录,返回token")
-    @GetMapping
     @PostMapping(value = "/login")
     public R<String> login(@RequestBody SignInData sign) {
         return R.ok(authService.login(sign));
     }
 
+
+    @ApiOperation(value = "查询权限接口", notes = "返回权限对象列表")
+    @GetMapping(value = "/getAuthObj")
+    public R<String> getAuthObj(@RequestBody SignInData sign) {
+        return R.ok(authService.login(sign));
+    }
 
 }
