@@ -1,11 +1,11 @@
 package com.karl.core.auth.interceptor;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.karl.base.util.CurrentUser;
 import com.karl.base.util.CurrentUserUtils;
 import com.karl.core.auth.api.constants.AuthConstants;
 import com.karl.core.auth.api.enums.TokenSubject;
-import com.karl.core.util.JsonUtils;
 import com.karl.core.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -39,7 +39,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             try {
                 response.setHeader(LOGIN_TOKEN, "缺少token");
                 response.setContentType("application/json;charset=utf8");
-                response.getWriter().append(JsonUtils.toJSON(R.failed("请先登录"))).close();
+                response.getWriter().append(JSONUtil.toJsonStr(R.failed("请先登录"))).close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
