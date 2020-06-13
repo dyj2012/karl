@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/orgs")
 @Api(tags = "机构接口")
-public class OrgEntityController extends BaseEntityController<OrgMapper, OrgEntity> {
+public class OrgController extends BaseEntityController<OrgMapper, OrgEntity> {
 
 
 }

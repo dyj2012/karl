@@ -1,6 +1,5 @@
 package com.karl.core.util;
 
-import com.karl.core.auth.exception.TokenException;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class JwtUtils {
         try {
             return Jwts.parser().requireSubject(subject).setSigningKey(getSecret()).parseClaimsJws(token);
         } catch (JwtException e) {
-            throw new TokenException();
+            throw new RuntimeException(e);
         }
     }
 

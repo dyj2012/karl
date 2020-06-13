@@ -19,7 +19,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

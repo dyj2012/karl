@@ -1,6 +1,7 @@
 package com.karl.core.demo.controller;
 
 import com.karl.base.controller.BaseEntityController;
+import com.karl.core.demo.DemoServer;
 import com.karl.core.demo.entity.DemoEntity;
 import com.karl.core.demo.mapper.DemoMapper;
 import io.swagger.annotations.Api;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/demos")
 @Api(tags = "demo接口")
-public class DemoEntityController extends BaseEntityController<DemoMapper, DemoEntity> {
+public class DemoController extends BaseEntityController<DemoMapper, DemoEntity> implements DemoServer {
 
 
 }

@@ -1,6 +1,6 @@
 package com.karl.boot.config;
 
-import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import com.karl.base.cache.FastJsonRedisSerializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

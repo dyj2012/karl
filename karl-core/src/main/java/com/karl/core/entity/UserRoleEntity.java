@@ -6,11 +6,9 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
-import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import com.karl.base.validator.group.AddGroup;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,10 +16,8 @@ import javax.validation.constraints.NotBlank;
  * @author karl
  */
 @Data
-@Accessors(chain = true)
 @TableName("T_SYS_USER_ROLE_R")
 @Table(name = "T_SYS_USER_ROLE_R")
-@ExcelSheet("系统用户")
 public class UserRoleEntity extends BaseEntity {
 
     @TableField("USER_ID")
