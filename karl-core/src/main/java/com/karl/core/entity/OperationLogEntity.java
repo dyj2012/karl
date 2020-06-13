@@ -20,7 +20,7 @@ import lombok.Data;
 /**
  * 系统日志
  *
- * @author Think
+ * @author karl
  */
 @Data
 @TableName("T_SYS_OPERATION_LOG")

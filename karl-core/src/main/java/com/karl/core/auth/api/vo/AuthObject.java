@@ -5,7 +5,7 @@ import lombok.var;
 /**
  * <description>
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/6/8
  */
 public class AuthObject {

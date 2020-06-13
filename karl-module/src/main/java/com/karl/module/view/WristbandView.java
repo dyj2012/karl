@@ -9,7 +9,7 @@ import lombok.Data;
 /**
  * 手环视图
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/6/5
  */
 @Data

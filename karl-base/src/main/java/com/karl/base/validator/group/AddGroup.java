@@ -11,7 +11,7 @@ package com.karl.base.validator.group;
 /**
  * 新增数据 Group
  *
- * @author Think
+ * @author karl
  */
 public interface AddGroup {
 }

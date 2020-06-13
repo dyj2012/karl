@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
- * @author 杜永军
+ * @author karl
  * @date 2019/04/03
  */
 @Configuration

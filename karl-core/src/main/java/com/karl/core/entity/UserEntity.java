@@ -19,7 +19,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author Think
+ * @author karl
  */
 @Data
 @Accessors(chain = true)

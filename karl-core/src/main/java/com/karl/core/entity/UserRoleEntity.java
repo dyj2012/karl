@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author Think
+ * @author karl
  */
 @Data
 @Accessors(chain = true)

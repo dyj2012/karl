@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author 杜永军
+ * @author karl
  */
 @Data
 @Accessors(chain = true)

@@ -19,6 +19,7 @@ import com.karl.base.util.excel.vo.ExcelWriteParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ import java.util.function.Function;
 /**
  * 基础服务
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/6/3
  */
 @Component
@@ -132,7 +133,11 @@ public class BaseServiceImpl implements BaseService {
     private static final String ORDER_DESC = "desc";
 
     private String findColumnName(Class<?> cls, String fieldName) {
+        Assert.notNull(fieldName, "fieldName must not be null");
         TableInfo tableInfo = TableInfoHelper.getTableInfo(cls);
+        if (fieldName.equals(tableInfo.getKeyProperty())) {
+            return tableInfo.getKeyColumn();
+        }
         List<TableFieldInfo> fieldList = tableInfo.getFieldList();
         for (TableFieldInfo tableFieldInfo : fieldList) {
             if (tableFieldInfo.getProperty().equalsIgnoreCase(fieldName)) {

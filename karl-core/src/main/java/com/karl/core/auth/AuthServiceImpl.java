@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * auth 服务
  *
- * @author 杜永军
+ * @author karl
  **/
 @Service
 public class AuthServiceImpl implements AuthService {

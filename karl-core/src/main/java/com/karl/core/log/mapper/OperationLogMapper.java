@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 日志 mapper
  *
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface OperationLogMapper extends BaseMapper<OperationLogEntity> {

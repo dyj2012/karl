@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 手环 mapper
  *
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface WristbandViewMapper extends BaseMapper<WristbandView> {

@@ -5,7 +5,7 @@ import com.karl.core.auth.api.vo.SignInData;
 /**
  * Auth 服务
  *
- * @author: 杜永军
+ * @author karl
  **/
 public interface AuthService {
 

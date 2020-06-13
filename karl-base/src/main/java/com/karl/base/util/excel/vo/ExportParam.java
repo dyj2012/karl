@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 生成excel参数
  *
- * @author 杜永军
+ * @author karl
  * @date 2018/12/25
  */
 @Data

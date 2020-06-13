@@ -5,7 +5,7 @@ import com.karl.module.view.PeopleView;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface PeopleViewMapper extends BaseMapper<PeopleView> {

@@ -3,7 +3,7 @@ package com.karl.base.util;
 /**
  * <description>
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/29
  */
 public class CamelUtils {

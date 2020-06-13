@@ -5,7 +5,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 /**
  * 当前登录人信息工具类
  *
- * @author Think
+ * @author karl
  */
 public class CurrentUserUtils {
 

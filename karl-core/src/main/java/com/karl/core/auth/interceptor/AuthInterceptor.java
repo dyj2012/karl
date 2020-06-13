@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * auth 验证拦截器
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/05/30
  */
 public class AuthInterceptor implements HandlerInterceptor {

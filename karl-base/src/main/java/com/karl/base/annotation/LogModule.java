@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 /**
  * 日志模块
  *
- * @author Think
+ * @author karl
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

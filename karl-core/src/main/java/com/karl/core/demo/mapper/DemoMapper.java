@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * demo mapper
  *
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface DemoMapper extends BaseMapper<DemoEntity> {

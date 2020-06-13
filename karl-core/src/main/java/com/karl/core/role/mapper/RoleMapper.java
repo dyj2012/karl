@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * role mapper
  *
- * @author Think
+ * @author karl
  */
 @Mapper
 @CacheNamespace(implementation = MybatisRedisCache.class, eviction = MybatisRedisCache.class)

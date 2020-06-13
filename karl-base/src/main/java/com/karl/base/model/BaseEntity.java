@@ -19,7 +19,7 @@ import static com.baomidou.mybatisplus.annotation.IdType.ASSIGN_UUID;
 /**
  * Entity基类
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/25
  */
 @Data

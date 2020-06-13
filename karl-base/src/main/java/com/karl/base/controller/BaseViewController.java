@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Rest 风格controller基础类
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/05/24
  */
 @Slf4j

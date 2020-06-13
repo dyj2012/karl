@@ -3,7 +3,7 @@ package com.karl.base.constants;
 /**
  * 错误编码常量
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/27
  */
 public class ErrorCodeConstants {

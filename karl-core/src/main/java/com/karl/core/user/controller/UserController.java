@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author Think
+ * @author karl
  */
 @RestController
 @RequestMapping("/users")
 @Api(tags = "用户接口")
 @LogModule("用户")
-//@PreAuthorize("has")
 public class UserController extends BaseEntityController<UserMapper, UserEntity> {
 
 

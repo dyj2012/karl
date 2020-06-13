@@ -3,7 +3,7 @@ package com.karl.base.util;
 /**
  * BigDecimal转化工具类
  *
- * @author 杜永军
+ * @author karl
  * @date 2018/08/22
  */
 public class BooleanUtils {

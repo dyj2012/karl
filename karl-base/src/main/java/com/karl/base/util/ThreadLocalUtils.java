@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 线程变量工具类
  *
- * @author 杜永军
+ * @author karl
  * @date 2017年8月18日 下午5:03:44
  */
 public class ThreadLocalUtils {

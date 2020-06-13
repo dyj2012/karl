@@ -1,7 +1,5 @@
 /**
- * @author
- * @date 2018年4月17日 下午3:02:44
- * @version V1.0
+ * @author karl
  */
 package com.karl.base.util;
 
@@ -397,7 +395,6 @@ public final class DateUtils {
      * 获取本周第一天，星期一为第一天
      *
      * @return
-     * @author
      */
     public static Date getWeekFirstDaySunday() {
         Calendar calendar = getCalendar();
@@ -409,7 +406,6 @@ public final class DateUtils {
      * 获取本周最后一天，星期日为最后一天
      *
      * @return
-     * @author
      */
     public static Date getWeekLastDaySunday() {
         Calendar calendar = getCalendar();

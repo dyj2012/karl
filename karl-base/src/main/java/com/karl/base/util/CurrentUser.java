@@ -3,7 +3,7 @@ package com.karl.base.util;
 /**
  * 当前用户信息
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/05/30
  */
 public interface CurrentUser {

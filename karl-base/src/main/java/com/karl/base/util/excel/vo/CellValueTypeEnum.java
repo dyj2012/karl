@@ -3,7 +3,7 @@ package com.karl.base.util.excel.vo;
 /**
  * cell类型
  *
- * @author 杜永军
+ * @author karl
  */
 public enum CellValueTypeEnum {
     /**

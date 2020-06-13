@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 提供POI基础操作服务
  *
- * @author 杜永军
+ * @author karl
  */
 public abstract class AbstractExportService {
     /**

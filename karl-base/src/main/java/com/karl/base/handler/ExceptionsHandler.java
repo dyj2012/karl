@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.karl.base.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -27,7 +28,7 @@ import java.util.List;
  * 若需要自定义拦截的异常，请在此处定义拦截。
  * 若需要输出异常的日志日志，请使用 log输出。
  *
- * @author Think
+ * @author karl
  */
 @RestControllerAdvice
 @Slf4j
@@ -48,6 +49,22 @@ public class ExceptionsHandler {
             @Override
             public String getMsg() {
                 return "服务器执行失败";
+            }
+        });
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public R<Object> exception(AccessDeniedException e) {
+        log.error(e.getMessage(), e);
+        return R.failed(new IErrorCode() {
+            @Override
+            public long getCode() {
+                return 401;
+            }
+
+            @Override
+            public String getMsg() {
+                return "Unauthorized";
             }
         });
     }

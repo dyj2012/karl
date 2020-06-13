@@ -14,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Think
+ * @author karl
  */
 public class HttpContextUtils {
 

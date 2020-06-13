@@ -1,5 +1,6 @@
 package com.karl.base.cache;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.springframework.cache.Cache;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.transaction.TransactionAwareCacheManagerProxy;
@@ -10,7 +11,7 @@ import java.util.concurrent.Callable;
 /**
  * jvm内存缓存
  *
- * @author 杜永军
+ * @author karl
  * @date 2019/9/11
  */
 public class ConcurrentMapTransactionAwareCacheManager extends TransactionAwareCacheManagerProxy {

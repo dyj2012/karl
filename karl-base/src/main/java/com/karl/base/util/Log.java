@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 /**
  * 打印方法进出日志包装工具类
  *
- * @author 杜永军
+ * @author karl
  * @date 2020年5月8日 下午2:04:33
  */
 public final class Log {

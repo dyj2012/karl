@@ -5,7 +5,7 @@ import com.karl.core.entity.OrgEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface OrgMapper extends BaseMapper<OrgEntity> {

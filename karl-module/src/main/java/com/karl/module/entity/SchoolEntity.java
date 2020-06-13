@@ -12,7 +12,7 @@ import lombok.Data;
 /**
  * 学校
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/25
  */
 @Data

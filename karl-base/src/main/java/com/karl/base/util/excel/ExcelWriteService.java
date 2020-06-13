@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * excel导出
  *
- * @author 杜永军
+ * @author karl
  */
 public class ExcelWriteService extends AbstractExportService {
 

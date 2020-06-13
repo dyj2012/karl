@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 菜单例表
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/25
  */
 @Data

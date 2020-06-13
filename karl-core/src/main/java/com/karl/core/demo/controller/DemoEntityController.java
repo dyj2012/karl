@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * demo 控制器
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/5/25
  */
 @RestController

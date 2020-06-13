@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.util.List;
 
 /**
- * @author 杜永军
+ * @author karl
  */
 public class ExcelStyleUtils {
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * ThreadLocalCache拦截器
  *
- * @author 杜永军
+ * @author karl
  * @date 2018年6月28日 下午1:41:55
  */
 public class ThreadLocalCacheInterceptor implements HandlerInterceptor {

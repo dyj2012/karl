@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 /**
  * 多线程测试工具类
  *
- * @author 杜永军
+ * @author karl
  * @date 2019/8/5
  */
 @Slf4j

@@ -5,7 +5,7 @@ import com.karl.module.entity.SchoolEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface SchoolMapper extends BaseMapper<SchoolEntity> {

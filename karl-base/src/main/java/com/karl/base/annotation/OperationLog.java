@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 /**
  * 系统操作日志注解
  *
- * @author Think
+ * @author karl
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

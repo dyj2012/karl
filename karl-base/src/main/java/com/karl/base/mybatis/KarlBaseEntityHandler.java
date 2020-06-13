@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * MybatisPlus自动写入参数配置
  *
- * @author Think
+ * @author karl
  */
 @Component
 public class KarlBaseEntityHandler implements MetaObjectHandler {

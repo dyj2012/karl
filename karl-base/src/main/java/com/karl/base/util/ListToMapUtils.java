@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * 集合拆分工具类
  *
- * @author 杜永军
+ * @author karl
  * @date 2017年8月18日 下午5:03:44
  */
 public class ListToMapUtils {

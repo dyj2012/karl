@@ -5,7 +5,7 @@ import net.hasor.spring.boot.EnableHasorWeb;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Think
+ * @author karl
  */
 @Configuration
 @EnableHasor

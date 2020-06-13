@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * Route mapper
  *
- * @author Think
+ * @author karl
  */
 @Mapper
 public interface RouteMapper extends BaseMapper<RouteEntity> {
