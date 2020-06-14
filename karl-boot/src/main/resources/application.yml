@@ -12,9 +12,9 @@ spring:
     add-mappings: false
   redis:
     database: 11
-    host: 192.168.2.169
+    host: 127.0.0.1
     password:
-    port: 5379
+    port: 6379
     jedis:
       pool:
         max-active: 200
@@ -26,7 +26,7 @@ spring:
   datasource: #Druid 连接池通用配置
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.2.169:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://127.0.0.1:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
       username: karl     # 数据库账号
       password: karl     # 数据库密码
   devtools:
@@ -41,7 +41,8 @@ spring:
     url: ${spring.datasource.druid.url}
     user: ${spring.datasource.druid.username}
     password: ${spring.datasource.druid.password}
-    table: T_SCHEMA_VERSION
+    table: SCHEMA_VERSION
+
 
 mybatis-plus:
   configuration:
@@ -49,7 +50,7 @@ mybatis-plus:
   mapperLocations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
 mybatis:
   table:
-    auto: none
+    auto: add
   #   create  时，系统启动后，会将所有的表删除掉，然后根据model中配置的结构重新建表，该操作会破坏原有数据。
   #   update  时，系统会自动判断哪些表是新建的，哪些字段要修改类型等，哪些字段要删除，哪些字段要新增，该操作不会破坏原有数据。
   #   none    时，系统不做任何处理。
