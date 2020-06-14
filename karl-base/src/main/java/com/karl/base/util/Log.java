@@ -23,24 +23,24 @@ public final class Log {
     public static final String LOG_LEAVE_METHOD = "LEAVE [{}] METHOD, EXECUTE [{}] MILLISECONDS";
 
     public static <T> T p(Logger logger, String m, Supplier<T> c) {
-        logger.debug(LOG_ENTER_METHOD, m);
+        logger.info(LOG_ENTER_METHOD, m);
         long s = System.currentTimeMillis();
         try {
             return c.get();
         } finally {
             long e = System.currentTimeMillis() - s;
-            logger.debug(LOG_LEAVE_METHOD, m, e);
+            logger.info(LOG_LEAVE_METHOD, m, e);
         }
     }
 
     public static void p(Logger logger, String m, Runnable c) {
-        logger.debug(LOG_ENTER_METHOD, m);
+        logger.info(LOG_ENTER_METHOD, m);
         long s = System.currentTimeMillis();
         try {
             c.run();
         } finally {
             long e = System.currentTimeMillis() - s;
-            logger.debug(LOG_LEAVE_METHOD, m, e);
+            logger.info(LOG_LEAVE_METHOD, m, e);
         }
     }
 
