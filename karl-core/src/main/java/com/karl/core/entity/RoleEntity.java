@@ -31,6 +31,8 @@ public class RoleEntity extends BaseEntity {
 
     @TableField("CODE")
     @Column(name = "CODE", comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @IsNotNull
+    @NotBlank(message = "编码不能为空", groups = AddGroup.class)
     private String code;
 
     @TableField("REMARK")

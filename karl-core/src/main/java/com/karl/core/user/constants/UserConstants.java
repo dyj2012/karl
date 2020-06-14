@@ -14,9 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserConstants {
 
     public static final PasswordEncoder PASSWORD = new BCryptPasswordEncoder();
-    public static final String USER_ADMIN_NAME = "admin";
-
-    public static final String USER_ADMIN_PASSWORD = PASSWORD.encode("123");
 
     public static final GrantedAuthority ADMIN = new SimpleGrantedAuthority("ADMIN");
 

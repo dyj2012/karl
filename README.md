@@ -16,6 +16,8 @@
    | knife4j | 1.1.22 | swagger在线联调 |
    | hasor | 1.1.22 | 动态编写 REST API |
    | flyway | 6.4.1 | 内置数据脚本管理 |
+   | spring security | 2.3.0.RELEASE | 认证与授权 |
+   | spring-session-data-redis | 2.3.0.RELEASE | session共享 |
 
 ## 服务地址 
 

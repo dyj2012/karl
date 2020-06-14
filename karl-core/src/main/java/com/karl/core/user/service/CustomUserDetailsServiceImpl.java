@@ -40,9 +40,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Assert.notNull(username, "登录名不可为空!");
-        if (UserConstants.USER_ADMIN_NAME.equals(username)) {
-            return new User(UserConstants.USER_ADMIN_NAME, UserConstants.USER_ADMIN_PASSWORD, Collections.singletonList(UserConstants.USER));
-        }
         UserEntity user = userServer.lambdaQuery()
                 .eq(UserEntity::getLoginName, username).oneOpt()
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("未找到%s用户信息", username)));
@@ -55,7 +52,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         List<RoleEntity> roleList = roleServer.lambdaQuery().in(RoleEntity::getObjectId, roleIdList).list();
         List<String> roleCodeList = roleList.stream().map(RoleEntity::getCode).collect(Collectors.toList());
         List<GrantedAuthority> authorityList = roleCodeList.stream().map(code -> {
-            switch (code) {
+            switch (code.toUpperCase()) {
                 case "ADMIN":
                     return UserConstants.ADMIN;
                 default:
