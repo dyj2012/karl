@@ -1,18 +1,16 @@
-package com.karl.core.demo.mapper;
+package com.karl.core.test.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.karl.core.demo.entity.DemoEntity;
+import com.karl.core.entity.TestEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
- * demo mapper
- *
  * @author karl
  */
 @Mapper
-public interface DemoMapper extends BaseMapper<DemoEntity> {
+public interface TestMapper extends BaseMapper<TestEntity> {
 
 
     /**
@@ -21,5 +19,5 @@ public interface DemoMapper extends BaseMapper<DemoEntity> {
      * @param list
      * @return
      */
-    int mysqlBatchInsert(List<DemoEntity> list);
+    int mysqlBatchInsert(List<TestEntity> list);
 }

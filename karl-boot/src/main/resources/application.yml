@@ -12,9 +12,9 @@ spring:
     add-mappings: false
   redis:
     database: 11
-    host: 127.0.0.1
+    host: 192.168.2.169
     password:
-    port: 6379
+    port: 5379
     jedis:
       pool:
         max-active: 200
@@ -26,7 +26,7 @@ spring:
   datasource: #Druid 连接池通用配置
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://192.168.2.169:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
       username: karl     # 数据库账号
       password: karl     # 数据库密码
   devtools:
@@ -45,8 +45,8 @@ spring:
 
 
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapperLocations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
 mybatis:
   table:
