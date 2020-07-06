@@ -36,7 +36,7 @@
    | GET | 查询/导出 |
    | GET  | 查询/导出 |
    | POST  | 插入/导入 |
-   | PATCH |  更新 |
+   | PATCH |  部分更新 |
    | DELTE |  删除 |
 
 - 统一的增删查改 REST API
