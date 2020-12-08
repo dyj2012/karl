@@ -8,7 +8,6 @@
 
 package com.karl.core.log.aspect;
 
-import com.google.gson.Gson;
 import com.karl.base.annotation.LogModule;
 import com.karl.base.annotation.OperationLog;
 import com.karl.base.util.HttpContextUtils;
@@ -22,15 +21,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**

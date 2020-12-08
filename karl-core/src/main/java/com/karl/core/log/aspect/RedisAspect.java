@@ -11,11 +11,9 @@ package com.karl.core.log.aspect;
 import com.karl.base.exception.BaseException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Redis切面处理类

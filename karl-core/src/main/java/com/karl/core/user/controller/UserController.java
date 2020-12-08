@@ -8,7 +8,6 @@ import com.karl.core.user.constants.UserConstants;
 import com.karl.core.user.mapper.UserMapper;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

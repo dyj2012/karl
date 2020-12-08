@@ -1,7 +1,5 @@
 package com.karl.core.auth.api.vo;
 
-import lombok.var;
-
 /**
  * <description>
  *
