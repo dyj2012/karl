@@ -14,6 +14,7 @@
         <module>karl-base</module>
         <module>karl-boot</module>
         <module>karl-module</module>
+        <module>karl-dependencies</module>
     </modules>
     <properties>
         <revision>master-SNAPSHOT</revision>
