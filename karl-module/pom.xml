@@ -5,23 +5,17 @@
     <parent>
         <groupId>com.karl</groupId>
         <artifactId>karl-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>karl-module</name>
     <artifactId>karl-module</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-
         <dependency>
             <groupId>com.karl</groupId>
             <artifactId>karl-core</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
