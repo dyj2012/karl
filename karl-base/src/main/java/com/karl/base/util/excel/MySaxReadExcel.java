@@ -40,7 +40,7 @@ public class MySaxReadExcel {
                 InputStream sheet = sheets.next();
                 InputSource sheetSource = new InputSource(sheet);
                 String sheetName = sheets.getSheetName();
-                if (callBack.nextSheet(sheetIndex, sheetName)) {
+                if (callBack.isParseSheet(sheetIndex, sheetName)) {
                     parser.parse(sheetSource);
                     pageReadExcelHandle.doCallBack();
                 }

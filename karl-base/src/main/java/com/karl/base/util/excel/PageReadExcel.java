@@ -15,13 +15,13 @@ import java.util.Map;
 public interface PageReadExcel {
 
     /**
-     * 第一步 sheet处理
+     * 第一步 判断是否解析该sheet
      *
      * @param index     第几个sheet
      * @param sheetName sheet名称
      * @return 返回true则解析该sheet, 返回false则跳过该sheet
      */
-    boolean nextSheet(int index, String sheetName);
+    boolean isParseSheet(int index, String sheetName);
 
     /**
      * 是否有说明行

@@ -135,7 +135,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
             try (InputStream inputStream = file.getInputStream()) {
                 ExcelReadUtils.readExcelByMap(inputStream, 200, new PageReadExcel() {
                     @Override
-                    public boolean nextSheet(int index, String sheetName) {
+                    public boolean isParseSheet(int index, String sheetName) {
                         return index == 0;
                     }
 
