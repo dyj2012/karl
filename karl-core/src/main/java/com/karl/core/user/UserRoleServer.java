@@ -6,7 +6,7 @@ import com.karl.core.entity.UserRoleEntity;
 /**
  * 用户角色服务
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/06/13
  */
 public interface UserRoleServer extends IService<UserRoleEntity> {

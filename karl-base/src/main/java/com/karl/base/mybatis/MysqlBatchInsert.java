@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.joining;
 /**
  * 插入多条数据
  *
- * @author 杜永军
+ * @author karl
  * @since 2018-04-06
  */
 @SuppressWarnings("all")

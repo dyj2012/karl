@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 杜永军
+ * @author karl
  * @date 2020/06/14
  */
 @Configuration

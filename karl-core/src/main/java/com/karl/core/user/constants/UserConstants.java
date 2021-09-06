@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * 用户常理
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/06/13
  */
 public class UserConstants {

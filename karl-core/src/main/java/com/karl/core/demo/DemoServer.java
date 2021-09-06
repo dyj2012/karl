@@ -6,7 +6,7 @@ import com.karl.core.demo.entity.DemoEntity;
 /**
  * <description>
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/06/13
  */
 public interface DemoServer extends IService<DemoEntity> {

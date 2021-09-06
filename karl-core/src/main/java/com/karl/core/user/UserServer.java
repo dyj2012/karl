@@ -6,7 +6,7 @@ import com.karl.core.entity.UserEntity;
 /**
  * 用户服务
  *
- * @author 杜永军
+ * @author karl
  * @date 2020/06/13
  */
 public interface UserServer extends IService<UserEntity> {
