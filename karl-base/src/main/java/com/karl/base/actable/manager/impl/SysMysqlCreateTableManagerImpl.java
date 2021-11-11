@@ -5,13 +5,13 @@ import com.karl.base.actable.annotation.IgnoreUpdate;
 import com.karl.base.actable.annotation.Index;
 import com.karl.base.actable.annotation.Table;
 import com.karl.base.actable.annotation.Unique;
-import com.karl.base.actable.vo.*;
 import com.karl.base.actable.constants.Constants;
 import com.karl.base.actable.constants.MySqlCharsetConstant;
 import com.karl.base.actable.constants.MySqlEngineConstant;
 import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.actable.manager.SysMysqlCreateTableManager;
 import com.karl.base.actable.mapper.CreateMysqlTablesMapper;
+import com.karl.base.actable.vo.*;
 import com.karl.base.util.ClassScaner;
 import com.karl.base.util.ClassTools;
 import com.karl.base.util.ColumnUtils;
@@ -604,7 +604,12 @@ public class SysMysqlCreateTableManagerImpl implements SysMysqlCreateTableManage
                 if (null != ignoreUpdate) {
                     param.setIgnoreUpdate(ignoreUpdate.value());
                 }
-                fieldList.add(param);
+                if (param.isFieldIsKey()) {
+                    fieldList.add(0, param);
+                } else {
+                    fieldList.add(param);
+                }
+
             }
         }
         return fieldList;
