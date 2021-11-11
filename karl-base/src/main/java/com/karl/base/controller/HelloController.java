@@ -24,7 +24,7 @@ public class HelloController {
 
     private static final String NULL = "null";
 
-    @GetMapping(value = "/")
+    @GetMapping("/")
     public void homePage(HttpServletRequest request, HttpServletResponse response) {
         String contextPathStr = contextPath;
         if (NULL.equals(contextPath)) {

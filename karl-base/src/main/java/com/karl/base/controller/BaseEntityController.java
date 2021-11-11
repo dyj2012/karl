@@ -127,7 +127,7 @@ public abstract class BaseEntityController<Mapper extends BaseMapper<Entity>, En
      * @return
      */
     @ApiOperation(value = "excel导入接口", notes = "excel导入entity")
-    @PostMapping(value = "/imports")
+    @PostMapping("/imports")
     @OperationLog("excel导入")
     public R<Boolean> imports(@RequestParam("file") MultipartFile file) {
         return Log.p(log, "imports", () -> {

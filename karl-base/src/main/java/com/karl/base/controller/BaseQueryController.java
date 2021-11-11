@@ -75,7 +75,7 @@ public abstract class BaseQueryController<Mapper extends BaseMapper<Entity>, Ent
             @ApiImplicitParam(name = "id", value = "实体ID", required = true, dataType = "String", paramType = "path", example = "123abc")
     })
     @ApiOperation(value = "对象查询接口", notes = "根据Id查询一个entity")
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     @OperationLog("对象查询")
     public R<Entity> get(@PathVariable("id") String id) {
         return Log.p(log, "get", () -> R.ok(super.getById(id)));
