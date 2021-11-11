@@ -3,7 +3,7 @@
 <mapper namespace="com.karl.base.actable.mapper.CreateMysqlTablesMapper">
 
     <!-- 强制指定查询表结构映射字段，避免被mybatis下划线转驼峰配置影响，导致查询不到值  -->
-    <resultMap id="SysMysqlColumnsResultMap" type="com.karl.base.actable.command.SysMysqlColumns">
+    <resultMap id="SysMysqlColumnsResultMap" type="com.karl.base.actable.vo.SysMysqlColumns">
         <result property="table_schema" column="table_schema"/>
         <result property="table_name" column="table_name"/>
         <result property="column_name" column="column_name"/>
@@ -24,7 +24,7 @@
         <result property="column_comment" column="column_comment"/>
     </resultMap>
 
-    <resultMap id="SysMysqlTableResultMap" type="com.karl.base.actable.command.SysMysqlTable">
+    <resultMap id="SysMysqlTableResultMap" type="com.karl.base.actable.vo.SysMysqlTable">
         <result property="table_catalog" column="table_catalog"/>
         <result property="table_schema" column="table_schema"/>
         <result property="table_name" column="table_name"/>

@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.google.common.base.CaseFormat;
 import com.karl.base.actable.annotation.*;
-import com.karl.base.actable.command.JavaToMysqlType;
-import com.karl.base.actable.command.MySqlTypeAndLength;
 import com.karl.base.actable.constants.MySqlCharsetConstant;
 import com.karl.base.actable.constants.MySqlEngineConstant;
 import com.karl.base.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.vo.JavaToMysqlType;
+import com.karl.base.actable.vo.MySqlTypeAndLength;
 import impl.ColumnImpl;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeanUtils;
@@ -105,23 +105,23 @@ public class ColumnUtils {
             return null;
         }
         if (column != null && !StringUtils.isEmpty(column.name())) {
-            return column.name().toLowerCase().replace(SQL_ESCAPE_CHARACTER, "");
+            return column.name().replace(SQL_ESCAPE_CHARACTER, "");
         }
         if (column != null && !StringUtils.isEmpty(column.value())) {
-            return column.value().toLowerCase().replace(SQL_ESCAPE_CHARACTER, "");
+            return column.value().replace(SQL_ESCAPE_CHARACTER, "");
         }
         if (tableField != null && !StringUtils.isEmpty(tableField.value()) && tableField.exist()) {
-            return tableField.value().toLowerCase().replace(SQL_ESCAPE_CHARACTER, "");
+            return tableField.value().replace(SQL_ESCAPE_CHARACTER, "");
         }
         if (tableId != null && !StringUtils.isEmpty(tableId.value())) {
-            return tableId.value().toLowerCase().replace(SQL_ESCAPE_CHARACTER, "");
+            return tableId.value().replace(SQL_ESCAPE_CHARACTER, "");
         }
         return getBuildLowerName(field.getName()).replace(SQL_ESCAPE_CHARACTER, "");
     }
 
     private static String getBuildLowerName(String name) {
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE,
-                name).toLowerCase();
+                name).toUpperCase();
     }
 
     public static boolean isKey(Field field, Class<?> clasz) {

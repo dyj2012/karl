@@ -1,6 +1,6 @@
 package com.karl.base.actable.constants;
 
-import com.karl.base.actable.command.MySqlTypeAndLength;
+import com.karl.base.actable.vo.MySqlTypeAndLength;
 
 import java.util.HashMap;
 import java.util.Map;

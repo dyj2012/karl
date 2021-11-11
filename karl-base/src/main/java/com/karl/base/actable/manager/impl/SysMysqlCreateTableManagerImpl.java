@@ -5,7 +5,7 @@ import com.karl.base.actable.annotation.IgnoreUpdate;
 import com.karl.base.actable.annotation.Index;
 import com.karl.base.actable.annotation.Table;
 import com.karl.base.actable.annotation.Unique;
-import com.karl.base.actable.command.*;
+import com.karl.base.actable.vo.*;
 import com.karl.base.actable.constants.Constants;
 import com.karl.base.actable.constants.MySqlCharsetConstant;
 import com.karl.base.actable.constants.MySqlEngineConstant;
@@ -363,7 +363,7 @@ public class SysMysqlCreateTableManagerImpl implements SysMysqlCreateTableManage
         List<Object> dropKeyFieldList = new ArrayList<Object>();
         for (SysMysqlColumns sysColumn : tableColumnList) {
             // 数据库中有该字段时
-            CreateTableParam createTableParam = fieldMap.get(sysColumn.getColumn_name().toLowerCase());
+            CreateTableParam createTableParam = fieldMap.get(sysColumn.getColumn_name());
             if (createTableParam != null) {
                 // 原本是主键，现在不是了，那么要去做删除主键的操作
                 if ("PRI".equals(sysColumn.getColumn_key()) && !createTableParam.isFieldIsKey()) {
@@ -389,7 +389,7 @@ public class SysMysqlCreateTableManagerImpl implements SysMysqlCreateTableManage
         List<Object> modifyFieldList = new ArrayList<Object>();
         for (SysMysqlColumns sysColumn : tableColumnList) {
             // 数据库中有该字段时，验证是否有更新
-            CreateTableParam createTableParam = fieldMap.get(sysColumn.getColumn_name().toLowerCase());
+            CreateTableParam createTableParam = fieldMap.get(sysColumn.getColumn_name());
             if (createTableParam != null && !createTableParam.isIgnoreUpdate()) {
                 // 该复制操作时为了解决multiple primary key defined的同时又不会drop primary key
                 CreateTableParam modifyTableParam = createTableParam.clone();
@@ -495,7 +495,7 @@ public class SysMysqlCreateTableManagerImpl implements SysMysqlCreateTableManage
         Map<String, CreateTableParam> fieldMap = new HashMap<String, CreateTableParam>();
         for (Object obj : allFieldList) {
             CreateTableParam createTableParam = (CreateTableParam) obj;
-            fieldMap.put(createTableParam.getFieldName().toLowerCase(), createTableParam);
+            fieldMap.put(createTableParam.getFieldName(), createTableParam);
         }
         return fieldMap;
     }

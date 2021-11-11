@@ -1,9 +1,9 @@
 package com.karl.base.actable.mapper;
 
 
-import com.karl.base.actable.command.SysMysqlColumns;
-import com.karl.base.actable.command.SysMysqlTable;
-import com.karl.base.actable.command.TableConfig;
+import com.karl.base.actable.vo.SysMysqlColumns;
+import com.karl.base.actable.vo.SysMysqlTable;
+import com.karl.base.actable.vo.TableConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

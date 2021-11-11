@@ -1,4 +1,4 @@
-package com.karl.base.actable.command;
+package com.karl.base.actable.vo;
 
 import com.karl.base.actable.constants.MySqlTypeConstant;
 
