@@ -23,9 +23,9 @@
 
    |  地址 | 说明 |
    |  ------ |--- |
-   | http://localhost:8080/v1  | 服务地址 |
-   | http://localhost:8080/v1/doc.html  | swagger地址 |
-   | http://localhost:8080/v1/interface-ui/  | dataway地址 |
+   | http://localhost:80/v1  | 服务地址 |
+   | http://localhost:80/v1/doc.html  | swagger地址 |
+   | http://localhost:80/v1/interface-ui/  | dataway地址 |
  
 ---    
 ## Base工程
