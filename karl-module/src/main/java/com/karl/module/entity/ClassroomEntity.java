@@ -2,10 +2,9 @@ package com.karl.module.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
-import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.annotation.Column;
+import com.karl.base.actable.annotation.IsNotNull;
+import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
@@ -18,16 +17,15 @@ import lombok.Data;
  */
 @Data
 @TableName("T_SC_CLASSROOM")
-@Table(name = "T_SC_CLASSROOM")
 @ExcelSheet("教室")
 public class ClassroomEntity extends BaseEntity {
 
     @TableField("NAME")
-    @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)
     @IsNotNull
     private String name;
 
     @TableField("CODE")
-    @Column(name = "CODE", comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String code;
 }

@@ -130,11 +130,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
-            <artifactId>mybatis-enhance-actable</artifactId>
-            <version>${mybatis-enhance-actable.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
@@ -164,6 +159,10 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 </project>

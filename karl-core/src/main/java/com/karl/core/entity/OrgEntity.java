@@ -2,10 +2,9 @@ package com.karl.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
-import com.gitee.sunchenbin.mybatis.actable.annotation.IsNotNull;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.annotation.Column;
+import com.karl.base.actable.annotation.IsNotNull;
+import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -17,15 +16,14 @@ import lombok.Data;
  */
 @Data
 @TableName("T_SYS_ORG")
-@Table(name = "T_SYS_ORG")
 public class OrgEntity extends BaseEntity {
 
     @TableField("NAME")
-    @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 64)
     @IsNotNull
     private String name;
 
     @TableField("CODE")
-    @Column(name = "CODE", comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(type = MySqlTypeConstant.VARCHAR, length = 64)
     private String code;
 }

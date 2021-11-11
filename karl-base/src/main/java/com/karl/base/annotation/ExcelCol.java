@@ -19,7 +19,7 @@ public @interface ExcelCol {
      *
      * @return String
      */
-    String value();
+    String value() default "";
 
     /**
      * 导出列的顺序,数字越小,越靠左
@@ -33,7 +33,7 @@ public @interface ExcelCol {
      *
      * @return String
      */
-    String comment() default "";
+    String cellComment() default "";
 
     /**
      * 必填

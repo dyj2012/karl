@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author karl
  */
-@SpringBootApplication(scanBasePackages = {"com.baomidou", "com.karl", "com.gitee.sunchenbin.mybatis.actable.manager.*"})
+@SpringBootApplication(scanBasePackages = {"com.baomidou", "com.karl"})
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan({"com.karl.**.mapper", "com.gitee.sunchenbin.mybatis.actable.dao.*"})
+@MapperScan({"com.karl.**.mapper"})
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

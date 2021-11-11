@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Redis切面处理类
- *
  */
 //@Aspect
 //@Configuration

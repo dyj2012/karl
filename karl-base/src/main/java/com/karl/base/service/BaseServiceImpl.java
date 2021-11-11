@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.karl.base.actable.annotation.Column;
 import com.karl.base.annotation.ExcelCol;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.constants.ErrorCodeConstants;
@@ -66,10 +67,21 @@ public class BaseServiceImpl implements BaseService {
             titleList.add(getPrimaryExcelTitleVo());
             for (TableFieldInfo tableFieldInfo : fieldList) {
                 ExcelCol excelCol = tableFieldInfo.getField().getAnnotation(ExcelCol.class);
+
                 if (excelCol != null) {
                     ExcelTitleVo excelTitleVo = new ExcelTitleVo();
                     excelTitleVo.setKey(tableFieldInfo.getProperty());
-                    excelTitleVo.setTitle(excelCol.value());
+                    if (StringUtils.isEmpty(excelCol.value())) {
+                        Column column = tableFieldInfo.getField().getAnnotation(Column.class);
+                        if (column != null && StringUtils.isNotEmpty(column.comment())) {
+                            excelTitleVo.setTitle(column.comment());
+                        } else {
+                            excelTitleVo.setTitle(tableFieldInfo.getColumn());
+                        }
+                    } else {
+                        excelTitleVo.setTitle(excelCol.value());
+                    }
+
                     excelTitleVo.setOrder(excelCol.order());
                     excelTitleVo.setExcelCol(excelCol);
                     titleList.add(excelTitleVo);
@@ -87,7 +99,7 @@ public class BaseServiceImpl implements BaseService {
                 ExcelKeyTitle excelKeyTitle = new ExcelKeyTitle(key, vo.getTitle());
                 if (vo.getExcelCol() != null) {
                     excelKeyTitle.setRequired(vo.getExcelCol().required());
-                    excelKeyTitle.setComment(vo.getExcelCol().comment());
+                    excelKeyTitle.setComment(vo.getExcelCol().cellComment());
                 }
                 keyTitleList.add(excelKeyTitle);
             }

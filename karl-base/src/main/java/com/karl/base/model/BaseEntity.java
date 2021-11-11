@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.annotation.Column;
+import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.annotation.ExcelCol;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,32 +25,32 @@ import static com.baomidou.mybatisplus.annotation.IdType.ASSIGN_UUID;
 public class BaseEntity extends Model<BaseEntity> {
 
     @TableId(value = "OBJECT_ID", type = ASSIGN_UUID)
-    @Column(name = "OBJECT_ID", comment = "主键ID", type = MySqlTypeConstant.VARCHAR, isKey = true, length = 64)
-    @ExcelCol("主键")
+    @Column(comment = "主键", type = MySqlTypeConstant.VARCHAR, isKey = true, length = 64)
+    @ExcelCol
     @ApiModelProperty(position = -1)
     private String objectId;
 
     @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    @Column(name = "CREATE_TIME", comment = "创建时间", type = MySqlTypeConstant.DATETIME)
-    @ExcelCol(value = "创建时间", order = Integer.MAX_VALUE - 3)
+    @Column(comment = "创建时间", type = MySqlTypeConstant.DATETIME)
+    @ExcelCol(order = Integer.MAX_VALUE - 3)
     @ApiModelProperty(hidden = true)
     private LocalDateTime createTime;
 
     @TableField(value = "CREATE_BY", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    @Column(name = "CREATE_BY", comment = "创建人", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @ExcelCol(value = "创建人", order = Integer.MAX_VALUE - 2)
+    @Column(comment = "创建人", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @ExcelCol(order = Integer.MAX_VALUE - 2)
     @ApiModelProperty(hidden = true)
     private String createBy;
 
     @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
-    @Column(name = "UPDATE_TIME", comment = "更新日期", type = MySqlTypeConstant.DATETIME)
-    @ExcelCol(value = "更新日期", order = Integer.MAX_VALUE - 1)
+    @Column(comment = "更新日期", type = MySqlTypeConstant.DATETIME)
+    @ExcelCol(order = Integer.MAX_VALUE - 1)
     @ApiModelProperty(hidden = true)
     private LocalDateTime updateTime;
 
     @TableField(value = "UPDATE_BY", fill = FieldFill.INSERT_UPDATE)
-    @Column(name = "UPDATE_BY", comment = "更新人", type = MySqlTypeConstant.VARCHAR, length = 64)
-    @ExcelCol(value = "更新人", order = Integer.MAX_VALUE)
+    @Column(comment = "更新人", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @ExcelCol(order = Integer.MAX_VALUE)
     @ApiModelProperty(hidden = true)
     private String updateBy;
 

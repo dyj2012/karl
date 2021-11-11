@@ -27,7 +27,7 @@ spring:
   datasource: #Druid 连接池通用配置
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.2.169:3306/karl?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://192.168.2.169:3306/karl2?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
       username: karl     # 数据库账号
       password: karl     # 数据库密码
   devtools:
@@ -44,11 +44,11 @@ spring:
     password: ${spring.datasource.druid.password}
     table: SCHEMA_VERSION
 
+#mybatis-plus:
+#  #  configuration:
+#  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapperLocations: classpath*:com/karl/**/mapper/*.xml
 
-mybatis-plus:
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapperLocations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
 mybatis:
   table:
     auto: add
@@ -60,18 +60,6 @@ mybatis:
     pack: com.karl.core.entity,com.karl.module.entity
   database:
     type: mysql
-
-
-# 是否启用 Dataway 功能（必选：默认false）
-HASOR_DATAQL_DATAWAY: true
-# 是否开启 Dataway 后台管理界面（必选：默认false）
-HASOR_DATAQL_DATAWAY_ADMIN: true
-# dataway  API工作路径（可选，默认：/api/）
-HASOR_DATAQL_DATAWAY_API_URL: /api/
-# dataway-ui 的工作路径（可选，默认：/interface-ui/）
-HASOR_DATAQL_DATAWAY_UI_URL: /interface-ui/
-# SQL执行器方言设置（可选，建议设置）
-HASOR_DATAQL_FX_PAGE_DIALECT: mysql
 
 logging:
   level:

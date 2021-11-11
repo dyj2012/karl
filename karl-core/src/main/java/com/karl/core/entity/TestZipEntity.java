@@ -2,9 +2,8 @@ package com.karl.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.annotation.Column;
+import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
 
@@ -16,11 +15,10 @@ import lombok.Data;
  */
 @Data
 @TableName("T_TEST_ZIP")
-@Table(name = "T_TEST_ZIP")
 public class TestZipEntity extends BaseEntity {
 
     @TableField("zip")
-    @Column(name = "zip", type = MySqlTypeConstant.LONGBLOB)
+    @Column(type = MySqlTypeConstant.LONGBLOB)
     private byte[] zip;
 
 

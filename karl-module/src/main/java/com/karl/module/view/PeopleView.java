@@ -25,7 +25,7 @@ public class PeopleView extends BaseView {
     private String name;
 
     @TableField("A.SEX")
-    @ExcelCol(value = "性别", comment = "男/女")
+    @ExcelCol(value = "性别", cellComment = "男/女")
     private String sex;
 
     @TableField("A.AGE")
@@ -57,6 +57,6 @@ public class PeopleView extends BaseView {
     private String classroomName;
 
     @TableField("A.STATUS")
-    @ExcelCol(value = "状态", comment = "正常/失效")
+    @ExcelCol(value = "状态", cellComment = "正常/失效")
     private String status;
 }

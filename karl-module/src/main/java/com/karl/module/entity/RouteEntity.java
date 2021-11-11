@@ -2,9 +2,8 @@ package com.karl.module.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
-import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
-import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
+import com.karl.base.actable.annotation.Column;
+import com.karl.base.actable.constants.MySqlTypeConstant;
 import com.karl.base.annotation.ExcelSheet;
 import com.karl.base.model.BaseEntity;
 import lombok.Data;
@@ -17,19 +16,18 @@ import lombok.Data;
  */
 @Data
 @TableName("T_CO_ROUTE")
-@Table(name = "T_CO_ROUTE")
 @ExcelSheet("路由")
 public class RouteEntity extends BaseEntity {
 
     @TableField("NAME")
-    @Column(name = "NAME", comment = "名称", type = MySqlTypeConstant.VARCHAR, length = 128)
+    @Column(type = MySqlTypeConstant.VARCHAR, length = 128)
     private String name;
 
     @TableField("CODE")
-    @Column(name = "CODE", comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
+    @Column(comment = "编码", type = MySqlTypeConstant.VARCHAR, length = 64)
     private String code;
 
     @TableField("STATUS")
-    @Column(name = "STATUS", comment = "状态", type = MySqlTypeConstant.VARCHAR, length = 32)
+    @Column(comment = "状态", type = MySqlTypeConstant.VARCHAR, length = 32)
     private String status;
 }
